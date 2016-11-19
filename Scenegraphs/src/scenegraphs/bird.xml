@@ -1,0 +1,633 @@
+<scene>
+    <instance name="eye" path="models/sphere"></instance>
+    <instance name="feather" path="models/feather"></instance>
+    <instance name="tailFeather" path="models/tailFeather"></instance>
+    <instance name="body" path="models/sphere"></instance>
+    <instance name="head" path="models/sphere"></instance>
+    <instance name="beak" path="models/cone"></instance>
+    <instance name="leg" path="models/cylinder"></instance>
+    <instance name="toe" path="models/cylinder"></instance>
+    <instance name="birdwing" path="models/box"></instance>
+    <instance name="hand" path="models/sphere"></instance>
+    <instance name="joint" path="models/cylinder"></instance>
+
+    <image name="bird" path="textures/birdTexture.png" />
+    <image name="smoothBlack" path="textures/beeSmoothTexture.png" />
+    <image name="wingCirc" path="textures/wingCircleTexture.png" />
+    <image name="beak" path="textures/beakTexture.png" />
+    <image name="foot" path="textures/birdFeetTexture.png" />
+
+    <transform name="bird">
+        <set>
+            <scale>100 100 100</scale>
+        </set>
+        <group name="unit-height-bird">
+            <transform>
+                <set>
+                    <scale>0.0125 0.0125 0.0125</scale>
+                </set>
+                <group>
+                    <group name="birdHead">
+                        <transform name="birdHeadTrans">
+                            <set>
+                                <translate>0 25 40</translate>
+                            </set>
+                            <group name="head">
+                                <transform name="headTrans">
+                                    <set>
+                                        <scale>15 15 18</scale>
+                                    </set>
+                                    <light>
+                                        <ambient>0.4 0.4 0.4</ambient>
+                                        <diffuse>0.4 0.4 0.4</diffuse>
+                                        <specular>0.4 0.4 0.4</specular>
+                                        <position>0 100 100 </position>
+                                    </light>
+                                    <object instanceof="head" texture="bird">
+                                        <material>
+                                            <ambient>0.3 0.3 0.3</ambient>
+                                            <diffuse> 0.8 0.8 0.8</diffuse>
+                                            <specular> 0.8 0.8 0.8</specular>
+                                            <shininess> 100 </shininess>
+                                        </material>
+                                    </object>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>-12 8 6</translate>
+                                    </set>
+                                    <transform name="leftEye">
+                                        <set>
+                                            <scale>4 4 4</scale>
+                                        </set>
+                                        <object instanceof="eye" texture="smoothBlack">
+                                            <material>
+                                                <ambient> 0.2 0.2 0.2 </ambient>
+                                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess>100</shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>12 8 6</translate>
+                                    </set>
+                                    <transform name="rightEye">
+                                        <set>
+                                            <scale>4 4 4</scale>
+                                        </set>
+                                        <object instanceof="eye" texture="smoothBlack">
+                                            <material>
+                                                <ambient> 0.2 0.2 0.2</ambient>
+                                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess>100</shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>0 0 15</translate>
+                                    </set>
+                                    <transform name="beak">
+                                        <set>
+                                            <rotate>90 1 0 0</rotate>
+                                            <scale>7 15 7</scale>
+                                        </set>
+                                        <object instanceof="beak" texture="beak">
+                                            <material>
+                                                <ambient> 0.8 0.8 0.8 </ambient>
+                                                <diffuse> 0.8 0.8 0.8 </diffuse>
+                                                <specular>0.8 0.8 0.8 </specular>
+                                                <shininess>200</shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>-8 8 -20</translate>
+                                        <rotate>-15 1 0 0</rotate>
+                                        <rotate>40 0 1 0</rotate>
+                                    </set>
+                                    <transform name="crest1">
+                                        <set>
+                                            <scale>20 20 20</scale>
+                                        </set>
+                                        <object instanceof="feather" texture="bird">
+                                            <material>
+                                                <ambient> 1.0 1.0 1.0 </ambient>
+                                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess> 100 </shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>0 8 -20</translate>
+                                        <rotate>-15 1 0 0</rotate>
+                                    </set>
+                                    <transform name="crest2">
+                                        <set>
+                                            <scale>20 20 20</scale>
+                                        </set>
+                                        <object instanceof="feather" texture="bird">
+                                            <material>
+                                                <ambient> 1.0 1.0 1.0 </ambient>
+                                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess> 100 </shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>8 8 -20</translate>
+                                        <rotate>-15 1 0 0</rotate>
+                                        <rotate>-40 0 1 0</rotate>
+                                    </set>
+                                    <transform name="crest3">
+                                        <set>
+                                            <scale>20 20 20</scale>
+                                        </set>
+                                        <object instanceof="feather" texture="bird">
+                                            <material>
+                                                <ambient> 1.0 1.0 1.0 </ambient>
+                                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess> 100 </shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                            </group>
+                        </transform>
+                    </group>
+                    <group name="birdBody">
+                        <transform>
+                            <set>
+                                <translate>0 0 0</translate>
+                            </set>
+                            <group name="body">
+                                <transform name="torso">
+                                    <set>
+                                        <translate>0 0 0</translate>
+                                        <rotate>90 1 0 0</rotate>
+                                        <scale>25 40 25</scale>
+                                    </set>
+                                    <object instanceof="body" texture="bird">
+                                        <material>
+                                            <ambient> 0.5 0.5 0.5 </ambient>
+                                            <diffuse> 0.8 0.8 0.8</diffuse>
+                                            <specular> 0.8 0.8 0.8</specular>
+                                            <shininess> 100 </shininess>
+                                        </material>
+                                    </object>
+                                </transform>
+                                <transform name="feather1">
+                                    <set>
+                                        <translate>-30 0 -50</translate>
+                                        <rotate>30 0 1 0</rotate>
+                                        <scale>20 20 20</scale>
+                                    </set>
+                                    <object instanceof="tailFeather" texture="bird">
+                                        <material>
+                                            <ambient> 1.0 1.0 1.0 </ambient>
+                                            <diffuse> 0.8 0.8 0.8</diffuse>
+                                            <specular> 0.8 0.8 0.8</specular>
+                                            <shininess> 100 </shininess>
+                                        </material>
+                                    </object>
+                                </transform>
+                                <transform name="feather2">
+                                    <set>
+                                        <translate>0 0 -50</translate>
+                                        <rotate>0 0 0 1</rotate>
+                                        <scale>20 20 20</scale>
+                                    </set>
+                                    <object instanceof="tailFeather" texture="bird">
+                                        <material>
+                                            <ambient> 1.0 1.0 1.0 </ambient>
+                                            <diffuse> 0.8 0.8 0.8</diffuse>
+                                            <specular> 0.8 0.8 0.8</specular>
+                                            <shininess> 100 </shininess>
+                                        </material>
+                                    </object>
+                                </transform>
+                                <transform name="feather3">
+                                    <set>
+                                        <translate>30 0 -50</translate>
+                                        <rotate>-30 0 1 0</rotate>
+                                        <scale>20 20 20</scale>
+                                    </set>
+                                    <object instanceof="tailFeather" texture="bird">
+                                        <material>
+                                            <ambient> 1.0 1.0 1.0 </ambient>
+                                            <diffuse> 0.8 0.8 0.8</diffuse>
+                                            <specular> 0.8 0.8 0.8</specular>
+                                            <shininess> 100 </shininess>
+                                        </material>
+                                    </object>
+                                </transform>
+                                <transform name="leftLeg">
+                                    <set>
+                                        <translate>-12 -30 0</translate>
+                                    </set>
+                                    <group name="leg">
+                                        <transform name="upperLeg">
+                                            <set>
+                                                <translate>0 -10 0</translate>
+                                                <scale>3 20 3</scale>
+                                            </set>
+                                            <object instanceof="leg" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="footjoint">
+                                            <set>
+                                                <translate>0 -10 0</translate>
+                                                <scale>4 4 4</scale>
+                                            </set>
+                                            <object instanceof="hand" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="leftToe">
+                                            <set>
+                                                <translate>-3 -10 0</translate>
+                                                <rotate>-25 0 1 0</rotate>
+                                                <rotate>100 1 0 0</rotate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="toe" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="middleToe">
+                                            <set>
+                                                <translate>0 -10 0</translate>
+                                                <rotate>0 0 1 0</rotate>
+                                                <rotate>100 1 0 0</rotate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="toe" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="rightToe">
+                                            <set>
+                                                <translate>3 -10 0</translate>
+                                                <rotate>25 0 1 0</rotate>
+                                                <rotate>100 1 0 0</rotate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="toe" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                    </group>
+                                </transform>
+                                <transform name="rightLeg">
+                                    <set>
+                                        <translate>12 -30 0</translate>
+                                    </set>
+                                    <group name="leg">
+                                        <transform name="upperLeg">
+                                            <set>
+                                                <translate>0 -10 0</translate>
+                                                <scale>3 20 3</scale>
+                                            </set>
+                                            <object instanceof="leg" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="footjoint">
+                                            <set>
+                                                <translate>0 -10 0</translate>
+                                                <scale>4 4 4</scale>
+                                            </set>
+                                            <object instanceof="hand" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="leftToe">
+                                            <set>
+                                                <translate>-3 -10 0</translate>
+                                                <rotate>-25 0 1 0</rotate>
+                                                <rotate>100 1 0 0</rotate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="toe" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="middleToe">
+                                            <set>
+                                                <translate>0 -10 0</translate>
+                                                <rotate>0 0 1 0</rotate>
+                                                <rotate>100 1 0 0</rotate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="toe" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="rightToe">
+                                            <set>
+                                                <translate>3 -10 0</translate>
+                                                <rotate>25 0 1 0</rotate>
+                                                <rotate>100 1 0 0</rotate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="toe" texture="foot">
+                                                <material>
+                                                    <ambient> 0.8 0.8 0.8</ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                    </group>
+                                </transform>
+                                <transform name="leftwing">
+                                    <set>
+                                        <translate>-20 5 0</translate>
+                                    </set>
+                                    <transform name="leftwing">
+                                        <set>
+                                            <rotate>0 0 0 1</rotate>
+                                        </set>
+                                        <group name="lwing">
+                                            <transform name="lhumerusjoint">
+                                                <set>
+                                                    <translate>0 0 -15</translate>
+                                                    <scale>2 2 30</scale>
+                                                    <rotate>90 1 0 0</rotate>
+                                                </set>
+                                                <object instanceof="joint" texture="wingCirc">
+                                                    <material>
+                                                        <ambient> 0.5 0.5 0.5 </ambient>
+                                                        <diffuse> 0.8 0.8 0.8</diffuse>
+                                                        <specular> 0.8 0.8 0.8</specular>
+                                                        <shininess> 100 </shininess>
+                                                    </material>
+                                                </object>
+                                            </transform>
+                                            <transform name="lhumerus">
+                                                <set>
+                                                    <translate>-20 0 0</translate>
+                                                    <scale>35 3 30</scale>
+                                                </set>
+                                                <object instanceof="birdwing" texture="wingCirc">
+                                                    <material>
+                                                        <ambient> 0.5 0.5 0.5 </ambient>
+                                                        <diffuse> 0.8 0.8 0.8</diffuse>
+                                                        <specular> 0.8 0.8 0.8</specular>
+                                                        <shininess> 100 </shininess>
+                                                    </material>
+                                                </object>
+                                            </transform>
+                                            <transform name="leftlowerarm">
+                                                <set>
+                                                    <translate>-40 0 0</translate>
+                                                </set>
+                                                <transform name="leftlowerarm">
+                                                    <set>
+                                                    </set>
+                                                    <group>
+                                                        <transform name="lulnajoint">
+                                                            <set>
+                                                                <translate>0 0 -15</translate>
+                                                                <scale>2 2 30</scale>
+                                                                <rotate>90 1 0 0</rotate>
+                                                            </set>
+                                                            <object instanceof="joint" texture="wingCirc">
+                                                                <material>
+                                                                    <ambient> 0.5 0.5 0.5 </ambient>
+                                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                                    <specular> 0.8 0.8 0.8</specular>
+                                                                    <shininess> 100 </shininess>
+                                                                </material>
+                                                            </object>
+                                                        </transform>
+                                                        <transform name="lulna">
+                                                            <set>
+                                                                <translate>-10 0 0</translate>
+                                                                <scale>25 3 30</scale>
+                                                            </set>
+                                                            <object instanceof="birdwing" texture="wingCirc">
+                                                                <material>
+                                                                    <ambient> 0.5 0.5 0.5 </ambient>
+                                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                                    <specular> 0.8 0.8 0.8</specular>
+                                                                    <shininess> 100 </shininess>
+                                                                </material>
+                                                            </object>
+                                                        </transform>
+                                                        <transform name="lhandjoint">
+                                                            <set>
+                                                                <translate>-24 0 -15</translate>
+                                                                <scale>2 2 30</scale>
+                                                                <rotate>90 1 0 0</rotate>
+                                                            </set>
+                                                            <object instanceof="joint" texture="wingCirc">
+                                                                <material>
+                                                                    <ambient> 1.0 1.0 1.0 </ambient>
+                                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                                    <specular> 0.8 0.8 0.8</specular>
+                                                                    <shininess> 100 </shininess>
+                                                                </material>
+                                                            </object>
+                                                        </transform>
+                                                        <transform name="lhand">
+                                                            <set>
+                                                                <translate>-20 0 0</translate>
+                                                                <scale>30 2 15</scale>
+                                                                <rotate>90 0 0 1</rotate>
+                                                            </set>
+                                                            <object instanceof="hand" texture="wingCirc">
+                                                                <material>
+                                                                    <ambient> 0.5 0.5 0.5 </ambient>
+                                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                                    <specular> 0.8 0.8 0.8</specular>
+                                                                    <shininess> 100 </shininess>
+                                                                </material>
+                                                            </object>
+                                                        </transform>
+                                                    </group>
+                                                </transform>
+                                            </transform>
+                                        </group>
+                                    </transform>
+                                </transform>
+                                <transform name="rightwing">
+                                    <set>
+                                        <translate>20 5 0</translate>
+                                    </set>
+                                    <transform name="rightwing">
+                                        <set>
+                                            <rotate>0 0 0 1</rotate>
+                                        </set>
+                                        <group name="rwing">
+                                            <transform name="rhumerusjoint">
+                                                <set>
+                                                    <translate>0 0 -15</translate>
+                                                    <scale>2 2 30</scale>
+                                                    <rotate>90 1 0 0</rotate>
+                                                </set>
+                                                <object instanceof="joint" texture="wingCirc">
+                                                    <material>
+                                                        <ambient> 0.5 0.5 0.5 </ambient>
+                                                        <diffuse> 0.8 0.8 0.8</diffuse>
+                                                        <specular> 0.8 0.8 0.8</specular>
+                                                        <shininess> 100 </shininess>
+                                                    </material>
+                                                </object>
+                                            </transform>
+                                            <transform name="rhumerus">
+                                                <set>
+                                                    <translate>20 0 0</translate>
+                                                    <scale>35 3 30</scale>
+                                                </set>
+                                                <object instanceof="birdwing" texture="wingCirc">
+                                                    <material>
+                                                        <ambient> 0.5 0.5 0.5 </ambient>
+                                                        <diffuse> 0.8 0.8 0.8</diffuse>
+                                                        <specular> 0.8 0.8 0.8</specular>
+                                                        <shininess> 100 </shininess>
+                                                    </material>
+                                                </object>
+                                            </transform>
+                                            <transform name="rightlowerarm">
+                                                <set>
+                                                    <translate>40 0 0</translate>
+                                                </set>
+                                                <transform name="rightlowerarm">
+                                                    <set>
+                                                    </set>
+                                                    <group>
+                                                        <transform name="rulnajoint">
+                                                            <set>
+                                                                <translate>0 0 -15</translate>
+                                                                <scale>2 2 30</scale>
+                                                                <rotate>90 1 0 0</rotate>
+                                                            </set>
+                                                            <object instanceof="joint" texture="wingCirc">
+                                                                <material>
+                                                                    <ambient> 0.5 0.5 0.5 </ambient>
+                                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                                    <specular> 0.8 0.8 0.8</specular>
+                                                                    <shininess> 100 </shininess>
+                                                                </material>
+                                                            </object>
+                                                        </transform>
+                                                        <transform name="rulna">
+                                                            <set>
+                                                                <translate>10 0 0</translate>
+                                                                <scale>25 3 30</scale>
+                                                            </set>
+                                                            <object instanceof="birdwing" texture="wingCirc">
+                                                                    <material>
+                                                                        <ambient> 0.5 0.5 0.5 </ambient>
+                                                                        <diffuse> 0.8 0.8 0.8</diffuse>
+                                                                        <specular> 0.8 0.8 0.8</specular>
+                                                                        <shininess> 100 </shininess>
+                                                                    </material>
+                                                            </object>
+                                                        </transform>
+                                                        <transform name="rhandjoint">
+                                                            <set>
+                                                                <translate>24 0 -15</translate>
+                                                                <scale>2 2 30</scale>
+                                                                <rotate>90 1 0 0</rotate>
+                                                            </set>
+                                                            <object instanceof="joint" texture="wingCirc">
+                                                                <material>
+                                                                    <ambient> 0.5 0.5 0.5 </ambient>
+                                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                                    <specular> 0.8 0.8 0.8</specular>
+                                                                    <shininess> 100 </shininess>
+                                                                </material>
+                                                            </object>
+                                                        </transform>
+                                                        <transform name="righthand">
+                                                            <set>
+                                                                <translate>20 0 0</translate>
+                                                                <scale>30 2 15</scale>
+                                                                <rotate>90 0 0 1</rotate>
+                                                            </set>
+                                                            <object instanceof="hand" texture="wingCirc">
+                                                                <material>
+                                                                    <ambient> 0.5 0.5 0.5 </ambient>
+                                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                                    <specular> 0.8 0.8 0.8</specular>
+                                                                    <shininess> 100 </shininess>
+                                                                </material>
+                                                            </object>
+                                                        </transform>
+                                                    </group>
+                                                </transform>
+                                            </transform>
+                                        </group>
+                                    </transform>
+                                </transform>
+                            </group>
+                        </transform>
+                    </group>
+                </group>
+            </transform>
+        </group>
+    </transform>
+</scene>

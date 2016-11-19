@@ -1,0 +1,114 @@
+<scene>
+    <!--<instance name="grass" path="models/grass"></instance>-->
+    <instance name="cloud" path="models/cloud"></instance>
+    <instance name="ground" path="models/box"></instance>
+
+    <image name="white" path="textures/white.png" />
+    <image name="cloud" path="textures/cloudTexture.png" />
+    <image name="grass" path="textures/grassTextureDense.png" />
+    <image name="bird" path="textures/birdTexture.png" />
+    <image name="smoothBlack" path="textures/beeSmoothTexture.png" />
+    <image name="wingCirc" path="textures/wingCircleTexture.png" />
+    <image name="beak" path="textures/beakTexture.png" />
+    <image name="foot" path="textures/birdFeetTexture.png" />
+    <image name="beeWing" path="textures/BeeWingTexture4.png" />
+    <image name="beeBody" path="textures/beeBodyTexture.png" />
+    <image name="beeFur" path="textures/beeHeadTexture.png" />
+    <image name="beeSmooth" path="textures/beeSmoothTexture.png" />
+
+    <light>
+        <ambient>0.8 0.8 0.8</ambient>
+        <diffuse>0.8 0.8 0.8</diffuse>
+        <specular>0.8 0.8 0.8</specular>
+        <position>0 100 0 </position>
+        <spotangle>25</spotangle>
+        <spotdirection>0 -1 0 </spotdirection>
+    </light>
+
+    <group>
+        <transform>
+            <set>
+            </set>
+            <group name="1" from="scenegraphs/bird.xml">
+            </group>
+        </transform>
+        <transform>
+            <set>
+            </set>
+            <group name="2" from="scenegraphs/bird.xml">
+            </group>
+        </transform>
+        <transform>
+            <set>
+                <scale>0.5 0.5 0.5</scale>
+            </set>
+            <group name="3" from="scenegraphs/bee.xml">
+            </group>
+        </transform>
+        <!--<light>-->
+            <!--<ambient>1 1 1</ambient>-->
+            <!--<diffuse>0.5 0.5 0.5</diffuse>-->
+            <!--<specular>0.4 0.4 0.4</specular>-->
+            <!--<position>0 0 0</position>-->
+            <!--<spotangle>40</spotangle>-->
+            <!--<spotdirection>0 0 -1</spotdirection>-->
+        <!--</light>-->
+
+        <transform>
+            <set>
+                <translate>0 -300 0</translate>
+                <scale>1500 0.5 1000</scale>
+            </set>
+            <object instanceof="ground" texture="grass">
+                <material>
+                    <ambient> 0.8 0.8 0.8</ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                </material>
+            </object>
+        </transform>
+        <transform>
+            <set>
+                <translate>-200 600 -250</translate>
+                <rotate>-90 0 1 0</rotate>
+                <scale>30 30 30</scale>
+            </set>
+            <!--<light>-->
+                <!--<ambient>0.2 0.2 0.2</ambient>-->
+                <!--<diffuse>0.2 0.2 0.2</diffuse>-->
+                <!--<specular>0.4 0.4 0.4</specular>-->
+                <!--<position>-200 650 -100</position>-->
+            <!--</light>-->
+            <object instanceof="cloud" texture="cloud">
+                <material>
+                    <ambient> 1 1 1 </ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular> 0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                </material>
+            </object>
+        </transform>
+        <transform>
+            <set>
+                <translate>200 500 250</translate>
+                <rotate>90 0 1 0</rotate>
+                <scale>30 30 30</scale>
+            </set>
+            <!--<light>-->
+                <!--<ambient>0.2 0.2 0.2</ambient>-->
+                <!--<diffuse>0.2 0.2 0.2</diffuse>-->
+                <!--<specular>0.4 0.4 0.4</specular>-->
+                <!--<position>200 550 550</position>-->
+            <!--</light>-->
+            <object instanceof="cloud" texture="cloud">
+                <material>
+                    <ambient> 1 1 1 </ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular> 0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                </material>
+            </object>
+        </transform>
+    </group>
+</scene>

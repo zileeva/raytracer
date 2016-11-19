@@ -1,0 +1,37 @@
+<scene>
+	<instance name="sphere" path="models/sphere.obj" />
+	<instance name="box" path="models/box.obj" />
+	<instance name="cylinder" path="models/cylinder.obj" />
+	<instance name="cone" path="models/cone.obj" />
+
+	<image name="earth" path="textures/earthmap.png" />
+	<image name="white" path="textures/white.png" />
+
+
+
+	<group>
+		<light>
+			<ambient>0.5 0.5 0.5</ambient>
+			<diffuse>0.5 0.5 0.5</diffuse>
+			<specular>0.5 0.5 0.5</specular>
+			<position>0 40 40</position>
+		</light>
+
+		<transform>
+			<set>
+				<scale> 40 40 40 </scale>
+			</set>
+			<group>
+				<object instanceof="sphere" texture="earth">
+					<material>
+						<ambient> 0.3 0.3 0.1 </ambient>
+						<diffuse> 0.7 0.7 0.1</diffuse>
+						<specular> 0.7 0.7 0.1</specular>
+						<shininess> 100 </shininess>
+					</material>
+				</object>
+			</group>
+		</transform>
+	</group>
+
+</scene>

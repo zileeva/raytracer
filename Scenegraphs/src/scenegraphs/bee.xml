@@ -1,0 +1,287 @@
+<scene>
+    <instance name="eye" path="models/sphere"></instance>
+    <instance name="body" path="models/sphere"></instance>
+    <instance name="head" path="models/sphere"></instance>
+    <instance name="tail" path="models/cone"></instance>
+    <instance name="leg" path="models/cylinder"></instance>
+    <instance name="antenna" path="models/bee-antenna"></instance>
+    <instance name="wing" path="models/sphere"></instance>
+
+    <!--<image name="white" path="textures/white.png" />-->
+    <!--<image name="cloud" path="textures/cloudTexture.jpg" />-->
+    <!--<image name="grass" path="textures/grassTexture.png" />-->
+    <!--<image name="bird" path="textures/birdTexture.png" />-->
+    <!--<image name="smoothBlack" path="textures/beeSmoothTexture.jpg" />-->
+    <!--<image name="wingCirc" path="textures/wingCircleTexture.png" />-->
+    <!--<image name="beak" path="textures/beakTexture.png" />-->
+    <!--<image name="foot" path="textures/birdFeetTexture.png" />-->
+    <!--<image name="beeWing" path="textures/BeeWingTexture4.jpg" />-->
+    <!--<image name="beeBody" path="textures/beeBodyTexture.png" />-->
+    <!--<image name="beeFur" path="textures/beeHeadTexture.png" />-->
+    <!--<image name="beeSmooth" path="textures/beeSmoothTexture.jpg" />-->
+
+    <transform name="bee">
+        <set>
+            <rotate>-30 1 0 0</rotate>
+            <scale>50 50 50</scale>
+        </set>
+        <light>
+            <ambient>0.8 0.8 0.8</ambient>
+            <diffuse>0.8 0.8 0.8</diffuse>
+            <specular>0.8 0.8 0.8</specular>
+            <position>0 0 0 </position>
+            <spotangle>10</spotangle>
+            <spotdirection>0 -1 0 </spotdirection>
+        </light>
+        <group name="unit-height-bee">
+            <transform>
+                <set>
+                    <scale>0.0125 0.0125 0.0125</scale>
+                </set>
+                <group>
+                    <group name="beeHead">
+                        <transform name="beeHeadTrans">
+                            <set>
+                                <translate>0 5 45</translate>
+                            </set>
+                            <group name="head">
+                                <transform name="headTrans">
+                                    <set>
+                                        <scale>20 20 20</scale>
+                                    </set>
+
+                                    <object instanceof="head" texture="beeFur">
+                                        <material>
+                                            <ambient> 0.2 0.2 0.2</ambient>
+                                            <diffuse> 0.2 0.2 0.2</diffuse>
+                                            <specular> 0.8 0.8 0.8</specular>
+                                            <shininess> 1 </shininess>
+                                        </material>
+                                    </object>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>-10 3 10</translate>
+                                    </set>
+                                    <transform name="leftEye">
+                                        <set>
+                                            <scale>8 8 8</scale>
+                                        </set>
+                                        <object instanceof="eye" texture="beeSmooth">
+                                            <material>
+                                                <ambient> 1 1 1 </ambient>
+                                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess> 100 </shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>10 3 10</translate>
+                                    </set>
+                                    <transform name="rightEye">
+                                        <set>
+                                            <scale>8 8 8</scale>
+                                        </set>
+                                        <object instanceof="eye" texture="beeSmooth">
+                                            <material>
+                                                <ambient> 1 1 1 </ambient>
+                                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess> 100 </shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>-10 20 8</translate>
+                                    </set>
+                                    <transform name="leftAntenna">
+                                        <set>
+                                            <scale>25 25 25</scale>
+                                        </set>
+                                        <object instanceof="antenna" texture="beeFur">
+                                            <material>
+                                                <ambient> 1 1 1 </ambient>
+                                                <diffuse> 1 1 1 </diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess> 100 </shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+                                <transform>
+                                    <set>
+                                        <translate>10 20 8</translate>
+                                    </set>
+                                    <transform name="rightAntenna">
+                                        <set>
+                                            <scale>25 25 25</scale>
+                                        </set>
+                                        <object instanceof="antenna" texture="beeFur">
+                                            <material>
+                                                <ambient> 1 1 1 </ambient>
+                                                <diffuse> 1 1 1 </diffuse>
+                                                <specular> 0.8 0.8 0.8</specular>
+                                                <shininess> 100 </shininess>
+                                            </material>
+                                        </object>
+                                    </transform>
+                                </transform>
+
+                            </group>
+                        </transform>
+                    </group>
+                    <group name="beeBody">
+                        <transform>
+                            <set>
+                                <translate>0 0 0</translate>
+                            </set>
+                            <group name="body">
+                                <transform name="torso">
+                                    <set>
+                                        <rotate>90 1 0 0</rotate>
+                                        <scale>25 40 25</scale>
+                                    </set>
+                                    <object instanceof="body" texture="beeBody">
+                                        <material>
+                                            <ambient> 1.0 1.0 0.0 </ambient>
+                                            <diffuse> 0.8 0.8 0.8</diffuse>
+                                            <specular> 0.8 0.8 0.8</specular>
+                                            <shininess> 1 </shininess>
+                                        </material>
+                                    </object>
+                                </transform>
+                                <transform name="leftLeg">
+                                    <set>
+                                        <translate>-12 -25 0</translate>
+                                    </set>
+                                    <group name="leg">
+                                        <transform name="legFront">
+                                            <set>
+                                                <translate>0 -8 -20</translate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="leg" texture="beeFur">
+                                                <material>
+                                                    <ambient> 0.0 0.0 0.0 </ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 50 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="legMiddle">
+                                            <set>
+                                                <translate>0 -10 0</translate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="leg" texture="beeFur">
+                                                <material>
+                                                    <ambient> 0.0 0.0 0.0 </ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 50 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                        <transform name="legBack">
+                                            <set>
+                                                <translate>0 -8 20</translate>
+                                                <scale>2 15 2</scale>
+                                            </set>
+                                            <object instanceof="leg" texture="beeFur">
+                                                <material>
+                                                    <ambient> 0.0 0.0 0.0 </ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 50 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                    </group>
+                                </transform>
+                                <transform name="rightLeg">
+                                    <set>
+                                        <translate>12 -25 0</translate>
+                                    </set>
+                                    <group copyof="leg"></group>
+                                </transform>
+                                <transform name="leftwing">
+                                    <set>
+                                        <translate>-20 35 0</translate>
+                                        <rotate>-50 0 0 1</rotate>
+                                        <rotate>-20 1 0 0</rotate>
+                                    </set>
+                                    <transform name="leftwing">
+                                        <set>
+                                            <rotate>0 0 0 1</rotate>
+                                        </set>
+                                        <transform name="lwing">
+                                                <set>
+                                                    <rotate>90 0 1 0</rotate>
+                                                    <scale>20 1 30</scale>
+                                                </set>
+                                                <object instanceof="wing" texture="beeWing">
+                                                    <material>
+                                                        <ambient> 1.0 1.0 1.0 </ambient>
+                                                        <diffuse> 0.8 0.8 0.8</diffuse>
+                                                        <specular> 0.8 0.8 0.8</specular>
+                                                        <shininess> 100 </shininess>
+                                                    </material>
+                                                </object>
+                                        </transform>
+                                    </transform>
+                                </transform>
+                                <transform name="rightwing">
+                                    <set>
+                                        <translate>20 35 0</translate>
+                                        <rotate>50 0 0 1</rotate>
+                                        <rotate>-20 1 0 0</rotate>
+                                    </set>
+                                    <transform name="rightwing">
+                                        <set>
+                                            <rotate>0 0 0 1</rotate>
+                                        </set>
+                                        <transform name="rwing">
+                                            <set>
+                                                <rotate>90 0 1 0</rotate>
+                                                <scale>20 1 30</scale>
+                                            </set>
+                                            <object instanceof="wing" texture="beeWing">
+                                                <material>
+                                                    <ambient> 1.0 1.0 1.0 </ambient>
+                                                    <diffuse> 0.8 0.8 0.8</diffuse>
+                                                    <specular> 0.8 0.8 0.8</specular>
+                                                    <shininess> 100 </shininess>
+                                                </material>
+                                            </object>
+                                        </transform>
+                                    </transform>
+                                </transform>
+                                <transform name="tail">
+                                    <set>
+                                        <translate>0 0 -30</translate>
+                                        <rotate>-90 1 0 0</rotate>
+                                        <scale>10 25 10</scale>
+                                    </set>
+                                    <object instanceof="tail" texture="beeSmooth">
+                                        <material>
+                                            <ambient> 0.0 0.0 0.0 </ambient>
+                                            <diffuse> 0.8 0.8 0.8</diffuse>
+                                            <specular> 0.8 0.8 0.8</specular>
+                                            <shininess> 100 </shininess>
+                                        </material>
+                                    </object>
+                                </transform>
+                            </group>
+                        </transform>
+                    </group>
+                </group>
+            </transform>
+        </group>
+    </transform>
+</scene>
