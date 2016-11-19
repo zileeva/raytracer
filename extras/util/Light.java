@@ -20,8 +20,8 @@ public class Light {
     specular = new Vector3f(0, 0, 0);
 
     position = new Vector4f(0, 0, 0, 1);
-    spotDirection = new Vector4f(0, 0, 0, 0);
-    spotCutoff = 0.0f;
+    spotDirection = new Vector4f(0, 1, 0, 0);
+    spotCutoff = 180.0f;
   }
 
   public Light(Light l) {

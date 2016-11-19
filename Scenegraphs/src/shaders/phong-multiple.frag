@@ -34,8 +34,6 @@ uniform sampler2D image;
 
 out vec4 fColor;
 
-float calcSpotlight(LightProperties light, vec3 lightVector);
-
 void main()
 {
     vec3 lightVec,viewVec,reflectVec;
@@ -72,21 +70,10 @@ void main()
         else
             specular = vec3(0,0,0);
 
-        float spotlight = calcSpotlight(light[i], lightVec);
-        if (spotlight > 0.1) fColor = clamp(fColor +  vec4(ambient + diffuse + specular, 1.0), 0, 1);
-        //if (spotlight > 0.1) fColor = min(fColor + vec4(ambient + diffuse + specular, 1.0), 1.0f);
+        vec3 sd = normalize(light[i].spotDirection.xyz);
+        if ( dot(-lightVec, sd) > light[i].spotAngle) fColor = clamp(fColor +  vec4(ambient + diffuse + specular, 1.0), 0, 1);
         //if (spotlight > 0.1) fColor = fColor +  vec4(ambient + diffuse + specular, 1.0);
     }
     fColor = fColor * texture(image,fTexCoord.st);
     //fColor = vec4(fTexCoord.s,fTexCoord.t,0,1);
-}
-
-
-float calcSpotlight(LightProperties light, vec3 lightVector) {
-    vec3 l = normalize(lightVector);
-	vec3 d = normalize(light.spotDirection.xyz);
-	float lDOTd = dot(-l, d);
-	if(light.spotAngle < -0.9) return 1.0;
-	if(lDOTd < light.spotAngle) return 0.0;
-	return 1.0;
 }
