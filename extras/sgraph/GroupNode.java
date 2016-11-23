@@ -162,17 +162,15 @@ public class GroupNode extends AbstractNode
     @Override
     public HitRecord intersect(Ray ray, Stack<Matrix4f> modelView) {
         HitRecord hitRecord = new HitRecord();
-        float t = Float.MAX_VALUE;
 
         //closest value of t
         for (INode child: children) {
             HitRecord hr = child.intersect(ray, modelView);
-            if (hr.isHit() && hr.t() > 0.0f && hr.t() < t) {
+            if (!hitRecord.isHit() || (hr.isHit() && hr.t() < hitRecord.t())) {
                 hitRecord = hr;
-                t = hr.t();
-
             }
         }
+
         return hitRecord;
     }
 }

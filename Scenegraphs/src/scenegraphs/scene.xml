@@ -66,42 +66,42 @@
             <!--</object>-->
         <!--</transform>-->
 
-        <!--<transform>-->
-            <!--<set>-->
-                <!--<translate> -20 30 30 </translate>-->
-                <!--<scale>40 40 40</scale>-->
-            <!--</set>-->
-
-            <!--<object instanceof="sphere">-->
-                <!--<material>-->
-                    <!--<ambient> 0.1 0.2 0.1 </ambient>-->
-                    <!--<diffuse> 0.1 0.8 0.1</diffuse>-->
-                    <!--<specular> 0.1 0.8 0.1</specular>-->
-                    <!--<shininess> 100 </shininess>-->
-                    <!--<absorption>0.0</absorption>-->
-                    <!--<reflection>0.0</reflection>-->
-                    <!--<transparency>1.0</transparency>-->
-                    <!--<refractive>1</refractive>-->
-                <!--</material>-->
-            <!--</object>-->
-        <!--</transform>-->
-
         <transform>
             <set>
-                <translate> 100 0 0 </translate>
+                <translate> -20 30 30 </translate>
                 <scale>40 40 40</scale>
-                <rotate> 45 0 1 0 </rotate>
             </set>
 
-            <object instanceof="box" texture="dice">
+            <object instanceof="sphere">
                 <material>
-                    <ambient> 0.1 0.2 0.2 </ambient>
-                    <diffuse> 0.1 0.8 0.8</diffuse>
-                    <specular> 0.1 0.8 0.8</specular>
+                    <ambient> 0.1 0.2 0.1 </ambient>
+                    <diffuse> 0.1 0.8 0.1</diffuse>
+                    <specular> 0.1 0.8 0.1</specular>
                     <shininess> 100 </shininess>
+                    <absorption>0.0</absorption>
+                    <reflection>0.0</reflection>
+                    <transparency>1.0</transparency>
+                    <refractive>1</refractive>
                 </material>
             </object>
         </transform>
+
+        <!--<transform>-->
+            <!--<set>-->
+                <!--<translate> 100 0 0 </translate>-->
+                <!--<scale>40 40 40</scale>-->
+                <!--<rotate> 45 0 1 0 </rotate>-->
+            <!--</set>-->
+
+            <!--<object instanceof="box">-->
+                <!--<material>-->
+                    <!--<ambient> 0.1 0.2 0.2 </ambient>-->
+                    <!--<diffuse> 0.1 0.8 0.8</diffuse>-->
+                    <!--<specular> 0.0 0.0 0.0</specular>-->
+                    <!--<shininess> 100 </shininess>-->
+                <!--</material>-->
+            <!--</object>-->
+        <!--</transform>-->
 
         <!--<transform>-->
             <!--<set>-->

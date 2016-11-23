@@ -138,8 +138,9 @@ public class LeafNode extends AbstractNode
 
         if ((tMax > 0.0f) && (tMax < tMin)) {
             Vector4f p = start.add(direction.mul(tMax));
+            Vector4f normal = new Vector4f(0, 0, 0, 0);
 //            System.out.println(p);
-            hr = new HitRecord(tMax, p);
+            hr = new HitRecord(tMax, p, this.getMaterial(), normal);
         }
         return hr;
     }
@@ -162,8 +163,9 @@ public class LeafNode extends AbstractNode
 
         if (b24ac > 0 && tMin > 0) {
             Vector4f p = start.add(direction.mul(tMin));
+            Vector4f normal = p.sub(new Vector4f(0, 0, 0, 0));
 //            System.out.println(p);
-            hr = new HitRecord(tMin, p);
+            hr = new HitRecord(tMin, p, this.getMaterial(), normal);
         }
 
         return hr;
@@ -175,20 +177,10 @@ public class LeafNode extends AbstractNode
 
         HitRecord hr = new HitRecord();
 
-//        Matrix4f transformation = new Matrix4f(modelView.peek()).invert();
-
-        Vector4f start = ray.getStart();
-        Vector4f direction = ray.getDirection();
-
-//        start = transformation.transform(start);
-//        direction = transformation.transform(direction);
-
-        Ray rayInView = new Ray(start.mul(modelView.peek()), direction.mul(modelView.peek()));
-
         if (this.objInstanceName.contains("box") || this.objInstanceName.contains("cube")) {
-            hr = this.intersectBox(rayInView, modelView);
+            hr = this.intersectBox(ray, modelView);
         } else if (this.objInstanceName.contains("sphere")) {
-            hr = this.intersectSphere(rayInView, modelView);
+            hr = this.intersectSphere(ray, modelView);
         }
 
 //        HitRecord hr = new HitRecord(new Vector2f(tMax, tMin));

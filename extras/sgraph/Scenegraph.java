@@ -18,8 +18,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.List;
 
-import util.Ray;
+import util.*;
+
+
 /**
  * A specific implementation of this scene graph. This implementation is still independent
  * of the rendering technology (i.e. OpenGL)
@@ -184,6 +187,115 @@ public class Scenegraph<VertexType extends IVertexData> implements IScenegraph<V
         textures.put(name, path);
     }
 
+    private Vector4f reflect(Vector4f I, Vector4f N) {
+        float NdotI = N.dot(I);
+        NdotI = 2.0f * NdotI;
+        Vector4f r = new Vector4f(
+                I.sub(N.mul(NdotI))
+        );//I - 2.0 * dot(N, I) * N
+        return r;
+    }
+
+    private Color shade(HitRecord hitRecord) {
+
+        List<Light> lights = hitRecord.getLights();
+        Color color = new Color(255, 255, 255);
+        Material material = hitRecord.getMaterial();
+        Vector4f position = hitRecord.getP();
+        Vector4f normal = hitRecord.getNormal();
+
+        for (int i = 0; i < lights.size(); i ++) {
+            Light light = lights.get(i);
+            Vector3f ambient, diffuse, specular;
+            Vector4f lightVec;
+            if (light.getPosition().w != 0) {
+                lightVec = new Vector4f(light.getPosition().sub(position)).normalize();
+            } else {
+                lightVec = light.getPosition().negate();
+            }
+
+            Vector4f normalView = normal.normalize();
+            float nDotL = normalView.dot(lightVec);
+            nDotL = Math.max(nDotL, 0);
+
+            Vector4f viewVec = new Vector4f(position).negate();
+            viewVec = viewVec.normalize();
+
+            Vector4f reflectVec = reflect(lightVec.negate(), normalView);
+            reflectVec = reflectVec.normalize();
+            float rDotV = Math.max(reflectVec.dot(viewVec), 0.0f);
+
+            ambient = new Vector3f(
+                    material.getAmbient().x * light.getAmbient().x,
+                    material.getAmbient().y * light.getAmbient().y,
+                    material.getAmbient().z * light.getAmbient().z);
+
+            diffuse = new Vector3f(
+                    material.getDiffuse().x * light.getDiffuse().x * nDotL,
+                    material.getDiffuse().y * light.getDiffuse().y * nDotL,
+                    material.getDiffuse().z * light.getDiffuse().z * nDotL);
+
+            if (nDotL > 0) {
+                specular = new Vector3f(
+                        material.getSpecular().x * light.getSpecular().x * (float) Math.pow(rDotV, material.getShininess()),
+                        material.getSpecular().y * light.getSpecular().y * (float) Math.pow(rDotV, material.getShininess()),
+                        material.getSpecular().z * light.getSpecular().z * (float) Math.pow(rDotV, material.getShininess())
+                        );
+            } else {
+                specular = new Vector3f(0, 0, 0);
+            }
+
+            float spotAngle = (float) Math.cos(Math.toRadians(light.getSpotCutoff()));
+            if ( (new Vector4f(lightVec.negate())).dot(new Vector4f(light.getSpotDirection()).normalize()) > spotAngle) {
+                color = new Color(
+
+                        ambient.x + diffuse.x + specular.x,
+                        ambient.y + diffuse.y + specular.y,
+                        ambient.z + diffuse.z + specular.z);
+            }
+
+        }
+        return color;
+//        vec3 lightVec,viewVec,reflectVec;
+//        vec3 normalView;
+//        vec3 ambient,diffuse,specular;
+//        float nDotL,rDotV;
+//
+//
+//        fColor = vec4(0,0,0,1);
+//
+//        for (int i=0;i<numLights;i++)
+//        {
+//            if (light[i].position.w!=0)
+//                lightVec = normalize(light[i].position.xyz - fPosition.xyz);
+//            else
+//                lightVec = normalize(-light[i].position.xyz);
+//
+//            vec3 tNormal = fNormal;
+//            normalView = normalize(tNormal.xyz);
+//            nDotL = dot(normalView,lightVec);
+//
+//            viewVec = -fPosition.xyz;
+//            viewVec = normalize(viewVec);
+//
+//            reflectVec = reflect(-lightVec,normalView);
+//            reflectVec = normalize(reflectVec);
+//
+//            rDotV = max(dot(reflectVec,viewVec),0.0);
+//
+//            ambient = material.ambient * light[i].ambient;
+//            diffuse = material.diffuse * light[i].diffuse * max(nDotL,0);
+//            if (nDotL>0)
+//                specular = material.specular * light[i].specular * pow(rDotV,material.shininess);
+//            else
+//                specular = vec3(0,0,0);
+//
+//            vec3 sd = normalize(light[i].spotDirection.xyz);
+//            if ( dot(-lightVec, sd) > light[i].spotAngle) fColor = clamp(fColor +  vec4(ambient + diffuse + specular, 1.0), 0, 1);
+//            //if (spotlight > 0.1) fColor = fColor +  vec4(ambient + diffuse + specular, 1.0);
+//        }
+    }
+
     /**
      * Determines if this ray hits anything in the scene graph
      * @param ray in the view coordinate system
@@ -191,17 +303,15 @@ public class Scenegraph<VertexType extends IVertexData> implements IScenegraph<V
      */
     public Color raycast(Ray ray, Stack<Matrix4f> modelView) {
         HitRecord hr = root.intersect(ray, modelView);
-
-        int r, g, b;
-
+        hr.setLights(root.getLights(modelView));
+//        Color color = new Color(0, 0, 0);
+        Color color = new Color(0.69f, 0.8f , 0.9f);
         if (hr.isHit()) {
-//            shade(hr);
-            r = g = b = 255;
-        } else {
-            r = g = b = 0;
+            color = this.shade(hr);
+//            r = g = b = 255;
         }
 
-        return new Color(r, g, b);
+        return color;
     }
 
     @Override
@@ -219,8 +329,6 @@ public class Scenegraph<VertexType extends IVertexData> implements IScenegraph<V
 
 //                Matrix4f view = new Matrix4f(modelView.peek());
 //                Matrix4f viewInverted = view.invert();
-
-//                modelView.peek().invert();
 //                start.mul(viewInverted);
 //                direction.mul(viewInverted);
 
