@@ -11,6 +11,8 @@ import util.PolygonMesh;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -229,15 +231,11 @@ public class Scenegraph<VertexType extends IVertexData> implements IScenegraph<V
         }
 
         OutputStream outStream = null;
-//
-//        int w = output.getWidth();
-//        int h = output.getHeight();
-//        Graphics2D g = output.createGraphics();
-//        g.drawImage(output, 0, 0, w, h, 0, h, w, 0, null);
-//        g.dispose();
-//        g.drawImage(output, 0, 0, null);
-//        g.dispose();
 
+        AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
+        tx.translate(0, -output.getHeight(null));
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        output = op.filter(output, null);
 
         try {
             outStream = new FileOutputStream("output/raytrace.png");

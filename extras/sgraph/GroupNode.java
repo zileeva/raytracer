@@ -167,7 +167,7 @@ public class GroupNode extends AbstractNode
         //closest value of t
         for (INode child: children) {
             HitRecord hr = child.intersect(ray, modelView);
-            if (hr.isHit() && hr.t() > 0.0f && hr.t() < t) {
+            if (hr.isHit() && hr.t() < t) {
                 hitRecord = hr;
                 t = hr.t();
 

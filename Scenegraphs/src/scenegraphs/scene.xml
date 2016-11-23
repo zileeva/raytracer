@@ -48,43 +48,43 @@
             </object>
         </transform>
 
-        <transform>
-            <set>
-                <translate> -100 0 0 </translate>
-                <scale>40 40 40</scale>
-            </set>
-
-            <object instanceof="sphere">
-                <material>
-                    <ambient> 0.2 0.2 0.1 </ambient>
-                    <diffuse> 0.8 0.8 0.1</diffuse>
-                    <specular> 0.8 0.8 0.1</specular>
-                    <shininess> 100 </shininess>
-                    <absorption>0.2</absorption>
-                    <reflection>0.8</reflection>
-                </material>
-            </object>
-        </transform>
-
         <!--<transform>-->
             <!--<set>-->
-                <!--<translate> -20 30 30 </translate>-->
+                <!--<translate> -100 0 0 </translate>-->
                 <!--<scale>40 40 40</scale>-->
             <!--</set>-->
 
             <!--<object instanceof="sphere">-->
                 <!--<material>-->
-                    <!--<ambient> 0.1 0.2 0.1 </ambient>-->
-                    <!--<diffuse> 0.1 0.8 0.1</diffuse>-->
-                    <!--<specular> 0.1 0.8 0.1</specular>-->
+                    <!--<ambient> 0.2 0.2 0.1 </ambient>-->
+                    <!--<diffuse> 0.8 0.8 0.1</diffuse>-->
+                    <!--<specular> 0.8 0.8 0.1</specular>-->
                     <!--<shininess> 100 </shininess>-->
-                    <!--<absorption>0.0</absorption>-->
-                    <!--<reflection>0.0</reflection>-->
-                    <!--<transparency>1.0</transparency>-->
-                    <!--<refractive>1</refractive>-->
+                    <!--<absorption>0.2</absorption>-->
+                    <!--<reflection>0.8</reflection>-->
                 <!--</material>-->
             <!--</object>-->
         <!--</transform>-->
+
+        <transform>
+            <set>
+                <translate> -20 30 30 </translate>
+                <scale>40 40 40</scale>
+            </set>
+
+            <object instanceof="sphere">
+                <material>
+                    <ambient> 0.1 0.2 0.1 </ambient>
+                    <diffuse> 0.1 0.8 0.1</diffuse>
+                    <specular> 0.1 0.8 0.1</specular>
+                    <shininess> 100 </shininess>
+                    <absorption>0.0</absorption>
+                    <reflection>0.0</reflection>
+                    <transparency>1.0</transparency>
+                    <refractive>1</refractive>
+                </material>
+            </object>
+        </transform>
 
         <!--<transform>-->
             <!--<set>-->

@@ -220,10 +220,9 @@ public class TransformNode extends AbstractNode
         Vector4f start = ray.getStart();
         Vector4f direction = ray.getDirection();
 
-        Matrix4f mv = new Matrix4f(modelView.peek().transpose());
-//        mv.transpose();
-        mv.mul(transform);
-        mv.invert();
+        Matrix4f mv = new Matrix4f(modelView.peek().transpose()).mul(transform).invert();
+//        mv.mul(transform);
+//        mv.invert();
 
         start.mul(mv);// = transformation.transform(start);
         direction.mul(mv);// = transformation.transform(direction);
