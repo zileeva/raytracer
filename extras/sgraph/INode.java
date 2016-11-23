@@ -3,6 +3,8 @@ package sgraph;
 import com.jogamp.opengl.GLAutoDrawable;
 import org.joml.Matrix4f;
 import util.Light;
+import util.Ray;
+import util.HitRecord;
 
 import java.util.List;
 import java.util.Stack;
@@ -114,5 +116,14 @@ public interface INode
     void addLight(Light l);
 
     List<util.Light> getLights(Stack<Matrix4f> modelView);
+
+    /**
+     * Gets Hit record information
+     * @param ray
+     * @return
+     */
+    HitRecord intersect(Ray ray, Stack<Matrix4f> modelView);
+
+
 }
 

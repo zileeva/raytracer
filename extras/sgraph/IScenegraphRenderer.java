@@ -6,6 +6,9 @@ import util.IVertexData;
 import java.util.Map;
 import java.util.Stack;
 
+import util.HitRecord;
+import util.Ray;
+
 /**
  * This interface provides a general interface for the scene graph to use.
  * Each scene graph is paired with a renderer. Specific implementations of this renderer
@@ -77,4 +80,5 @@ public interface IScenegraphRenderer
      */
     void addTexture(String name,String path);
     void dispose();
+
 }

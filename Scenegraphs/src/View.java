@@ -37,6 +37,8 @@ public class View {
 
     TypeOfCamera cameraMode;
 
+    private Boolean raytrace;
+
 
     public View()
     {
@@ -48,6 +50,7 @@ public class View {
         scenegraph = null;
         angleOfRotation = 1;
         cameraMode = TypeOfCamera.GLOBAL;
+        raytrace = false;
     }
 
     public void initScenegraph(GLAutoDrawable gla,InputStream in) throws Exception
@@ -89,8 +92,24 @@ public class View {
 
 
 
-    public void draw(GLAutoDrawable gla)
-    {
+    public void draw(GLAutoDrawable gla) {
+        while (!modelView.empty())
+            modelView.pop();
+
+        modelView.push(new Matrix4f());
+
+//        modelView.peek().lookAt(new Vector3f(0, 0, 100f), new Vector3f(0,0,0), new Vector3f(0,1,0));
+        modelView.peek().lookAt(new Vector3f(70, 100, -80), new Vector3f(0,0,0), new Vector3f(0,1,0));
+
+        if (raytrace) {
+            scenegraph.raytrace(WINDOW_WIDTH, WINDOW_HEIGHT, modelView);
+            raytrace = false;
+        } else {
+            drawOpenGL(gla);
+        }
+    }
+
+    public void drawOpenGL(GLAutoDrawable gla) {
         GL3 gl = gla.getGL().getGL3();
         FloatBuffer fb16 = Buffers.newDirectFloatBuffer(16);
         FloatBuffer fb4 = Buffers.newDirectFloatBuffer(4);
@@ -102,25 +121,22 @@ public class View {
 
         program.enable(gl);
 
-        while (!modelView.empty())
-            modelView.pop();
+        modelView.peek().mul(trackballTransform);
 
-        modelView.push(new Matrix4f());
-
-        if (cameraMode == TypeOfCamera.GLOBAL) {
-            modelView.peek()
-                    .mul(keyboardTransform)
-                    .lookAt(new Vector3f(0,400,600),new Vector3f(0,0,0),new Vector3f(0,1,0))
-                    .mul(trackballTransform);
-        } else {
-            modelView.peek()
-//                    .rotate(45, 0.0f, 0.0f, 1.0f)
-                    .mul(keyboardTransform)
-                    .rotate( (float) Math.toRadians(90), 0.0f, 1.0f, 0.0f)
-                    .translate(0, -100, -125)
-
-                    .mul(new Matrix4f(scenegraph.getAnimationTransform()).invert());
-        }
+//        if (cameraMode == TypeOfCamera.GLOBAL) {
+//            modelView.peek()
+//                    .mul(keyboardTransform)
+//                    .lookAt(new Vector3f(0,400,600),new Vector3f(0,0,0),new Vector3f(0,1,0))
+//                    .mul(trackballTransform);
+//        } else {
+//            modelView.peek()
+////                    .rotate(45, 0.0f, 0.0f, 1.0f)
+//                    .mul(keyboardTransform)
+//                    .rotate( (float) Math.toRadians(90), 0.0f, 1.0f, 0.0f)
+//                    .translate(0, -100, -125)
+//
+//                    .mul(new Matrix4f(scenegraph.getAnimationTransform()).invert());
+//        }
 
         gl.glUniformMatrix4fv(projectionLocation,1,false,projection.get(fb16));
 
@@ -128,7 +144,7 @@ public class View {
         //gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL3.GL_LINE); //OUTLINES
 
         scenegraph.draw(modelView);
-        scenegraph.animate(time);
+//        scenegraph.animate(time);
 
         time = time + 1;
         gl.glFlush();
@@ -137,6 +153,10 @@ public class View {
 
 
 
+    }
+
+    public void setRaytrace() {
+        raytrace = true;
     }
 
     public void shift(String d) {
@@ -242,7 +262,7 @@ public class View {
         WINDOW_HEIGHT = height;
         gl.glViewport(0, 0, width, height);
 
-        projection = new Matrix4f().perspective((float)Math.toRadians(120.0f),(float)width/height,0.1f,10000.0f);
+        projection = new Matrix4f().perspective((float)Math.toRadians(120.0f),(float)width / height,0.1f,10000.0f);
 //        projection = new Matrix4f().ortho(-400,400,-400,400,0.1f,10000.0f);
 
     }

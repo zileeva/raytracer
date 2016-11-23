@@ -57,7 +57,7 @@ public class JOGLFrame extends JFrame
                     view.init(canvas);
                     InputStream in = getClass().getClassLoader()
                             .getResourceAsStream
-                                    ("scenegraphs/two-birds-bee" +
+                                    ("scenegraphs/scene" +
                                     ".xml");
                     view.initScenegraph(canvas,in);
                     textRenderer = new TextRenderer(new Font("SansSerif", Font.PLAIN, 18),true,false);
@@ -104,6 +104,9 @@ public class JOGLFrame extends JFrame
         public void keyPressed(KeyEvent e) {
 
             switch (e.getKeyCode()) {
+                case KeyEvent.VK_R:
+                    view.setRaytrace();
+                    break;
                 case KeyEvent.VK_W:
                     view.nod("up");
                     break;

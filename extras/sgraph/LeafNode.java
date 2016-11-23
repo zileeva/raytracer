@@ -2,8 +2,11 @@ package sgraph;
 
 import com.jogamp.opengl.GL3;
 import org.joml.Matrix4f;
+import org.joml.Vector2f;
 import org.joml.Vector4f;
 import util.Light;
+import util.Ray;
+import util.HitRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +85,8 @@ public class LeafNode extends AbstractNode
         return transformLights;
     }
 
+
+
     /**
      * Delegates to the scene graph for rendering. This has two advantages:
      * <ul>
@@ -106,5 +111,87 @@ public class LeafNode extends AbstractNode
         throw new IllegalArgumentException(getName() + " is not a transform node");
     }
 
+    private HitRecord intersectBox(Ray ray, Stack<Matrix4f> modelView) {
 
+        Vector4f start = ray.getStart();
+        Vector4f direction = ray.getDirection();
+        HitRecord hr = new HitRecord();
+
+        float tx_1 = (-0.5f - start.x) / direction.x;
+        float ty_1 = (-0.5f - start.y) / direction.y;
+        float tz_1 = (-0.5f - start.z) / direction.z;
+
+        float tx_2 = (0.5f - start.x) / direction.x;
+        float ty_2 = (0.5f - start.y) / direction.y;
+        float tz_2 = (0.5f - start.z) / direction.z;
+
+        float tMin_x = Math.min(tx_1, tx_2);
+        float tMin_y = Math.min(ty_1, ty_2);
+        float tMin_z = Math.min(tz_1, tz_2);
+
+        float tMax_x = Math.max(tx_1, tx_2);
+        float tMax_y = Math.max(ty_1, ty_2);
+        float tMax_z = Math.max(tz_1, tz_2);
+
+        float tMax = Math.max(Math.max(tMin_x, tMin_y), tMin_z); // near
+        float tMin = Math.min(Math.min(tMax_x, tMax_y), tMax_z); // far
+
+        if ((tMax > 0.0f) && (tMax < tMin)) {
+            Vector4f p = start.add(direction.mul(tMax));
+//            System.out.println(p);
+            hr = new HitRecord(tMax, p);
+        }
+        return hr;
+    }
+
+    private HitRecord intersectSphere(Ray ray, Stack<Matrix4f> modelView) {
+        Vector4f start = ray.getStart();
+        Vector4f direction = ray.getDirection();
+        HitRecord hr = new HitRecord();
+
+        float A = direction.x * direction.x + direction.y * direction.y + direction.z * direction.z;
+        float B = 2 * (direction.x * start.x + direction.y * start.y + direction.z * start.z);
+        float C = start.x * start.x + start.y * start.y + start.z * start.z - 1;
+
+        float b24ac = B * B - 4 * A * C;
+
+        float t1 = (-B + (float) Math.sqrt(b24ac)) / (2 * A);
+        float t2 = (-B - (float) Math.sqrt(b24ac)) / (2 * A);
+
+        float tMin = Math.min(t1, t2);
+
+        if (b24ac > 0 && tMin > 0) {
+            Vector4f p = start.add(direction.mul(tMin));
+//            System.out.println(p);
+            hr = new HitRecord(tMin, p);
+        }
+
+        return hr;
+    }
+
+
+    @Override
+    public HitRecord intersect(Ray ray, Stack<Matrix4f> modelView) {
+
+        HitRecord hr = new HitRecord();
+
+        Matrix4f transformation = new Matrix4f(modelView.peek()).invert();
+
+        Vector4f start = ray.getStart();
+        Vector4f direction = ray.getDirection();
+
+        start = transformation.transform(start);
+        direction = transformation.transform(direction);
+
+        Ray rayInView = new Ray(start, direction);
+
+        if (this.objInstanceName.contains("box") || this.objInstanceName.contains("cube")) {
+            hr = this.intersectBox(rayInView, modelView);
+        } else if (this.objInstanceName.contains("sphere")) {
+            hr = this.intersectSphere(rayInView, modelView);
+        }
+
+//        HitRecord hr = new HitRecord(new Vector2f(tMax, tMin));
+        return hr;
+    }
 }

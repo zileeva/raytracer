@@ -3,7 +3,9 @@ package sgraph;
 import com.jogamp.opengl.GLAutoDrawable;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
+import util.HitRecord;
 import util.Light;
+import util.Ray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,5 +157,22 @@ public class GroupNode extends AbstractNode
     public List<INode> getChildren()
     {
         return children;
+    }
+
+    @Override
+    public HitRecord intersect(Ray ray, Stack<Matrix4f> modelView) {
+        HitRecord hitRecord = new HitRecord();
+        float t = Float.MAX_VALUE;
+
+        //closest value of t
+        for (INode child: children) {
+            HitRecord hr = child.intersect(ray, modelView);
+            if (hr.isHit() && hr.t() > 0.0f && hr.t() < t) {
+                hitRecord = hr;
+                t = hr.t();
+
+            }
+        }
+        return hitRecord;
     }
 }

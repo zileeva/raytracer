@@ -3,7 +3,9 @@ package sgraph;
 import com.jogamp.opengl.GLAutoDrawable;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
+import util.HitRecord;
 import util.Light;
+import util.Ray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -198,5 +200,27 @@ public class TransformNode extends AbstractNode
         {
             child.setScenegraph(graph);
         }
+    }
+
+    @Override
+    public HitRecord intersect(Ray ray, Stack<Matrix4f> modelView) {
+//        modelView.push(new Matrix4f(modelView.peek().transpose()));
+//
+        modelView.push(new Matrix4f(modelView.peek()));
+
+        modelView.peek().transpose(); // this works.... just let it work
+
+        modelView.peek().mul(animation_transform)
+                .mul(transform);
+
+
+        HitRecord hr = new HitRecord();
+        if (child!=null) {
+            hr = child.intersect(ray, modelView);
+        }
+
+        modelView.pop();
+
+        return hr;
     }
 }

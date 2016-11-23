@@ -6,8 +6,14 @@ import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.GLAutoDrawable;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
+import util.HitRecord;
 import util.IVertexData;
+import util.Ray;
 import util.TextureImage;
+
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureIO;
+
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -205,7 +211,14 @@ public class GL3ScenegraphRenderer implements IScenegraphRenderer {
             gl.glActiveTexture(GL.GL_TEXTURE0);
             gl.glUniform1i(textureLocation, 0);
 
-            if (textures.get(textureName).getTexture().getMustFlipVertically()) {
+            Texture tex = textures.get(textureName).getTexture();
+
+            tex.setTexParameteri(gl, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
+            tex.setTexParameteri(gl, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
+            tex.setTexParameteri(gl, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+            tex.setTexParameteri(gl, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+
+            if (tex.getMustFlipVertically()) {
                 textureTransform = new Matrix4f().translate(0, 1, 0).scale(1, -1, 1);
             } else {
                 textureTransform = new Matrix4f();

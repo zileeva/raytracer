@@ -103,5 +103,13 @@ public interface IScenegraph<VertexType extends IVertexData>
     Matrix4f getAnimationTransform();
     Matrix4f getTransform();
 
+    /**
+     * Starts the ray tracing and exports the result accordingly
+     * @param width
+     * @param height
+     * @param modelView
+     */
+    void raytrace(int width, int height, Stack<Matrix4f> modelView);
+
     void dispose();
 }

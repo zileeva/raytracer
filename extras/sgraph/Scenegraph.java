@@ -2,12 +2,22 @@ package sgraph;
 
 import com.jogamp.opengl.GL3;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
+import util.HitRecord;
 import util.IVertexData;
 import util.PolygonMesh;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.*;
 
+import util.Ray;
 /**
  * A specific implementation of this scene graph. This implementation is still independent
  * of the rendering technology (i.e. OpenGL)
@@ -170,6 +180,76 @@ public class Scenegraph<VertexType extends IVertexData> implements IScenegraph<V
     @Override
     public void addTexture(String name, String path) {
         textures.put(name, path);
+    }
+
+    /**
+     * Determines if this ray hits anything in the scene graph
+     * @param ray in the view coordinate system
+     * @param modelView
+     */
+    public Color raycast(Ray ray, Stack<Matrix4f> modelView) {
+        HitRecord hr = root.intersect(ray, modelView);
+
+        int r, g, b;
+
+        if (hr.isHit()) {
+//            shade(hr);
+            r = g = b = 255;
+        } else {
+            r = g = b = 0;
+        }
+
+        return new Color(r, g, b);
+    }
+
+    @Override
+    public void raytrace(int width, int height, Stack<Matrix4f> modelView) {
+        int i, j;
+
+        BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        for (i = 0; i < width; i++) {
+            for (j = 0; j < height; j++) {
+
+                //get color in (r,g,b)
+                Vector4f start = new Vector4f(0, 0, 0, 1);
+                Vector4f direction = new Vector4f(i - width/2, j - height/2, (-0.5f * height) / (float) Math.tan(Math.toRadians(0.5f * 120.0f)), 0);
+
+                Matrix4f view = new Matrix4f(modelView.peek());
+                Matrix4f viewInverted = view.invert();
+                start.mul(viewInverted);
+                direction.mul(viewInverted);
+
+                Ray ray = new Ray(start, direction);
+
+                Color color = this.raycast(ray, modelView);
+
+                output.setRGB(i, j, color.getRGB());
+            }
+        }
+
+        OutputStream outStream = null;
+//
+//        int w = output.getWidth();
+//        int h = output.getHeight();
+//        Graphics2D g = output.createGraphics();
+//        g.drawImage(output, 0, 0, w, h, 0, h, w, 0, null);
+//        g.dispose();
+//        g.drawImage(output, 0, 0, null);
+//        g.dispose();
+
+
+        try {
+            outStream = new FileOutputStream("output/raytrace.png");
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException("Could not write raytraced image!");
+        }
+
+        try {
+            ImageIO.write(output, "png", outStream);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Could not write raytraced image!");
+        }
     }
 
 

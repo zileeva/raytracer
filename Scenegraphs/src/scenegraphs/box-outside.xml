@@ -1,0 +1,49 @@
+<scene>
+    <instance name="sphere" path="models/sphere.obj" />
+    <instance name="box-outside" path="models/box-outside.obj" />
+    <instance name="cylinder" path="models/cylinder.obj" />
+    <instance name="cone" path="models/cone.obj" />
+
+    <image name="die" path="textures/die.png" />
+    <image name="white" path="textures/white.png" />
+
+    <light>
+        <ambient>0.5 0.5 0.5</ambient>
+        <diffuse>0.5 0.5 0.5</diffuse>
+        <specular>0.5 0.5 0.5</specular>
+        <position>-100 100 100</position>
+        <spotangle>180</spotangle>
+        <spotdirection>0 1 0</spotdirection>
+    </light>
+
+    <group>
+
+        <light>
+            <ambient>0.5 0.5 0.5</ambient>
+            <diffuse>0.5 0.5 0.5</diffuse>
+            <specular>0.5 0.5 0.5</specular>
+            <position>100 100 100</position>
+            <spotangle>180</spotangle>
+            <spotdirection>0 1 0</spotdirection>
+        </light>
+
+        <transform>
+            <set>
+                <rotate>45 0 1 0</rotate>
+                <rotate>25 1 0 0</rotate>
+                <scale> 40 60 40 </scale>
+            </set>
+            <group>
+                <object instanceof="box-outside" texture="die">
+                    <material>
+                        <ambient> 0.5 0.5 0.5 </ambient>
+                        <diffuse> 0.6 0.6 0.6 </diffuse>
+                        <specular> 0.6 0.6 0.6 </specular>
+                        <shininess> 100 </shininess>
+                    </material>
+                </object>
+            </group>
+        </transform>
+    </group>
+
+</scene>
