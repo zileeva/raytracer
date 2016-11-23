@@ -175,20 +175,20 @@ public class LeafNode extends AbstractNode
 
         HitRecord hr = new HitRecord();
 
-        Matrix4f transformation = new Matrix4f(modelView.peek()).invert();
+//        Matrix4f transformation = new Matrix4f(modelView.peek()).invert();
 
-        Vector4f start = ray.getStart();
-        Vector4f direction = ray.getDirection();
+//        Vector4f start = ray.getStart();
+//        Vector4f direction = ray.getDirection();
 
-        start = transformation.transform(start);
-        direction = transformation.transform(direction);
+//        start = transformation.transform(start);
+//        direction = transformation.transform(direction);
 
-        Ray rayInView = new Ray(start, direction);
+//        Ray rayInView = new Ray(start, direction);
 
         if (this.objInstanceName.contains("box") || this.objInstanceName.contains("cube")) {
-            hr = this.intersectBox(rayInView, modelView);
+            hr = this.intersectBox(ray, modelView);
         } else if (this.objInstanceName.contains("sphere")) {
-            hr = this.intersectSphere(rayInView, modelView);
+            hr = this.intersectSphere(ray, modelView);
         }
 
 //        HitRecord hr = new HitRecord(new Vector2f(tMax, tMin));
