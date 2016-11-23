@@ -121,7 +121,7 @@ public class View {
 
         program.enable(gl);
 
-        modelView.peek().mul(trackballTransform);
+//        modelView.peek().mul(trackballTransform);
 
 //        if (cameraMode == TypeOfCamera.GLOBAL) {
 //            modelView.peek()

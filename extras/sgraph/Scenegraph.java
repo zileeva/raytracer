@@ -217,10 +217,12 @@ public class Scenegraph<VertexType extends IVertexData> implements IScenegraph<V
                 Vector4f start = new Vector4f(0, 0, 0, 1);
                 Vector4f direction = new Vector4f(i - width/2, j - height/2, (-0.5f * height) / (float) Math.tan(Math.toRadians(0.5f * 120.0f)), 0);
 
-                Matrix4f view = new Matrix4f(modelView.peek());
-                Matrix4f viewInverted = view.invert();
-                start.mul(viewInverted);
-                direction.mul(viewInverted);
+//                Matrix4f view = new Matrix4f(modelView.peek());
+//                Matrix4f viewInverted = view.invert();
+
+//                modelView.peek().invert();
+//                start.mul(viewInverted);
+//                direction.mul(viewInverted);
 
                 Ray ray = new Ray(start, direction);
 

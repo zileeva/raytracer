@@ -177,18 +177,18 @@ public class LeafNode extends AbstractNode
 
 //        Matrix4f transformation = new Matrix4f(modelView.peek()).invert();
 
-//        Vector4f start = ray.getStart();
-//        Vector4f direction = ray.getDirection();
+        Vector4f start = ray.getStart();
+        Vector4f direction = ray.getDirection();
 
 //        start = transformation.transform(start);
 //        direction = transformation.transform(direction);
 
-//        Ray rayInView = new Ray(start, direction);
+        Ray rayInView = new Ray(start.mul(modelView.peek()), direction.mul(modelView.peek()));
 
         if (this.objInstanceName.contains("box") || this.objInstanceName.contains("cube")) {
-            hr = this.intersectBox(ray, modelView);
+            hr = this.intersectBox(rayInView, modelView);
         } else if (this.objInstanceName.contains("sphere")) {
-            hr = this.intersectSphere(ray, modelView);
+            hr = this.intersectSphere(rayInView, modelView);
         }
 
 //        HitRecord hr = new HitRecord(new Vector2f(tMax, tMin));

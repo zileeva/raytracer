@@ -204,37 +204,54 @@ public class TransformNode extends AbstractNode
 
     @Override
     public HitRecord intersect(Ray ray, Stack<Matrix4f> modelView) {
-//        modelView.push(new Matrix4f(modelView.peek().transpose()));
+
+        modelView.push(new Matrix4f(modelView.peek()));
+
+//        modelView.peek().invert();
+//        modelView.peek().transpose();
+        modelView.peek().mul(animation_transform).mul(transform);
+        modelView.peek().invert();
+
+//        Matrix4f mv = new Matrix4f(modelView.peek());
 //
-//        modelView.push(new Matrix4f(modelView.peek()));
+//        Matrix4f transformation = new Matrix4f().mul(mv).mul(transform);
+//        Matrix4f normalmatrix = new Matrix4f(transformation);
+//        normalmatrix = normalmatrix.invert().transpose();
 //
-//        modelView.peek().invert().transpose(); // this works.... just let it work
+//        modelView.push(normalmatrix);
+//        modelView.push(new Matrix4f(modelView.peek().invert()));
+
 //
 //        modelView.peek() //.mul(animation_transform)
-//                .mul(transform).transpose();
-//
+//                .mul(transform);
+//        modelView.peek().transpose(); // this works.... just let it work
 //        modelView.peek().invert();
 //
 //        Matrix4f transformation = new Matrix4f(modelView.peek());
 //
-        Vector4f start = ray.getStart();
-        Vector4f direction = ray.getDirection();
-
-        Matrix4f mv = new Matrix4f(modelView.peek().transpose()).mul(transform).invert();
+//        Vector4f start = ray.getStart();
+//        Vector4f direction = ray.getDirection();
+//
+////        modelView.peek().invert();
+//
+//        Matrix4f mv = new Matrix4f(modelView.peek());
+//
+//        mv.invert();
+//        mv.transpose();
 //        mv.mul(transform);
 //        mv.invert();
-
-        start.mul(mv);// = transformation.transform(start);
-        direction.mul(mv);// = transformation.transform(direction);
-
-        Ray rayInView = new Ray(start, direction);
+//
+//        start.mul(mv);// = transformation.transform(start);
+//        direction.mul(mv);// = transformation.transform(direction);
+//
+//        Ray rayInView = new Ray(start, direction);
 
         HitRecord hr = new HitRecord();
         if (child!=null) {
-            hr = child.intersect(rayInView, modelView);
+            hr = child.intersect(ray, modelView);
         }
 
-//        modelView.pop();
+        modelView.pop();
 
         return hr;
     }
