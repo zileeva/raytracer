@@ -16,14 +16,14 @@
         <spotdirection>0 -1 0 </spotdirection>
     </light>
 
-    <light>
-        <ambient>0.2 0.2 0.2</ambient>
-        <diffuse>0.4 0.4 0.4</diffuse>
-        <specular>0.4 0.4 0.4</specular>
-        <position>0 100 0 </position>
-        <spotangle>80</spotangle>
-        <spotdirection>0 -1 0 </spotdirection>
-    </light>
+    <!--<light>-->
+        <!--<ambient>0.2 0.2 0.2</ambient>-->
+        <!--<diffuse>0.4 0.4 0.4</diffuse>-->
+        <!--<specular>0.4 0.4 0.4</specular>-->
+        <!--<position>0 100 0 </position>-->
+        <!--<spotangle>80</spotangle>-->
+        <!--<spotdirection>0 -1 0 </spotdirection>-->
+    <!--</light>-->
     <light>
         <ambient>0.2 0.2 0.2</ambient>
         <diffuse>0.4 0.4 0.4</diffuse>
@@ -74,9 +74,9 @@
 
             <object instanceof="sphere">
                 <material>
-                    <ambient> 0.1 0.2 0.1 </ambient>
-                    <diffuse> 0.1 0.8 0.1</diffuse>
-                    <specular> 0.1 0.8 0.1</specular>
+                    <ambient> 0.9 0.6 0.75 </ambient>
+                    <diffuse> 0.8 0.8 0.1</diffuse>
+                    <specular> 0.0 0.0 0.0</specular>
                     <shininess> 100 </shininess>
                     <absorption>0.0</absorption>
                     <reflection>0.0</reflection>
