@@ -205,51 +205,14 @@ public class TransformNode extends AbstractNode
     @Override
     public HitRecord intersect(Ray ray, Stack<Matrix4f> modelView) {
 
-//        Matrix4f mv = new Matrix4f(modelView.peek());
-//
-//        Matrix4f transformation = new Matrix4f().mul(mv).mul(transform);
-//        Matrix4f normalmatrix = new Matrix4f(transformation);
-//        normalmatrix = normalmatrix.invert().transpose();
-//
-//        modelView.push(normalmatrix);
-//        modelView.push(new Matrix4f(modelView.peek().invert()));
-
-//
-//        modelView.peek() //.mul(animation_transform)
-//                .mul(transform);
-//        modelView.peek().transpose(); // this works.... just let it work
-//        modelView.peek().invert();
-//
-//        Matrix4f transformation = new Matrix4f(modelView.peek());
-//
-//        Vector4f start = ray.getStart();
-//        Vector4f direction = ray.getDirection();
-//
-////        modelView.peek().invert();
-//
-//        Matrix4f mv = new Matrix4f(modelView.peek());
-//
-//        mv.invert();
-//        mv.transpose();
-//        mv.mul(transform);
-//        mv.invert();
-//
-//        start.mul(mv);// = transformation.transform(start);
-//        direction.mul(mv);// = transformation.transform(direction);
-//
-//        Ray rayInView = new Ray(start, direction);
-
-
-
         modelView.push(new Matrix4f(modelView.peek()));
-        modelView.peek().mul(animation_transform).mul(transform);
-        modelView.peek().invert();//.transpose();
-
-
+        modelView.peek().mul(transform);
 
         HitRecord hr = new HitRecord();
         if (child!=null) {
             hr = child.intersect(ray, modelView);
+//            hr.addLights(this.getLights(modelView));
+
         }
 
         modelView.pop();

@@ -166,6 +166,7 @@ public class GroupNode extends AbstractNode
         //closest value of t
         for (INode child: children) {
             HitRecord hr = child.intersect(ray, modelView);
+//            hr.addLights(this.getLights(modelView));
             if (!hitRecord.isHit() || (hr.isHit() && hr.t() < hitRecord.t())) {
                 hitRecord = hr;
             }

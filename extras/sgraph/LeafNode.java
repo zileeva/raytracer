@@ -140,14 +140,20 @@ public class LeafNode extends AbstractNode
             Vector4f p = start.add(direction.mul(tMax));
             Vector4f normal = new Vector4f(0, 0, 0, 0);
             if (p.x == 0.5f || p.x == -0.5f) {
-                normal.x = p.x / Math.abs(p.x);
+                normal.x = p.x;
             }
             if (p.y == 0.5f || p.y == -0.5f) {
-                normal.y = p.y / Math.abs(p.y);
+                normal.y = p.y;
             }
             if (p.z == 0.5f || p.z == -0.5f) {
-                normal.z = p.z / Math.abs(p.z);
+                normal.z = p.z;
             }
+
+            Matrix4f normalmatrix = new Matrix4f(modelView.peek());
+            normalmatrix = normalmatrix.invert().transpose();
+            Vector4f normalVector = p.mul(normalmatrix);
+
+            normal = new Vector4f(normalVector.x, normalVector.y, normalVector.z, 0);
 //            System.out.println(p);
             hr = new HitRecord(tMax, p, this.getMaterial(), normal);
         }
@@ -163,19 +169,20 @@ public class LeafNode extends AbstractNode
         float B = 2 * (direction.x * start.x + direction.y * start.y + direction.z * start.z);
         float C = start.x * start.x + start.y * start.y + start.z * start.z - 1;
 
-        float b24ac = B * B - 4 * A * C;
+        float D = B * B - 4 * A * C;
 
-        float t1 = (-B + (float) Math.sqrt(b24ac)) / (2 * A);
-        float t2 = (-B - (float) Math.sqrt(b24ac)) / (2 * A);
+        float t1 = (-B + (float) Math.sqrt(D)) / (2 * A);
+        float t2 = (-B - (float) Math.sqrt(D)) / (2 * A);
 
         float tMin = Math.min(t1, t2);
 
-        if (b24ac > 0 && tMin > 0) {
+        if (D > 0 && tMin > 0) {
+            Matrix4f normalmatrix = new Matrix4f(modelView.peek());
+            normalmatrix = normalmatrix.invert().transpose();
             Vector4f p = start.add(direction.mul(tMin));
-            Matrix4f viewTranspose = new Matrix4f(modelView.peek());
-            viewTranspose.invert().transpose();
-            Vector4f normal = p.mul(viewTranspose);
-//            System.out.println(p);
+            Vector4f normalVector = p.mul(normalmatrix);
+
+            Vector4f normal = new Vector4f(normalVector.x, normalVector.y, normalVector.z, 0);
             hr = new HitRecord(tMin, p, this.getMaterial(), normal);
         }
 
@@ -188,11 +195,14 @@ public class LeafNode extends AbstractNode
 
         HitRecord hr = new HitRecord();
 
-        Vector4f start = ray.getStart();
-        Vector4f direction = ray.getDirection();
+        Vector4f start = new Vector4f(ray.getStart());
+        Vector4f direction = new Vector4f(ray.getDirection());
 
-        start = start.mul(modelView.peek());
-        direction = direction.mul(modelView.peek());
+        Matrix4f raymatrix = new Matrix4f(modelView.peek());
+        raymatrix.invert();
+
+        start = start.mul(raymatrix);
+        direction = direction.mul(raymatrix);
 
         Ray rayInView = new Ray(start, direction);
 
@@ -202,7 +212,8 @@ public class LeafNode extends AbstractNode
             hr = this.intersectSphere(rayInView, modelView);
         }
 
-//        HitRecord hr = new HitRecord(new Vector2f(tMax, tMin));
+        hr.setTextureName(this.textureName);
+//        hr.addLights(this.getLights(modelView));
         return hr;
     }
 }

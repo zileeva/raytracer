@@ -12,18 +12,17 @@ import java.util.List;
  */
 public class HitRecord {
     private Boolean hit;
-//    private Vector2f t;
     private float t;
     private Vector4f p;
-    private List<Light> lights;
+    private List<Light> lights = new ArrayList<>();
     private Material material;
     private Vector4f normal;
+    private String textureName;
 
     // material, point of intersection, position, light position
     public HitRecord() {
         this.hit = false;
         this.t = Float.MIN_VALUE;
-        this.lights = new ArrayList<>();
     }
 
     public HitRecord(float t, Vector4f p, Material material, Vector4f normal) {
@@ -49,6 +48,10 @@ public class HitRecord {
         return normal;
     }
 
+    public void addLights(List<Light> l) {
+        this.lights.addAll(l);
+    }
+
     public List<Light> getLights() {
         return this.lights;
     }
@@ -59,5 +62,13 @@ public class HitRecord {
 
     public Material getMaterial() {
         return material;
+    }
+
+    public void setTextureName(String textureName) {
+        this.textureName = textureName;
+    }
+
+    public String getTextureName() {
+        return textureName;
     }
 }

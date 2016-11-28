@@ -189,12 +189,10 @@ public class Scenegraph<VertexType extends IVertexData> implements IScenegraph<V
 
     @Override
     public void raytrace(int width, int height, Stack<Matrix4f> modelView) {
-
-        Raytracer raytracer = new Raytracer(root);
-
+        Raytracer raytracer = new Raytracer(root, textures);
         raytracer.raytrace(width, height, modelView);
-
     }
+
 
 
 
