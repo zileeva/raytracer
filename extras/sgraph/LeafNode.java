@@ -1,6 +1,8 @@
 package sgraph;
 
 import com.jogamp.opengl.GL3;
+import com.jogamp.opengl.math.FloatUtil;
+import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
@@ -113,10 +115,11 @@ public class LeafNode extends AbstractNode
 
     private HitRecord intersectBox(Ray ray, Stack<Matrix4f> modelView) {
 
-        Vector4f start = ray.getStart();
-        Vector4f direction = ray.getDirection();
+        Vector4f start = new Vector4f(ray.getStart());
+        Vector4f direction = new Vector4f(ray.getDirection());
         HitRecord hr = new HitRecord();
 
+//        System.out.println(direction);
         float tx_1 = (-0.5f - start.x) / direction.x;
         float ty_1 = (-0.5f - start.y) / direction.y;
         float tz_1 = (-0.5f - start.z) / direction.z;
@@ -133,36 +136,95 @@ public class LeafNode extends AbstractNode
         float tMax_y = Math.max(ty_1, ty_2);
         float tMax_z = Math.max(tz_1, tz_2);
 
-        float tMax = Math.max(Math.max(tMin_x, tMin_y), tMin_z); // near
-        float tMin = Math.min(Math.min(tMax_x, tMax_y), tMax_z); // far
+//        float tMax = Math.max(Math.max(tMin_x, tMin_y), tMin_z); // near
+//        float tMin = Math.min(Math.min(tMax_x, tMax_y), tMax_z); // far
 
-        if ((tMax > 0.0f) && (tMax < tMin)) {
-            Vector4f p = start.add(direction.mul(tMax));
-            Vector4f normal = new Vector4f(0, 0, 0, 0);
-            if (p.x == 0.5f || p.x == -0.5f) {
-                normal.x = p.x;
+        float tMax = Math.max( Math.max( Math.min(tx_1, tx_2), Math.min(ty_1, ty_2)), Math.min(tz_1, tz_2) );
+        float tMin = Math.min( Math.min( Math.max(tx_1, tx_2), Math.max(ty_1, ty_2)), Math.max(tz_1, tz_2) );
+
+        if ((tMin >= 0) && (tMax < tMin)) {
+
+//            if (direction.y == 0) {
+//                if (start.y >= -0.5f && start.y <= 0.5f) {
+//                    tMax = Float.MIN_VALUE;
+//                }
+//            }
+//
+//            if (direction.x == 0) {
+//                if (start.x >= -0.5f && start.x <= 0.5f) {
+//                    tMax = Float.MIN_VALUE;
+//                }
+//            }
+//
+//            if (direction.z == 0) {
+//                if (start.z >= -0.5f && start.z <= 0.5f) {
+//                    tMax = Float.MIN_VALUE;
+//                }
+//            }
+
+            Vector4f p = new Vector4f(start.add(direction.mul(tMax)));
+
+            // Might be vertically flipped
+            float s = 0, t = 0;
+            if (p.z == 0.5f) { //front
+                s = 0.75f + (0.5f - p.x) * 0.25f;
+                t = 0.5f + (0.5f - p.y) * 0.25f;
+            } else if (p.z == -0.5f) { //back
+                s = 0.25f + (0.5f - p.x) * 0.25f;
+                t = 0.5f + (0.5f - p.y) * 0.25f;
+            } else if (p.x == 0.5f) { //right
+                s = 0.5f + (0.5f - p.z) * 0.25f;
+                t = 0.5f + (0.5f - p.y) * 0.25f;
+            } else if (p.x == -0.5f) { //left
+                s = 0.0f + (0.5f - p.z) * 0.25f;
+                t = 0.5f + (0.5f - p.y) * 0.25f;
+            } else if (p.y == 0.5f) { //top
+                s = 0.25f + (0.5f - p.x) * 0.25f;
+                t = 0.25f + (0.5f + p.z) * 0.25f;
+            } else if (p.y == -0.5f) { //bottom
+                s = 0.25f + (0.5f - p.x) * 0.25f;
+                t = 0.75f + (0.5f + p.z) * 0.25f;
             }
-            if (p.y == 0.5f || p.y == -0.5f) {
-                normal.y = p.y;
-            }
-            if (p.z == 0.5f || p.z == -0.5f) {
-                normal.z = p.z;
-            }
+            Vector2f textureCoordinates = new Vector2f(s, t);
+
+//            if (Math.abs(p.x) == 1) {
+//                s = (p.z + 1) / 2;
+//                t = (p.y + 1) / 2;
+//            } else if (Math.abs(p.y) == 1) {
+//                s = (p.x + 1) / 2;
+//                t = (p.z + 1) / 2;
+//            } else {
+//                s = (p.x + 1) / 2;
+//                t = (p.y + 1) / 2;
+//            }
+
+
+
 
             Matrix4f normalmatrix = new Matrix4f(modelView.peek());
             normalmatrix = normalmatrix.invert().transpose();
-            Vector4f normalVector = p.mul(normalmatrix);
+            p = normalmatrix.transform(p);
+            Vector4f normal = new Vector4f(p.x, p.y, p.z, 0);
 
-            normal = new Vector4f(normalVector.x, normalVector.y, normalVector.z, 0);
+
+
+
+
+//            Vector4f normalVector = normalmatrix.transform(normal); //normal.mul(normalmatrix);
+//            normal = new Vector4f(normalVector.x, normalVector.y, normalVector.z, 0);
+
+
+//            if ()
+
 //            System.out.println(p);
-            hr = new HitRecord(tMax, p, this.getMaterial(), normal);
+            hr = new HitRecord(tMax, p, this.getMaterial(), normal, textureCoordinates);
         }
         return hr;
     }
 
     private HitRecord intersectSphere(Ray ray, Stack<Matrix4f> modelView) {
-        Vector4f start = ray.getStart();
-        Vector4f direction = ray.getDirection();
+        Vector4f start = new Vector4f(ray.getStart());
+        Vector4f direction = new Vector4f(ray.getDirection());
         HitRecord hr = new HitRecord();
 
         float A = direction.x * direction.x + direction.y * direction.y + direction.z * direction.z;
@@ -179,11 +241,26 @@ public class LeafNode extends AbstractNode
         if (D > 0 && tMin > 0) {
             Matrix4f normalmatrix = new Matrix4f(modelView.peek());
             normalmatrix = normalmatrix.invert().transpose();
-            Vector4f p = start.add(direction.mul(tMin));
-            Vector4f normalVector = p.mul(normalmatrix);
 
-            Vector4f normal = new Vector4f(normalVector.x, normalVector.y, normalVector.z, 0);
-            hr = new HitRecord(tMin, p, this.getMaterial(), normal);
+            Vector4f p = new Vector4f(start.add(direction.mul(tMin)));
+
+            float phi = (float) Math.asin(p.y);
+            float theta = (float) java.lang.Math.atan(p.z / p.x);
+            float t = (phi + (float) (Math.PI / 2) ) / (float) Math.PI;
+            float s = theta / (float) (2 * Math.PI);
+            Vector2f textureCoordinates = new Vector2f(s, t);
+
+
+            p = normalmatrix.transform(p);
+            Vector4f normal = new Vector4f(p.x, p.y, p.z, 0);
+//            normal = normalmatrix.transform(normal);//p.mul(normalmatrix);
+            normal = normal.normalize();
+//            Vector4f position = p;//normalmatrix.transform(p);
+
+
+
+
+            hr = new HitRecord(tMin, p, this.getMaterial(), normal, textureCoordinates);
         }
 
         return hr;
@@ -201,8 +278,9 @@ public class LeafNode extends AbstractNode
         Matrix4f raymatrix = new Matrix4f(modelView.peek());
         raymatrix.invert();
 
-        start = start.mul(raymatrix);
-        direction = direction.mul(raymatrix);
+        start = raymatrix.transform(start);// start.mul(raymatrix);
+        direction = raymatrix.transform(direction);//direction.mul(raymatrix);
+        direction = direction.normalize();
 
         Ray rayInView = new Ray(start, direction);
 
@@ -213,7 +291,9 @@ public class LeafNode extends AbstractNode
         }
 
         hr.setTextureName(this.textureName);
+
 //        hr.addLights(this.getLights(modelView));
+
         return hr;
     }
 }
