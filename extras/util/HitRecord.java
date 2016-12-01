@@ -59,7 +59,7 @@ public class HitRecord {
     }
 
     public void setLights(List<Light> lights) {
-        this.lights = lights;
+        this.lights = new ArrayList<>(lights);
     }
 
     public Material getMaterial() {

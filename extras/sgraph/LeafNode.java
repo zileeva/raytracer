@@ -144,80 +144,59 @@ public class LeafNode extends AbstractNode
 
         if ((tMin >= 0) && (tMax < tMin)) {
 
-//            if (direction.y == 0) {
-//                if (start.y >= -0.5f && start.y <= 0.5f) {
-//                    tMax = Float.MIN_VALUE;
-//                }
-//            }
-//
-//            if (direction.x == 0) {
-//                if (start.x >= -0.5f && start.x <= 0.5f) {
-//                    tMax = Float.MIN_VALUE;
-//                }
-//            }
-//
-//            if (direction.z == 0) {
-//                if (start.z >= -0.5f && start.z <= 0.5f) {
-//                    tMax = Float.MIN_VALUE;
-//                }
-//            }
-
             Vector4f p = new Vector4f(start.add(direction.mul(tMax)));
+            Vector4f normal = new Vector4f(0, 0, 0, 0);
+
+            float threshold = 0.0001f;
 
             // Might be vertically flipped
             float s = 0, t = 0;
-            if (p.z == 0.5f) { //front
+            if (Math.abs(p.z - 0.5f) < threshold) { //front
                 s = 0.75f + (0.5f - p.x) * 0.25f;
                 t = 0.5f + (0.5f - p.y) * 0.25f;
-            } else if (p.z == -0.5f) { //back
+                normal.z = 1;
+            } else if (Math.abs(p.z + 0.5f) < threshold) { //back
                 s = 0.25f + (0.5f - p.x) * 0.25f;
                 t = 0.5f + (0.5f - p.y) * 0.25f;
-            } else if (p.x == 0.5f) { //right
+                normal.z = -1;
+            } else if (Math.abs(p.x - 0.5f) < threshold) { //right
                 s = 0.5f + (0.5f - p.z) * 0.25f;
                 t = 0.5f + (0.5f - p.y) * 0.25f;
-            } else if (p.x == -0.5f) { //left
+                normal.x = 1;
+            } else if (Math.abs(p.x + 0.5f) < threshold) { //left
                 s = 0.0f + (0.5f - p.z) * 0.25f;
                 t = 0.5f + (0.5f - p.y) * 0.25f;
-            } else if (p.y == 0.5f) { //top
+                normal.x = -1;
+            } else if (Math.abs(p.y - 0.5f) < threshold) { //top
                 s = 0.25f + (0.5f - p.x) * 0.25f;
                 t = 0.25f + (0.5f + p.z) * 0.25f;
-            } else if (p.y == -0.5f) { //bottom
+                normal.y = 1;
+            } else if (Math.abs(p.y + 0.5f) < threshold) { //bottom
                 s = 0.25f + (0.5f - p.x) * 0.25f;
                 t = 0.75f + (0.5f + p.z) * 0.25f;
+                normal.y = -1;
             }
-            Vector2f textureCoordinates = new Vector2f(s, t);
 
-//            if (Math.abs(p.x) == 1) {
-//                s = (p.z + 1) / 2;
-//                t = (p.y + 1) / 2;
-//            } else if (Math.abs(p.y) == 1) {
-//                s = (p.x + 1) / 2;
-//                t = (p.z + 1) / 2;
-//            } else {
-//                s = (p.x + 1) / 2;
-//                t = (p.y + 1) / 2;
+
+//            if (p.y == 0.5f || p.y == -0.5f) {
+//                normal.y = p.y * 2;
+//            }
+//            if (p.x == 0.5f || p.x == -0.5f) {
+//                normal.x = Math.abs(p.x * 2);
+//            }
+//            if (p.z == 0.5f || p.z == -0.5f) {
+//                normal.z = Math.abs(p.z * 2);
 //            }
 
-
-
+            Vector2f textureCoordinates = new Vector2f(s, t);
 
             Matrix4f normalmatrix = new Matrix4f(modelView.peek());
-            normalmatrix = normalmatrix.invert().transpose();
-            p = normalmatrix.transform(p);
-            Vector4f normal = new Vector4f(p.x, p.y, p.z, 0);
+            normalmatrix.invert().transpose();
+            normal = normalmatrix.transform(normal);
+            Matrix4f transformation = new Matrix4f(modelView.peek());
+            Vector4f position = transformation.transform(p);
 
-
-
-
-
-//            Vector4f normalVector = normalmatrix.transform(normal); //normal.mul(normalmatrix);
-//            normal = new Vector4f(normalVector.x, normalVector.y, normalVector.z, 0);
-
-
-//            if ()
-
-//            System.out.println(p);
-            hr = new HitRecord(tMax, p, this.getMaterial(), normal, textureCoordinates);
+            hr = new HitRecord(tMax, position, this.getMaterial(), normal, textureCoordinates);
         }
         return hr;
     }
@@ -239,8 +218,6 @@ public class LeafNode extends AbstractNode
         float tMin = Math.min(t1, t2);
 
         if (D > 0 && tMin > 0) {
-            Matrix4f normalmatrix = new Matrix4f(modelView.peek());
-            normalmatrix = normalmatrix.invert().transpose();
 
             Vector4f p = new Vector4f(start.add(direction.mul(tMin)));
 
@@ -250,17 +227,16 @@ public class LeafNode extends AbstractNode
             float s = theta / (float) (2 * Math.PI);
             Vector2f textureCoordinates = new Vector2f(s, t);
 
-
-            p = normalmatrix.transform(p);
             Vector4f normal = new Vector4f(p.x, p.y, p.z, 0);
-//            normal = normalmatrix.transform(normal);//p.mul(normalmatrix);
-            normal = normal.normalize();
-//            Vector4f position = p;//normalmatrix.transform(p);
+            Matrix4f normalmatrix = new Matrix4f(modelView.peek());
+            normalmatrix.invert().transpose();
+            normal = normalmatrix.transform(normal);
+            Matrix4f transformation = new Matrix4f(modelView.peek());
+            Vector4f position = transformation.transform(p);
 
 
+            hr = new HitRecord(tMin, position, this.getMaterial(), normal, textureCoordinates);
 
-
-            hr = new HitRecord(tMin, p, this.getMaterial(), normal, textureCoordinates);
         }
 
         return hr;
@@ -280,7 +256,7 @@ public class LeafNode extends AbstractNode
 
         start = raymatrix.transform(start);// start.mul(raymatrix);
         direction = raymatrix.transform(direction);//direction.mul(raymatrix);
-        direction = direction.normalize();
+//        direction = direction.normalize();
 
         Ray rayInView = new Ray(start, direction);
 
@@ -291,8 +267,6 @@ public class LeafNode extends AbstractNode
         }
 
         hr.setTextureName(this.textureName);
-
-//        hr.addLights(this.getLights(modelView));
 
         return hr;
     }

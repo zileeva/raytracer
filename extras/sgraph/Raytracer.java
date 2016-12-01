@@ -110,22 +110,22 @@ public class Raytracer {
         if (hr.isHit()) {
             color = this.shade(hr);
 
-//            String name = hr.getTextureName();
-////            fColor = fColor * texture(image,fTexCoord.st);
-//            TextureImage textureImage = this.textures.get(name);
-//            Texture texture = textureImage.getTexture();
+            String name = hr.getTextureName();
+//            fColor = fColor * texture(image,fTexCoord.st);
+            TextureImage textureImage = this.textures.get(name);
+            Texture texture = textureImage.getTexture();
+
+            Vector4f textureColor = textureImage.getColor(hr.getTextureCoordinates().x, hr.getTextureCoordinates().y);
+            Vector4f colorToVec = new Vector4f((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, (float) color.getAlpha() / 255);
+            Vector4f newC = colorToVec.mul(textureColor);
+            Vector3f textureV3 = clamp(toVec3(newC));
+//            Color tc = new Color(textureV3.x, textureV3.y, textureV3.z);
 //
-//            Vector4f textureColor = textureImage.getColor(hr.getTextureCoordinates().x, hr.getTextureCoordinates().y);
-//            Vector4f colorToVec = new Vector4f((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, (float) color.getAlpha() / 255);
-//            Vector4f newC = colorToVec.mul(textureColor);
-//            Vector3f textureV3 = clamp(toVec3(newC));
-////            Color tc = new Color(textureV3.x, textureV3.y, textureV3.z);
-////
-//////            int r = Math.min(255, tc.getRed());
-//////            int g = Math.min(255, tc.getGreen());
-//////            int b = Math.min(255, tc.getBlue());
-////
-//            color = new Color(textureV3.x, textureV3.y, textureV3.z);
+////            int r = Math.min(255, tc.getRed());
+////            int g = Math.min(255, tc.getGreen());
+////            int b = Math.min(255, tc.getBlue());
+//
+            color = new Color(textureV3.x, textureV3.y, textureV3.z);
 
 //            r = g = b = 255;
         } else {
@@ -202,20 +202,20 @@ public class Raytracer {
         Vector3f normal = toVec3(hitRecord.getNormal()) ;
 
         for (int i = 0; i < this.lights.size(); i ++) {
-            Light light = lights.get(i);
-            Vector3f lightPosition = toVec3(light.getPosition());
+            Light light = this.lights.get(i);
 
             Vector3f lightVec;
             if (light.getPosition().w != 0) {
-//                Vector3f lv = new Vector3f(lightPosition.sub(position));
-                lightVec = new Vector3f(lightPosition.sub(position));
+                lightVec = toVec3(light.getPosition()).sub(toVec3(hitRecord.getP()));
+                lightVec = lightVec.normalize();
             } else {
-                lightVec = new Vector3f(lightPosition);
+                lightVec = new Vector3f(toVec3(light.getPosition()));
                 lightVec = lightVec.negate();
+                lightVec = lightVec.normalize();
             }
 
-            lightVec = lightVec.normalize();
-            Vector3f normalView = new Vector3f(normal);//.normalize();
+            Vector3f normalView = toVec3(hitRecord.getNormal());
+            normalView.normalize();
             float nDotL = normalView.dot(lightVec);
 
             Vector3f viewVec = new Vector3f(position);
@@ -228,7 +228,7 @@ public class Raytracer {
             Vector3f reflectVec = lightVecNeg.reflect(normalView); //reflect(lightVecNeg, normalView);
             reflectVec = reflectVec.normalize();
 
-//            Matrix4f reflectMatrix = new Matrix4f().reflect(new Vector3f(normalView.x, normalView.y, normalView.z), new Vector3f(lightVecNeg.x, lightVecNeg.y, lightVecNeg.z));
+            Matrix4f reflectMatrix = new Matrix4f().reflect(new Vector3f(normalView.x, normalView.y, normalView.z), new Vector3f(lightVecNeg.x, lightVecNeg.y, lightVecNeg.z));
 
             float rDotV = Math.max(reflectVec.dot(viewVec), 0);
 
@@ -241,8 +241,7 @@ public class Raytracer {
             Vector4f sd = light.getSpotDirection();
             Vector3f spotDirection = toVec3(sd);
             spotDirection = spotDirection.normalize();
-//            Vector4f lightVecNeg = lightVec.negate();
-//            if (lightVecNeg.dot(spotDirection) > spotAngle) {
+            if (lightVecNeg.dot(spotDirection) > spotAngle) {
 
                 Vector3f ff = clamp(ambient.add(diffuse.add(specular)));
 
@@ -253,7 +252,7 @@ public class Raytracer {
                 int b = Math.min(255, color.getBlue() + newC.getBlue());
 
                 color = new Color(r, g, b);
-//            }
+            }
 
         }
         return color;
