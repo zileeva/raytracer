@@ -1,0 +1,561 @@
+<scene>
+    <instance name="sphere" path="models/sphere"></instance>
+    <instance name="box" path="models/box"></instance>
+
+    <image name="white" path="textures/white.png" />
+
+    <transform>
+        <set>
+            <translate>0 0 60</translate>
+            <scale>1 1 1</scale>
+            <rotate>0 0 0 0</rotate>
+        </set>
+        <group name="pieces">
+            <transform name="pawnTrans">
+                <set>
+                    <translate>84 0 0</translate>
+                </set>
+                <group name="pawn">
+                    <transform name="pawnTrans">
+                        <set>
+                            <scale>10 10 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="pawn2">
+                <set>
+                    <translate>60 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn3">
+                <set>
+                    <translate>36 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn4">
+                <set>
+                    <translate>12 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn5">
+                <set>
+                    <translate>-12 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn6">
+                <set>
+                    <translate>-36 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn7">
+                <set>
+                    <translate>-60 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn8">
+                <set>
+                    <translate>-84 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="rookTrans">
+                <set>
+                    <translate>84 1 20</translate>
+                </set>
+                <group name="rook">
+                    <transform name="rookTrans">
+                        <set>
+                            <scale>12 12 12</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="rook2">
+                <set>
+                    <translate>-84 1 20</translate>
+                </set>
+                <group copyof="rook"></group>
+            </transform>
+            <transform name="knightTrans">
+                <set>
+                    <translate>60 -3.5 20</translate>
+                </set>
+                <group name="knight">
+                    <transform name="nightTrans">
+                        <set>
+                            <scale>10 5 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="nightTrans2">
+                        <set>
+                            <translate>-2.5 5 2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>4
+                    <transform name="nightTrans3">
+                        <set>
+                            <translate>2.5 5 -2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="nightTrans4">
+                        <set>
+                            <translate>2.5 5 2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="knight2">
+                <set>
+                    <translate>-60 -3.5 20</translate>
+                </set>
+                <group copyof="knight"></group>
+            </transform>
+            <transform name="bishopTrans">
+                <set>
+                    <translate>36 -1 20</translate>
+                </set>
+                <group name="bishop">
+                    <transform name="bishopTrans1">
+                        <set>
+                            <rotate>45 0 1 0</rotate>
+                            <scale>4 10 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="bishopTrans2">
+                        <set>
+                            <rotate>-45 0 1 0</rotate>
+                            <scale>4 10 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="bishop2">
+                <set>
+                    <translate>-36 -1 20</translate>
+                </set>
+                <group copyof="bishop"></group>
+            </transform>
+            <transform name="queensTrans">
+                <set>
+                    <translate>12 0 20</translate>
+                </set>
+                <group name="queen">
+                    <transform name="queenTrans1">
+                        <set>
+                            <translate>0 0 0</translate>
+                            <scale>12 12 12</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="queenTrans2">
+                        <set>
+                            <translate>0 8 0</translate>
+                            <rotate>45 0 1 0</rotate>
+                            <scale>8 8 8</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="kingTrans">
+                <set>
+                    <translate>-12 0 20</translate>
+                </set>
+                <group name="king">
+                    <transform name="kingTrans1">
+                        <set>
+                            <scale>12 12 12</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="kingTrans2">
+                        <set>
+                            <translate>0 10 0</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="sphere" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+        </group>
+    </transform>
+
+    <transform>
+        <set>
+            <translate>0 0 -60</translate>
+            <scale>1 1 1</scale>
+            <rotate>180 0 1 0</rotate>
+        </set>
+        <group name="pieces2">
+            <transform name="pawnTrans">
+                <set>
+                    <translate>84 0 0</translate>
+                </set>
+                <group name="pawn">
+                    <transform name="pawnTrans">
+                        <set>
+                            <scale>10 10 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="pawn2">
+                <set>
+                    <translate>60 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn3">
+                <set>
+                    <translate>36 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn4">
+                <set>
+                    <translate>12 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn5">
+                <set>
+                    <translate>-12 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn6">
+                <set>
+                    <translate>-36 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn7">
+                <set>
+                    <translate>-60 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="pawn8">
+                <set>
+                    <translate>-84 0 0</translate>
+                </set>
+                <group copyof="pawn"></group>
+            </transform>
+            <transform name="rookTrans">
+                <set>
+                    <translate>84 1 20</translate>
+                </set>
+                <group name="rook">
+                    <transform name="rookTrans">
+                        <set>
+                            <scale>12 12 12</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="rook2">
+                <set>
+                    <translate>-84 1 20</translate>
+                </set>
+                <group copyof="rook"></group>
+            </transform>
+            <transform name="knightTrans">
+                <set>
+                    <translate>60 -3.5 20</translate>
+                </set>
+                <group name="knight">
+                    <transform name="nightTrans">
+                        <set>
+                            <scale>10 5 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="nightTrans2">
+                        <set>
+                            <translate>-2.5 5 2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>4
+                    <transform name="nightTrans3">
+                        <set>
+                            <translate>2.5 5 -2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="nightTrans4">
+                        <set>
+                            <translate>2.5 5 2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="knight2">
+                <set>
+                    <translate>-60 -3.5 20</translate>
+                </set>
+                <group copyof="knight"></group>
+            </transform>
+            <transform name="bishopTrans">
+                <set>
+                    <translate>36 -1 20</translate>
+                </set>
+                <group name="bishop">
+                    <transform name="bishopTrans1">
+                        <set>
+                            <rotate>45 0 1 0</rotate>
+                            <scale>4 10 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="bishopTrans2">
+                        <set>
+                            <rotate>-45 0 1 0</rotate>
+                            <scale>4 10 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="bishop2">
+                <set>
+                    <translate>-36 -1 20</translate>
+                </set>
+                <group copyof="bishop"></group>
+            </transform>
+            <transform name="queensTrans">
+                <set>
+                    <translate>12 0 20</translate>
+                </set>
+                <group name="queen">
+                    <transform name="queenTrans1">
+                        <set>
+                            <translate>0 0 0</translate>
+                            <scale>12 12 12</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="queenTrans2">
+                        <set>
+                            <translate>0 8 0</translate>
+                            <rotate>45 0 1 0</rotate>
+                            <scale>8 8 8</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform name="kingTrans">
+                <set>
+                    <translate>-12 0 20</translate>
+                </set>
+                <group name="king">
+                    <transform name="kingTrans1">
+                        <set>
+                            <scale>12 12 12</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="kingTrans2">
+                        <set>
+                            <translate>0 10 0</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="sphere" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+        </group>
+    </transform>
+
+</scene>

@@ -1,0 +1,83 @@
+<scene>
+    <instance name="box" path="models/box"></instance>
+
+    <image name="white" path="textures/white.png" />
+    <image name="chess" path="textures/white.png" />
+    <image name="wood" path="textures/white.png" />
+
+    <light>
+        <ambient>0.8 0.8 0.8</ambient>
+        <diffuse>0.8 0.8 0.8</diffuse>
+        <specular>0.8 0.8 0.8</specular>
+        <position>0 100 0 </position>
+        <spotangle>180</spotangle>
+        <spotdirection>0 -1 0 </spotdirection>
+    </light>
+
+    <group>
+        <transform name="checkerboard">
+            <set>
+                <translate>0 -15 0</translate>
+                <scale>500 2 500</scale>
+            </set>
+            <object instanceof="box" texture="chess">
+                <material>
+                    <ambient> 0.6 0.6 0.6</ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                </material>
+            </object>
+        </transform>
+        <transform name="boarder">
+            <set>
+                <translate>0 -24 0</translate>
+                <scale>530 15 530</scale>
+            </set>
+            <object instanceof="box" texture="wood">
+                <material>
+                    <ambient> 0.1 0.1 0.1</ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                </material>
+            </object>
+        </transform>
+        <transform name="mainboard">
+            <set>
+                <translate>0 -60 0</translate>
+                <scale>520 60 520</scale>
+            </set>
+            <object instanceof="box" texture="wood">
+                <material>
+                    <ambient> 0.8 0.8 0.8</ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                </material>
+            </object>
+        </transform>
+        <transform name="boarderBottom">
+            <set>
+                <translate>0 -80 0</translate>
+                <scale>530 15 530</scale>
+            </set>
+            <object instanceof="box" texture="wood">
+                <material>
+                    <ambient> 0.1 0.1 0.1</ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                </material>
+            </object>
+        </transform>
+        <transform>
+            <set>
+                <translate>0 0 0</translate>
+                <scale>2.6 2.6 2.6</scale>
+            </set>
+            <group name="1" from="scenegraphs/chess-pieces.xml">
+            </group>
+        </transform>
+    </group>
+</scene>
