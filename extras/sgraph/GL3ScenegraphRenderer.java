@@ -215,14 +215,14 @@ public class GL3ScenegraphRenderer implements IScenegraphRenderer {
 
             tex.setTexParameteri(gl, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             tex.setTexParameteri(gl, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
-            tex.setTexParameteri(gl, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-            tex.setTexParameteri(gl, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-
-            if (tex.getMustFlipVertically()) {
-                textureTransform = new Matrix4f().translate(0, 1, 0).scale(1, -1, 1);
-            } else {
+            tex.setTexParameteri(gl, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR);
+            tex.setTexParameteri(gl, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR);
+//
+//            if (tex.getMustFlipVertically()) {
+//                textureTransform = new Matrix4f().translate(0, 1, 0).scale(1, -1, 1);
+//            } else {
                 textureTransform = new Matrix4f();
-            }
+//            }
 //            textureTransform = new Matrix4f(textureTransform).rotate((float)Math.toRadians(45),0,0,1);
             gl.glUniformMatrix4fv(texturematrixLocation, 1, false, textureTransform.get(fb16));
 

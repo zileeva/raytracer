@@ -34,7 +34,7 @@
             <set>
                 <scale>50 50 50</scale>
             </set>
-            <object instanceof="sphere" texture="earth">
+            <object instanceof="sphere">
                 <material>
                     <ambient>0.2 0.2 0.2</ambient>
                     <diffuse>0.8 0.8 0.8</diffuse>
@@ -83,7 +83,7 @@
                 <scale>40 40 40</scale>
                 <rotate>45 0 1 0</rotate>
             </set>
-            <object instanceof="box" texture="dice">
+            <object instanceof="box">
                 <material>
                     <ambient>0.1 0.2 0.2</ambient>
                     <diffuse>0.1 0.8 0.8</diffuse>

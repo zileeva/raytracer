@@ -61,8 +61,8 @@ public class Raytracer {
         for (i = 0; i < width; i++) {
             for (j = 0; j < height; j++) {
 
-                if (i == 597 && j == 503) {
-                    System.out.println("here");
+                if (i == width / 2 && j == height / 2) {
+                    System.out.println("Percent :50%");
                 }
                 //get color in (r,g,b)
                 Vector4f start = new Vector4f(0, 0, 0, 1);
@@ -127,17 +127,11 @@ public class Raytracer {
 
             color = new Color(r, g, b);
         } else {
-            color = new Color(0.69f, 0.8f , 0.9f);
+//            color = new Color(0.69f, 0.8f , 0.9f);
+            color = new Color(0,0,0);
         }
 
         return color;
-    }
-
-    private Vector4f reflect(Vector4f I, Vector4f N) {
-        Vector4f i = new Vector4f(I);
-        Vector4f n = new Vector4f(N);
-        Vector4f r = i.sub(n.mul(2.0f * n.dot(i))); //I - 2.0 * dot(N, I) * N
-        return r;
     }
 
     private Vector4f clamp(Vector4f val) {
@@ -145,22 +139,6 @@ public class Raytracer {
         clamped.x = Math.min(Math.max(val.x, 0), 1);
         clamped.y = Math.min(Math.max(val.y, 0), 1);
         clamped.z = Math.min(Math.max(val.z, 0), 1);
-        return clamped;
-    }
-
-    private Vector4f clamp255(Vector4f val) {
-        Vector4f clamped = new Vector4f(val);
-        clamped.x = Math.min(Math.max(val.x, 0), 255);
-        clamped.y = Math.min(Math.max(val.y, 0), 255);
-        clamped.z = Math.min(Math.max(val.z, 0), 255);
-        return clamped;
-    }
-
-    private Vector3f clamp255(Vector3f val) {
-        Vector3f clamped = new Vector3f(val);
-        clamped.x = Math.min(Math.max(val.x, 0), 255);
-        clamped.y = Math.min(Math.max(val.y, 0), 255);
-        clamped.z = Math.min(Math.max(val.z, 0), 255);
         return clamped;
     }
 
@@ -173,16 +151,13 @@ public class Raytracer {
     }
 
     private Vector3f ambient(Material material, Light light) {
-
         Vector3f materialAmbient = toVec3(material.getAmbient());
         Vector3f ambient = new Vector3f(materialAmbient.mul(light.getAmbient()));
         return ambient;
     }
 
     private Vector3f diffuse(Material material, Light light, float nDotL) {
-
         Vector3f materialDiffuse = toVec3(material.getDiffuse());
-//        diffuse = material.diffuse * light[i].diffuse * max(nDotL,0);
         Vector3f diffuse = (materialDiffuse.mul(light.getDiffuse())).mul(Math.max(nDotL, 0));
         return diffuse;
     }
@@ -208,12 +183,9 @@ public class Raytracer {
 
     private Color shade(HitRecord hitRecord) {
 
-//        java.util.List<Light> lights = hitRecord.getLights();
-
         Color color = new Color(0, 0, 0);
         Material material = hitRecord.getMaterial();
         Vector3f position = toVec3(hitRecord.getP());
-        Vector3f normal = toVec3(hitRecord.getNormal()) ;
 
         for (int i = 0; i < this.lights.size(); i ++) {
             Light light = this.lights.get(i);
@@ -238,8 +210,7 @@ public class Raytracer {
 
             Vector3f lightVecNeg = new Vector3f(lightVec);
             lightVecNeg = lightVecNeg.negate();
-//            lightVecNeg = lightVecNeg.normalize();
-            Vector3f reflectVec = lightVecNeg.reflect(normalView); //reflect(lightVecNeg, normalView);
+            Vector3f reflectVec = lightVecNeg.reflect(normalView);
             reflectVec = reflectVec.normalize();
 
             float rDotV = Math.max(reflectVec.dot(viewVec), 0);
@@ -247,7 +218,6 @@ public class Raytracer {
             Vector3f ambient = ambient(material, light);
             Vector3f diffuse = diffuse(material, light, nDotL);
             Vector3f specular = specular(material, light, nDotL, rDotV);
-
 
             float spotAngle = (float) Math.cos(Math.toRadians(light.getSpotCutoff()));
             Vector3f spotDirection = toVec3(light.getSpotDirection());
