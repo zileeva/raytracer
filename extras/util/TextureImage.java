@@ -74,7 +74,7 @@ public class TextureImage {
     return inter3;
   }
 
-  private Vector4f ColorToVector4f(Color c) {
+  public Vector4f ColorToVector4f(Color c) {
     return new Vector4f((float) c.getRed() / 255, (float) c.getGreen() / 255, (float) c.getBlue() / 255, (float) c.getAlpha() / 255);
   }
 

@@ -61,7 +61,7 @@ public class Raytracer {
         for (i = 0; i < width; i++) {
             for (j = 0; j < height; j++) {
 
-                if (i == width / 2 && j == height / 2) {
+                if (i == 597 && j == 503) {
                     System.out.println("here");
                 }
                 //get color in (r,g,b)
@@ -115,19 +115,17 @@ public class Raytracer {
             TextureImage textureImage = this.textures.get(name);
             Texture texture = textureImage.getTexture();
 
-            Vector4f textureColor = textureImage.getColor(hr.getTextureCoordinates().x, hr.getTextureCoordinates().y);
-            Vector4f colorToVec = new Vector4f((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, (float) color.getAlpha() / 255);
-            Vector4f newC = colorToVec.mul(textureColor);
-            Vector3f textureV3 = clamp(toVec3(newC));
-//            Color tc = new Color(textureV3.x, textureV3.y, textureV3.z);
-//
-////            int r = Math.min(255, tc.getRed());
-////            int g = Math.min(255, tc.getGreen());
-////            int b = Math.min(255, tc.getBlue());
-//
-            color = new Color(textureV3.x, textureV3.y, textureV3.z);
+            Vector4f textureColor = clamp(textureImage.getColor(hr.getTextureCoordinates().x, hr.getTextureCoordinates().y));
+            Color tc = new Color(textureColor.x, textureColor.y, textureColor.z);
+            Vector4f colorToVec = textureImage.ColorToVector4f(color);
+            Vector3f newColorVector = clamp(toVec3(textureColor.mul(colorToVec)));
+            Color newColor = new Color(newColorVector.x, newColorVector.y, newColorVector.z);
 
-//            r = g = b = 255;
+            int r = Math.min(255, newColor.getRed());
+            int g = Math.min(255, newColor.getGreen());
+            int b = Math.min(255, newColor.getBlue());
+
+            color = new Color(r, g, b);
         } else {
             color = new Color(0.69f, 0.8f , 0.9f);
         }
@@ -147,6 +145,22 @@ public class Raytracer {
         clamped.x = Math.min(Math.max(val.x, 0), 1);
         clamped.y = Math.min(Math.max(val.y, 0), 1);
         clamped.z = Math.min(Math.max(val.z, 0), 1);
+        return clamped;
+    }
+
+    private Vector4f clamp255(Vector4f val) {
+        Vector4f clamped = new Vector4f(val);
+        clamped.x = Math.min(Math.max(val.x, 0), 255);
+        clamped.y = Math.min(Math.max(val.y, 0), 255);
+        clamped.z = Math.min(Math.max(val.z, 0), 255);
+        return clamped;
+    }
+
+    private Vector3f clamp255(Vector3f val) {
+        Vector3f clamped = new Vector3f(val);
+        clamped.x = Math.min(Math.max(val.x, 0), 255);
+        clamped.y = Math.min(Math.max(val.y, 0), 255);
+        clamped.z = Math.min(Math.max(val.z, 0), 255);
         return clamped;
     }
 
@@ -224,11 +238,9 @@ public class Raytracer {
 
             Vector3f lightVecNeg = new Vector3f(lightVec);
             lightVecNeg = lightVecNeg.negate();
-            lightVecNeg = lightVecNeg.normalize();
+//            lightVecNeg = lightVecNeg.normalize();
             Vector3f reflectVec = lightVecNeg.reflect(normalView); //reflect(lightVecNeg, normalView);
             reflectVec = reflectVec.normalize();
-
-            Matrix4f reflectMatrix = new Matrix4f().reflect(new Vector3f(normalView.x, normalView.y, normalView.z), new Vector3f(lightVecNeg.x, lightVecNeg.y, lightVecNeg.z));
 
             float rDotV = Math.max(reflectVec.dot(viewVec), 0);
 
@@ -238,10 +250,11 @@ public class Raytracer {
 
 
             float spotAngle = (float) Math.cos(Math.toRadians(light.getSpotCutoff()));
-            Vector4f sd = light.getSpotDirection();
-            Vector3f spotDirection = toVec3(sd);
+            Vector3f spotDirection = toVec3(light.getSpotDirection());
             spotDirection = spotDirection.normalize();
-            if (lightVecNeg.dot(spotDirection) > spotAngle) {
+            float lnDotSd = (new Vector3f(lightVec).negate()).dot(spotDirection);
+
+            if (lnDotSd > spotAngle) {
 
                 Vector3f ff = clamp(ambient.add(diffuse.add(specular)));
 

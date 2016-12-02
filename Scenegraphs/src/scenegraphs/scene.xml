@@ -9,19 +9,18 @@
         <ambient>0.8 0.8 0.8</ambient>
         <diffuse>0.8 0.8 0.8</diffuse>
         <specular>0.8 0.8 0.8</specular>
-        <position>0 0 70</position>
+        <position>-60 10 0</position>
         <spotangle>180</spotangle>
         <spotdirection>0 -1 0</spotdirection>
     </light>
-    <!--<light>-->
-        <!--<ambient>0.2 0.2 0.2</ambient>-->
-        <!--<diffuse>0.4 0.4 0.4</diffuse>-->
-        <!--&lt;!&ndash;<specular>0.0 0.0 0.0</specular>&ndash;&gt;-->
-        <!--<specular>0.4 0.4 0.4</specular>-->
-        <!--<position>0 100 0</position>-->
-        <!--<spotangle>80</spotangle>-->
-        <!--<spotdirection>0 -1 0</spotdirection>-->
-    <!--</light>-->
+    <light>
+        <ambient>0.2 0.2 0.2</ambient>
+        <diffuse>0.4 0.4 0.4</diffuse>
+        <specular>0.4 0.4 0.4</specular>
+        <position>0 100 0</position>
+        <spotangle>80</spotangle>
+        <spotdirection>0 -1 0</spotdirection>
+    </light>
     <light>
         <ambient>0.2 0.2 0.2</ambient>
         <diffuse>0.4 0.4 0.4</diffuse>
@@ -35,7 +34,7 @@
             <set>
                 <scale>50 50 50</scale>
             </set>
-            <object instanceof="box">
+            <object instanceof="sphere" texture="earth">
                 <material>
                     <ambient>0.2 0.2 0.2</ambient>
                     <diffuse>0.8 0.8 0.8</diffuse>
@@ -84,7 +83,7 @@
                 <scale>40 40 40</scale>
                 <rotate>45 0 1 0</rotate>
             </set>
-            <object instanceof="box">
+            <object instanceof="box" texture="dice">
                 <material>
                     <ambient>0.1 0.2 0.2</ambient>
                     <diffuse>0.1 0.8 0.8</diffuse>
@@ -128,7 +127,7 @@
                 <scale>500 4 500</scale>
                 <translate>0 -0.5 0</translate>
             </set>
-            <object instanceof="box">
+            <object instanceof="box" texture="checkerboard">
                 <material>
                     <ambient>0.4 0.4 0.4</ambient>
                     <diffuse>0.8 0.8 0.8</diffuse>

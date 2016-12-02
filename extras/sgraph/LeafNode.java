@@ -1,5 +1,6 @@
 package sgraph;
 
+import com.jogamp.nativewindow.util.SurfaceSize;
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.math.FloatUtil;
 import org.joml.Math;
@@ -177,17 +178,6 @@ public class LeafNode extends AbstractNode
                 normal.y = -1;
             }
 
-
-//            if (p.y == 0.5f || p.y == -0.5f) {
-//                normal.y = p.y * 2;
-//            }
-//            if (p.x == 0.5f || p.x == -0.5f) {
-//                normal.x = Math.abs(p.x * 2);
-//            }
-//            if (p.z == 0.5f || p.z == -0.5f) {
-//                normal.z = Math.abs(p.z * 2);
-//            }
-
             Vector2f textureCoordinates = new Vector2f(s, t);
 
             Matrix4f normalmatrix = new Matrix4f(modelView.peek());
@@ -221,10 +211,12 @@ public class LeafNode extends AbstractNode
 
             Vector4f p = new Vector4f(start.add(direction.mul(tMin)));
 
-            float phi = (float) Math.asin(p.y);
-            float theta = (float) java.lang.Math.atan(p.z / p.x);
-            float t = (phi + (float) (Math.PI / 2) ) / (float) Math.PI;
+            float theta = (float) java.lang.Math.atan(-p.z / p.x);
             float s = theta / (float) (2 * Math.PI);
+
+            float phi = (float) Math.asin(p.y);
+            float t =(phi + (float) (Math.PI / 2) ) / (float) Math.PI;
+
             Vector2f textureCoordinates = new Vector2f(s, t);
 
             Vector4f normal = new Vector4f(p.x, p.y, p.z, 0);
