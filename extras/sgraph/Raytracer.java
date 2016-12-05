@@ -28,6 +28,7 @@ public class Raytracer {
     private HashMap<String,TextureImage> textures = new HashMap<>();
     private List<Light> lights = new ArrayList<>();
     private int MAX_RECURSION_BOUNCE = 5;
+    private float refractiveIndexAir = 1.0f;
 
 
     public Raytracer(INode root, Map<String,String> textures) {
@@ -71,7 +72,7 @@ public class Raytracer {
 
                 Ray ray = new Ray(start, direction);
 
-                Color color = this.raycast(ray, modelView, 0);
+                Color color = this.raycast(ray, modelView, 0, refractiveIndexAir);
 
                 output.setRGB(i, j, color.getRGB());
             }
@@ -104,7 +105,7 @@ public class Raytracer {
      * @param ray in the view coordinate system
      * @param modelView
      */
-    private Color raycast(Ray ray, Stack<Matrix4f> modelView, int bounce) {
+    private Color raycast(Ray ray, Stack<Matrix4f> modelView, int bounce, float refractiveIndex) {
         HitRecord hitRecord = root.intersect(ray, modelView);
         Color color;
 
@@ -115,23 +116,34 @@ public class Raytracer {
             Color textureColor = calculateTextureColor(hitRecord, color);
             color = textureColor;
 
+            float absorption = hitRecord.getMaterial().getAbsorption();
+            Color reflectionColor = new Color(0, 0, 0);
+            float reflection = 0;
+            Color refractionColor = new Color(0, 0, 0);
+            float transparency = 0;
             if (bounce <= MAX_RECURSION_BOUNCE) {
+
+
                 if (hitRecord.getMaterial().getReflection() > 0) {
 
                     Ray reflectionRay = reflectionRay(ray, hitRecord);
-                    Color reflectionColor = raycast(reflectionRay, modelView, bounce + 1);
-
-                    float reflection = hitRecord.getMaterial().getReflection();
-                    float absorption = hitRecord.getMaterial().getAbsorption();
-
-                    color = this.colorBlend(reflectionColor, reflection, absorption, color);
-
+                    reflection = hitRecord.getMaterial().getReflection();
+                    reflectionColor = raycast(reflectionRay, modelView, bounce + 1, refractiveIndex);
                 }
+
+                if (hitRecord.getMaterial().getTransparency() > 0) {
+                    Ray refractionRay = refractionRay(ray, hitRecord, refractiveIndex);
+                    transparency = hitRecord.getMaterial().getTransparency();
+                    refractionColor = raycast(refractionRay, modelView, bounce, hitRecord.getMaterial().getRefractiveIndex());
+                }
+
             }
 
+            color = this.colorBlend(color, absorption, reflectionColor, reflection, refractionColor, transparency);
+
+
         } else {
-            color = new Color(0.69f, 0.8f , 0.9f);
-//            color = new Color(0,0,0);
+            color = new Color(0,0,0);
         }
 
         return color;
@@ -153,7 +165,18 @@ public class Raytracer {
 
     }
 
-    private Color colorBlend(Color reflectionColor, float reflectivity, float absorption, Color pixelColor) {
+    private Color colorBlend(Color pixelColor, float absorption, Color reflectionColor, float reflectivity, Color refractionColor, float transparency) {
+        float[] baseC = pixelColor.getRGBColorComponents(null);
+        float[] rC = reflectionColor.getRGBColorComponents(null);
+        float[] tC = refractionColor.getRGBColorComponents(null);
+
+        float red = clamp(baseC[0] * absorption + rC[0] * reflectivity + tC[0] * transparency);
+        float green = clamp(baseC[1] * absorption + rC[1] * reflectivity + tC[0] * transparency);
+        float blue = clamp(baseC[2] * absorption + rC[2] * reflectivity + tC[0] * transparency);
+        return new Color(red, green, blue);
+    }
+
+    private Color colorBlend(Color pixelColor, float absorption, Color reflectionColor, float reflectivity) {
         float[] baseC = pixelColor.getRGBColorComponents(null);
         float[] mixinC = reflectionColor.getRGBColorComponents(null);
 
@@ -229,10 +252,25 @@ public class Raytracer {
         return shadowHitRecord.isHit();
     }
 
-//    private Ray refractionRay(Ray ray, HitRecord hitRecord) {
-//
-//
-//    }
+    private Ray refractionRay(Ray ray, HitRecord hitRecord, float refractiveIndex_i) {
+
+        float refractiveIndex = hitRecord.getMaterial().getRefractiveIndex();
+        Vector4f rayDirection = new Vector4f(ray.getDirection());
+        rayDirection = rayDirection.normalize();
+        Vector4f normal = new Vector4f(hitRecord.getNormal());
+        float nDotI = normal.dot(rayDirection);
+        float snellLaw = refractiveIndex_i / refractiveIndex;
+        float cosTheta_i = - nDotI;
+        float cosTheta_t = (float) Math.sqrt(1 - (snellLaw * snellLaw) * (1 - nDotI * nDotI));
+        Vector4f rv1 = new Vector4f(new Vector4f(rayDirection.add(normal.mul(cosTheta_i))).mul(snellLaw));
+        Vector4f rv2 = new Vector4f(normal.mul(cosTheta_t));
+        Vector4f refractionVector = new Vector4f(rv1.sub(rv2));
+        float fudge = 0.01f;
+        Vector4f start = new Vector4f(hitRecord.getP()).add(refractionVector.mul(fudge));
+        Vector4f direction = new Vector4f(refractionVector);
+        Ray refractionRay = new Ray(start, direction);
+        return refractionRay;
+    }
 
     private Ray reflectionRay(Ray ray, HitRecord hitRecord) {
 
@@ -291,7 +329,6 @@ public class Raytracer {
         }
 
         Vector3f normalView = toVec3(hitRecord.getNormal());
-//        normalView.normalize();
         float nDotL = normalView.dot(lightVec);
 
         Vector3f viewVec = new Vector3f(position);
