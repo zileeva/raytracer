@@ -27,9 +27,14 @@ public class TextureImage {
   public TextureImage(String filepath, String imageFormat, String name) throws IOException {
     //read the image
     InputStream in = getClass().getClassLoader().getResourceAsStream(filepath);
-    texture = TextureIO.newTexture(in, true, imageFormat);
+    try {
+      texture = TextureIO.newTexture(in, true, imageFormat);
+    }
+    catch (Exception e) {}
+    in.close();
     in = getClass().getClassLoader().getResourceAsStream(filepath);
     image = ImageIO.read(in);
+    in.close();
     this.name = new String(name);
   }
 
@@ -67,14 +72,14 @@ public class TextureImage {
     Vector4f three = ColorToVector4f(new Color(image.getRGB(x1, y2)));
     Vector4f four = ColorToVector4f(new Color(image.getRGB(x2, y2)));
 
-    Vector4f inter1 = one.lerp(three, y - y1);
-    Vector4f inter2 = two.lerp(four, y - y1);
-    Vector4f inter3 = inter1.lerp(inter2, x - x1);
+    Vector4f inter1 = one.lerp(three, y - (int)y);
+    Vector4f inter2 = two.lerp(four, y - (int)y);
+    Vector4f inter3 = inter1.lerp(inter2, x - (int)x);
 
     return inter3;
   }
 
-  public Vector4f ColorToVector4f(Color c) {
+  private Vector4f ColorToVector4f(Color c) {
     return new Vector4f((float) c.getRed() / 255, (float) c.getGreen() / 255, (float) c.getBlue() / 255, (float) c.getAlpha() / 255);
   }
 

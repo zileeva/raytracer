@@ -27,6 +27,7 @@ public class Raytracer {
     private INode root;
     private HashMap<String,TextureImage> textures = new HashMap<>();
     private List<Light> lights = new ArrayList<>();
+    private int MAX_RECURSION_BOUNCE = 5;
 
 
     public Raytracer(INode root, Map<String,String> textures) {
@@ -70,7 +71,7 @@ public class Raytracer {
 
                 Ray ray = new Ray(start, direction);
 
-                Color color = this.raycast(ray, modelView);
+                Color color = this.raycast(ray, modelView, 0);
 
                 output.setRGB(i, j, color.getRGB());
             }
@@ -103,35 +104,71 @@ public class Raytracer {
      * @param ray in the view coordinate system
      * @param modelView
      */
-    private Color raycast(Ray ray, Stack<Matrix4f> modelView) {
-        HitRecord hr = root.intersect(ray, modelView);
-//        hr.setLights(root.getLights(modelView));
+    private Color raycast(Ray ray, Stack<Matrix4f> modelView, int bounce) {
+        HitRecord hitRecord = root.intersect(ray, modelView);
         Color color;
-        if (hr.isHit()) {
-            color = this.shade(hr);
 
-            String name = hr.getTextureName();
-//            fColor = fColor * texture(image,fTexCoord.st);
-            TextureImage textureImage = this.textures.get(name);
-            Texture texture = textureImage.getTexture();
+//        if (bounce > MAX_RECURSION_BOUNCE) return new Color(0, 0, 0);
+        if (hitRecord.isHit()) {
+            color = this.shade(hitRecord, modelView);
 
-            Vector4f textureColor = clamp(textureImage.getColor(hr.getTextureCoordinates().x, hr.getTextureCoordinates().y));
-            Color tc = new Color(textureColor.x, textureColor.y, textureColor.z);
-            Vector4f colorToVec = textureImage.ColorToVector4f(color);
-            Vector3f newColorVector = clamp(toVec3(textureColor.mul(colorToVec)));
-            Color newColor = new Color(newColorVector.x, newColorVector.y, newColorVector.z);
+            Color textureColor = calculateTextureColor(hitRecord, color);
+            color = textureColor;
 
-            int r = Math.min(255, newColor.getRed());
-            int g = Math.min(255, newColor.getGreen());
-            int b = Math.min(255, newColor.getBlue());
+            if (bounce <= MAX_RECURSION_BOUNCE) {
+                if (hitRecord.getMaterial().getReflection() > 0) {
 
-            color = new Color(r, g, b);
+                    Ray reflectionRay = reflectionRay(ray, hitRecord);
+                    Color reflectionColor = raycast(reflectionRay, modelView, bounce + 1);
+
+                    float reflection = hitRecord.getMaterial().getReflection();
+                    float absorption = hitRecord.getMaterial().getAbsorption();
+
+                    color = this.colorBlend(reflectionColor, reflection, absorption, color);
+
+                }
+            }
+
         } else {
-//            color = new Color(0.69f, 0.8f , 0.9f);
-            color = new Color(0,0,0);
+            color = new Color(0.69f, 0.8f , 0.9f);
+//            color = new Color(0,0,0);
         }
 
         return color;
+    }
+
+    private Color calculateTextureColor(HitRecord hr, Color color) {
+        String name = hr.getTextureName();
+        TextureImage textureImage = this.textures.get(name);
+        Vector4f textureColor = clamp(textureImage.getColor(hr.getTextureCoordinates().x, hr.getTextureCoordinates().y));
+        Vector4f colorToVec = this.colorToVector4f(color);
+        Vector3f newColorVector = clamp(toVec3(textureColor.mul(colorToVec)));
+        Color newColor = new Color(newColorVector.x, newColorVector.y, newColorVector.z);
+
+        int r = Math.min(255, newColor.getRed());
+        int g = Math.min(255, newColor.getGreen());
+        int b = Math.min(255, newColor.getBlue());
+
+        return new Color(r, g, b);
+
+    }
+
+    private Color colorBlend(Color reflectionColor, float reflectivity, float absorption, Color pixelColor) {
+        float[] baseC = pixelColor.getRGBColorComponents(null);
+        float[] mixinC = reflectionColor.getRGBColorComponents(null);
+
+        float red = clamp(baseC[0] * absorption + mixinC[0] * reflectivity);
+        float green = clamp(baseC[1] * absorption + mixinC[1] * reflectivity);
+        float blue = clamp(baseC[2] * absorption + mixinC[2] * reflectivity);
+        return new Color(red, green, blue);
+    }
+
+    public Vector4f colorToVector4f(Color c) {
+        return new Vector4f((float) c.getRed() / 255, (float) c.getGreen() / 255, (float) c.getBlue() / 255, (float) c.getAlpha() / 255);
+    }
+
+    private float clamp(float x) {
+        return Math.max(0.0f, Math.min(1.0f, x));
     }
 
     private Vector4f clamp(Vector4f val) {
@@ -181,63 +218,110 @@ public class Raytracer {
         return new Vector3f(vec4.x, vec4.y, vec4.z);
     }
 
-    private Color shade(HitRecord hitRecord) {
+    private Boolean inShadow(Light light, HitRecord hitRecord, Stack<Matrix4f> modelView) {
+        Vector4f lightVector = new Vector4f(light.getPosition()).sub(new Vector4f(hitRecord.getP()));
+        lightVector.normalize();
+        float fudge = 0.01f;
+        Vector4f start = new Vector4f(new Vector4f(hitRecord.getP()).add(lightVector.mul(fudge)));
+        Vector4f direction = new Vector4f(lightVector);
+        Ray ray = new Ray(start, direction);
+        HitRecord shadowHitRecord = root.intersect(ray, modelView);
+        return shadowHitRecord.isHit();
+    }
+
+//    private Ray refractionRay(Ray ray, HitRecord hitRecord) {
+//
+//
+//    }
+
+    private Ray reflectionRay(Ray ray, HitRecord hitRecord) {
+
+        Vector4f normal = new Vector4f(hitRecord.getNormal());
+        Vector4f rayDirection = new Vector4f(ray.getDirection());
+        rayDirection = rayDirection.normalize();
+
+        Vector3f rv = toVec3(rayDirection).reflect(toVec3(normal));
+        Vector4f reflectionVector = new Vector4f(rv, 0);
+        reflectionVector.normalize();
+        float fudge = 0.01f;
+        Vector4f start = new Vector4f(hitRecord.getP()).add(reflectionVector.mul(fudge));
+        Vector4f direction = new Vector4f(reflectionVector);
+
+        Ray reflectionRay = new Ray(start, direction);
+
+        return reflectionRay;
+
+    }
+
+    private Color shade(HitRecord hitRecord, Stack<Matrix4f> modelView) {
 
         Color color = new Color(0, 0, 0);
-        Material material = hitRecord.getMaterial();
-        Vector3f position = toVec3(hitRecord.getP());
 
         for (int i = 0; i < this.lights.size(); i ++) {
             Light light = this.lights.get(i);
 
-            Vector3f lightVec;
-            if (light.getPosition().w != 0) {
-                lightVec = toVec3(light.getPosition()).sub(toVec3(hitRecord.getP()));
-                lightVec = lightVec.normalize();
+            if (inShadow(light, hitRecord, modelView)) {
+                continue;
             } else {
-                lightVec = new Vector3f(toVec3(light.getPosition()));
-                lightVec = lightVec.negate();
-                lightVec = lightVec.normalize();
-            }
+                Color newColor = calculateColor(light, hitRecord);
 
-            Vector3f normalView = toVec3(hitRecord.getNormal());
-            normalView.normalize();
-            float nDotL = normalView.dot(lightVec);
-
-            Vector3f viewVec = new Vector3f(position);
-            viewVec = viewVec.negate();
-            viewVec = viewVec.normalize();
-
-            Vector3f lightVecNeg = new Vector3f(lightVec);
-            lightVecNeg = lightVecNeg.negate();
-            Vector3f reflectVec = lightVecNeg.reflect(normalView);
-            reflectVec = reflectVec.normalize();
-
-            float rDotV = Math.max(reflectVec.dot(viewVec), 0);
-
-            Vector3f ambient = ambient(material, light);
-            Vector3f diffuse = diffuse(material, light, nDotL);
-            Vector3f specular = specular(material, light, nDotL, rDotV);
-
-            float spotAngle = (float) Math.cos(Math.toRadians(light.getSpotCutoff()));
-            Vector3f spotDirection = toVec3(light.getSpotDirection());
-            spotDirection = spotDirection.normalize();
-            float lnDotSd = (new Vector3f(lightVec).negate()).dot(spotDirection);
-
-            if (lnDotSd > spotAngle) {
-
-                Vector3f ff = clamp(ambient.add(diffuse.add(specular)));
-
-                Color newC = new Color(ff.x, ff.y, ff.z);
-
-                int r = Math.min(255, color.getRed() + newC.getRed());
-                int g = Math.min(255, color.getGreen() + newC.getGreen());
-                int b = Math.min(255, color.getBlue() + newC.getBlue());
+                int r = Math.min(255, color.getRed() + newColor.getRed());
+                int g = Math.min(255, color.getGreen() + newColor.getGreen());
+                int b = Math.min(255, color.getBlue() + newColor.getBlue());
 
                 color = new Color(r, g, b);
             }
-
         }
         return color;
+    }
+
+    private Color calculateColor(Light light, HitRecord hitRecord) {
+        Material material = hitRecord.getMaterial();
+
+        Vector3f position = toVec3(hitRecord.getP());
+        Color newC = new Color(0, 0, 0);
+        Vector3f lightVec;
+        if (light.getPosition().w != 0) {
+            lightVec = toVec3(light.getPosition()).sub(toVec3(hitRecord.getP()));
+            lightVec = lightVec.normalize();
+        } else {
+            lightVec = new Vector3f(toVec3(light.getPosition()));
+            lightVec = lightVec.negate();
+            lightVec = lightVec.normalize();
+        }
+
+        Vector3f normalView = toVec3(hitRecord.getNormal());
+//        normalView.normalize();
+        float nDotL = normalView.dot(lightVec);
+
+        Vector3f viewVec = new Vector3f(position);
+        viewVec = viewVec.negate();
+        viewVec = viewVec.normalize();
+
+        Vector3f lightVecNeg = new Vector3f(lightVec);
+        lightVecNeg = lightVecNeg.negate();
+        Vector3f reflectVec = lightVecNeg.reflect(normalView);
+        reflectVec = reflectVec.normalize();
+
+        float rDotV = Math.max(reflectVec.dot(viewVec), 0);
+
+        Vector3f ambient = ambient(material, light);
+        Vector3f diffuse = diffuse(material, light, nDotL);
+        Vector3f specular = specular(material, light, nDotL, rDotV);
+
+        float spotAngle = (float) Math.cos(Math.toRadians(light.getSpotCutoff()));
+        Vector3f spotDirection = toVec3(light.getSpotDirection());
+        spotDirection = spotDirection.normalize();
+        float lnDotSd = (new Vector3f(lightVec).negate()).dot(spotDirection);
+
+        if (lnDotSd > spotAngle) {
+
+            Vector3f ff = clamp(ambient.add(diffuse.add(specular)));
+
+            newC = new Color(ff.x, ff.y, ff.z);
+
+        }
+
+        return newC;
     }
 }

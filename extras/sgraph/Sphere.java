@@ -1,9 +1,7 @@
 package sgraph;
 
+import org.joml.*;
 import org.joml.Math;
-import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector4f;
 import util.HitRecord;
 import util.Material;
 import util.Ray;
@@ -46,21 +44,22 @@ public class Sphere implements IShape {
 
                 Vector4f p = new Vector4f(start.add(direction.mul(tMin)));
 
-                float theta = (float) java.lang.Math.atan(-p.z / p.x);
+                float theta = (float) java.lang.Math.atan2(p.z, p.x);
+                if (theta < 0) theta += 2 * Math.PI;
                 float s = theta / (float) (2 * Math.PI);
 
                 float phi = (float) Math.asin(p.y);
                 float t =(phi + (float) (Math.PI / 2) ) / (float) Math.PI;
 
-                Vector2f textureCoordinates = new Vector2f(s, t);
+                Vector2f textureCoordinates = new Vector2f(-s, -t);
 
                 Vector4f normal = new Vector4f(p.x, p.y, p.z, 0);
                 Matrix4f normalmatrix = new Matrix4f(modelView.peek());
                 normalmatrix.invert().transpose();
                 normal = normalmatrix.transform(normal);
+                normal = new Vector4f(new Vector3f(normal.x, normal.y, normal.z).normalize(), 0.0f);
                 Matrix4f transformation = new Matrix4f(modelView.peek());
                 Vector4f position = transformation.transform(p);
-
 
                 hr = new HitRecord(tMin, position, this.material, normal, textureCoordinates);
 

@@ -1,9 +1,7 @@
 package sgraph;
 
+import org.joml.*;
 import org.joml.Math;
-import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector4f;
 import util.HitRecord;
 import util.Material;
 import util.Ray;
@@ -84,6 +82,7 @@ public class Box implements IShape {
             Matrix4f normalmatrix = new Matrix4f(modelView.peek());
             normalmatrix.invert().transpose();
             normal = normalmatrix.transform(normal);
+            normal = new Vector4f(new Vector3f(normal.x, normal.y, normal.z).normalize(), 0.0f);
             Matrix4f transformation = new Matrix4f(modelView.peek());
             Vector4f position = transformation.transform(p);
 
