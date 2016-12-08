@@ -5,14 +5,14 @@
     <image name="earth" path="textures/earthmap.png"/>
     <image name="dice" path="textures/die.png"/>
     <image name="checkerboard" path="textures/checkerboard-box.png"/>
-    <!--<light>-->
-        <!--<ambient>0.8 0.8 0.8</ambient>-->
-        <!--<diffuse>0.8 0.8 0.8</diffuse>-->
-        <!--<specular>0.8 0.8 0.8</specular>-->
-        <!--<position>-60 10 0</position>-->
-        <!--<spotangle>180</spotangle>-->
-        <!--<spotdirection>0 -1 0</spotdirection>-->
-    <!--</light>-->
+    <light>
+        <ambient>0.8 0.8 0.8</ambient>
+        <diffuse>0.8 0.8 0.8</diffuse>
+        <specular>0.8 0.8 0.8</specular>
+        <position>-60 10 0</position>
+        <spotangle>180</spotangle>
+        <spotdirection>0 -1 0</spotdirection>
+    </light>
     <light>
         <ambient>0.8 0.8 0.8</ambient>
         <diffuse>0.8 0.8 0.8</diffuse>
@@ -21,14 +21,14 @@
         <spotangle>80</spotangle>
         <spotdirection>0 -1 0</spotdirection>
     </light>
-    <!--<light>-->
-        <!--<ambient>0.6 0.6 0.6</ambient>-->
-        <!--<diffuse>0.4 0.4 0.4</diffuse>-->
-        <!--<specular>0.4 0.4 0.4</specular>-->
-        <!--<position>100 100 -100</position>-->
-        <!--<spotangle>180</spotangle>-->
-        <!--<spotdirection>0 -1 0</spotdirection>-->
-    <!--</light>-->
+    <light>
+        <ambient>0.6 0.6 0.6</ambient>
+        <diffuse>0.4 0.4 0.4</diffuse>
+        <specular>0.4 0.4 0.4</specular>
+        <position>100 100 -100</position>
+        <spotangle>180</spotangle>
+        <spotdirection>0 -1 0</spotdirection>
+    </light>
     <group>
 
         <transform>
@@ -64,20 +64,6 @@
         </transform>
         <transform>
             <set>
-                <translate>-20 100 -55</translate>
-                <scale>20 20 20</scale>
-            </set>
-            <object instanceof="sphere">
-                <material>
-                    <ambient>0.1 0.2 0.1</ambient>
-                    <diffuse>0.1 0.8 0.1</diffuse>
-                    <specular>0.1 0.8 0.1</specular>
-                    <shininess>100</shininess>
-                </material>
-            </object>
-        </transform>
-        <transform>
-            <set>
                 <translate>-20 30 30</translate>
                 <scale>40 40 40</scale>
             </set>
@@ -96,6 +82,20 @@
         </transform>
         <transform>
             <set>
+                <translate>100 60 0</translate>
+                <scale>20 20 20</scale>
+            </set>
+            <object instanceof="sphere">
+                <material>
+                    <ambient>0.1 0.2 0.1</ambient>
+                    <diffuse>0.1 0.8 0.1</diffuse>
+                    <specular>0.1 0.8 0.1</specular>
+                    <shininess>100</shininess>
+                </material>
+            </object>
+        </transform>
+        <transform>
+            <set>
                 <translate>100 0 0</translate>
                 <scale>40 40 40</scale>
                 <rotate>45 0 1 0</rotate>
@@ -106,6 +106,8 @@
                     <diffuse>0.1 0.8 0.8</diffuse>
                     <specular>0.1 0.8 0.8</specular>
                     <shininess>100</shininess>
+                    <absorption>0.2</absorption>
+                    <reflection>0.8</reflection>
                 </material>
             </object>
         </transform>

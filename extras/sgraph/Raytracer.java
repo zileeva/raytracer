@@ -27,7 +27,7 @@ public class Raytracer {
     private INode root;
     private HashMap<String,TextureImage> textures = new HashMap<>();
     private List<Light> lights = new ArrayList<>();
-    private int MAX_RECURSION_BOUNCE = 5;
+    private int MAX_RECURSION_BOUNCE = 8;
     private float REFRACTIVE_INDEX_AIR = 1.0f;
     private ColorUtil colorUtil = new ColorUtil();
     private Phong phong = new Phong();
@@ -128,7 +128,7 @@ public class Raytracer {
                 if (hitRecord.getMaterial().getTransparency() > 0) {
                     Ray refractionRay = refractionRay(ray, hitRecord, refractiveIndex);
                     transparency = hitRecord.getMaterial().getTransparency();
-                    refractionColor = raycast(refractionRay, modelView, bounce, hitRecord.getMaterial().getRefractiveIndex());
+                    refractionColor = raycast(refractionRay, modelView, bounce + 1, hitRecord.getMaterial().getRefractiveIndex());
                 }
 
             }
