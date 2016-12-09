@@ -27,7 +27,7 @@ public class Raytracer {
     private INode root;
     private HashMap<String,TextureImage> textures = new HashMap<>();
     private List<Light> lights = new ArrayList<>();
-    private int MAX_RECURSION_BOUNCE = 5;
+    private int MAX_RECURSION_BOUNCE = 8;
     private float REFRACTIVE_INDEX_AIR = 1.0f;
     private ColorUtil colorUtil = new ColorUtil();
     private Phong phong = new Phong();
@@ -115,6 +115,8 @@ public class Raytracer {
             float absorption = hitRecord.getMaterial().getAbsorption();
             Color reflectionColor = new Color(0, 0, 0);
             float reflection = 0;
+            Color refractionColor = new Color(0, 0, 0);
+            float transparency = 0;
             if (bounce <= MAX_RECURSION_BOUNCE) {
 
                 if (hitRecord.getMaterial().getReflection() > 0) {
@@ -123,12 +125,18 @@ public class Raytracer {
                     reflectionColor = raycast(reflectionRay, modelView, bounce + 1, refractiveIndex);
                 }
 
+                if (hitRecord.getMaterial().getTransparency() > 0) {
+                    Ray refractionRay = refractionRay(ray, hitRecord, refractiveIndex);
+                    transparency = hitRecord.getMaterial().getTransparency();
+                    refractionColor = raycast(refractionRay, modelView, bounce + 1, hitRecord.getMaterial().getRefractiveIndex());
+                }
+
             }
 
-            color = colorUtil.colorBlend(color, absorption, reflectionColor, reflection);
+            color = colorUtil.colorBlend(color, absorption, reflectionColor, reflection, refractionColor, transparency);
 
         } else {
-            color = new Color(0.89f, 0.9f, 0.91f);
+            color = new Color(0,0,0);
         }
 
         return color;
@@ -201,6 +209,32 @@ public class Raytracer {
 
         return new Color(r, g, b);
 
+    }
+
+    /**
+     * Calculate refractive ray
+     * @param ray
+     * @param hitRecord
+     * @param refractiveIndex_i
+     * @return
+     */
+    private Ray refractionRay(Ray ray, HitRecord hitRecord, float refractiveIndex_i) {
+        float refractiveIndex = hitRecord.getMaterial().getRefractiveIndex();
+        Vector4f rayDirection = new Vector4f(ray.getDirection());
+        rayDirection = rayDirection.normalize();
+        Vector4f normal = new Vector4f(hitRecord.getNormal());
+        float nDotI = normal.dot(rayDirection);
+        float snellLaw = refractiveIndex_i / refractiveIndex;
+        float cosTheta_i = - nDotI;
+        float cosTheta_t = (float) Math.sqrt(1 - (snellLaw * snellLaw) * (1 - nDotI * nDotI));
+        Vector4f rv1 = new Vector4f(new Vector4f(rayDirection.add(normal.mul(cosTheta_i))).mul(snellLaw));
+        Vector4f rv2 = new Vector4f(normal.mul(cosTheta_t));
+        Vector4f refractionVector = new Vector4f(rv1.sub(rv2));
+        float fudge = 0.01f;
+        Vector4f start = new Vector4f(hitRecord.getP()).add(refractionVector.mul(fudge));
+        Vector4f direction = new Vector4f(refractionVector);
+        Ray refractionRay = new Ray(start, direction);
+        return refractionRay;
     }
 
     /**
