@@ -4,6 +4,9 @@
     <image name="white" path="textures/white.png" />
     <image name="chess" path="textures/checkerboard-box.png" />
     <image name="wood" path="textures/white.png" />
+    <image name="gold" path="textures/gold.png" />
+    <image name="silver" path="textures/silver.png" />
+
 
     <light>
         <ambient>0.2 0.2 0.2</ambient>
@@ -24,15 +27,56 @@
     </light>
 
     <light>
+        <ambient>0.2 0.2 0.2</ambient>
+        <diffuse>0.4 0.4 0.4</diffuse>
+        <specular>0.4 0.4 0.4</specular>
+        <position>100 100 100 </position>
+        <spotangle>180</spotangle>
+        <spotdirection>0 -1 0</spotdirection>
+    </light>
+
+    <light>
         <ambient>0.5 0.5 0.5</ambient>
         <diffuse>0.5 0.5 0.5</diffuse>
         <specular>0.5 0.5 0.5</specular>
-        <position>-60 10 0</position>
+        <position>-60 100 0</position>
         <spotangle>180</spotangle>
         <spotdirection>0 -1 0</spotdirection>
     </light>
 
     <group>
+        <transform name="wallLeft">
+            <set>
+                <translate>-250 -15 0</translate>
+                <scale>2 1300 500</scale>
+            </set>
+            <object instanceof="box" texture="white">
+                <material>
+                    <ambient> 0.6 0.6 0.6</ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                    <absorption>0.2</absorption>
+                    <reflection>0.8</reflection>
+                </material>
+            </object>
+        </transform>
+        <transform name="wallRight2">
+            <set>
+                <translate>0 -15 -250</translate>
+                <scale>500 1300 2</scale>
+            </set>
+            <object instanceof="box" texture="white">
+                <material>
+                    <ambient> 0.6 0.6 0.6</ambient>
+                    <diffuse> 0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess> 100 </shininess>
+                    <absorption>0.2</absorption>
+                    <reflection>0.8</reflection>
+                </material>
+            </object>
+        </transform>
         <transform name="checkerboard">
             <set>
                 <translate>0 -15 0</translate>

@@ -14,15 +14,15 @@
         <spotdirection>0 -1 0</spotdirection>
     </light>
     <light>
-        <ambient>0.8 0.8 0.8</ambient>
-        <diffuse>0.8 0.8 0.8</diffuse>
-        <specular>0.8 0.8 0.8</specular>
+        <ambient>0.2 0.2 0.2</ambient>
+        <diffuse>0.4 0.4 0.4</diffuse>
+        <specular>0.4 0.4 0.4</specular>
         <position>0 100 0</position>
         <spotangle>80</spotangle>
         <spotdirection>0 -1 0</spotdirection>
     </light>
     <light>
-        <ambient>0.6 0.6 0.6</ambient>
+        <ambient>0.2 0.2 0.2</ambient>
         <diffuse>0.4 0.4 0.4</diffuse>
         <specular>0.4 0.4 0.4</specular>
         <position>100 100 -100</position>
@@ -30,7 +30,6 @@
         <spotdirection>0 -1 0</spotdirection>
     </light>
     <group>
-
         <transform>
             <set>
                 <scale>50 50 50</scale>
@@ -41,8 +40,6 @@
                     <diffuse>0.8 0.8 0.8</diffuse>
                     <specular>0.8 0.8 0.8</specular>
                     <shininess>100</shininess>
-                    <absorption>0.2</absorption>
-                    <reflection>0.8</reflection>
                 </material>
             </object>
         </transform>
@@ -73,24 +70,10 @@
                     <diffuse>0.1 0.8 0.1</diffuse>
                     <specular>0.1 0.8 0.1</specular>
                     <shininess>100</shininess>
-                    <absorption>0.2</absorption>
-                    <reflection>0.5</reflection>
-                    <transparency>0.3</transparency>
-                    <refractive>1.4</refractive>
-                </material>
-            </object>
-        </transform>
-        <transform>
-            <set>
-                <translate>100 60 0</translate>
-                <scale>20 20 20</scale>
-            </set>
-            <object instanceof="sphere">
-                <material>
-                    <ambient>0.1 0.2 0.1</ambient>
-                    <diffuse>0.1 0.8 0.1</diffuse>
-                    <specular>0.1 0.8 0.1</specular>
-                    <shininess>100</shininess>
+                    <absorption>1.0</absorption>
+                    <reflection>0.0</reflection>
+                    <transparency>1.0</transparency>
+                    <refractive>1</refractive>
                 </material>
             </object>
         </transform>
@@ -106,8 +89,6 @@
                     <diffuse>0.1 0.8 0.8</diffuse>
                     <specular>0.1 0.8 0.8</specular>
                     <shininess>100</shininess>
-                    <absorption>0.2</absorption>
-                    <reflection>0.8</reflection>
                 </material>
             </object>
         </transform>

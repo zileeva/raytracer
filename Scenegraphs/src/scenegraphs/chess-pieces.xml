@@ -3,6 +3,10 @@
     <instance name="box" path="models/box"></instance>
 
     <image name="white" path="textures/white.png" />
+    <image name="gold" path="textures/gold.png" />
+    <image name="silver" path="textures/silver.png" />
+
+
 
     <transform>
         <set>
@@ -26,6 +30,8 @@
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
+                                <absorption>0.2</absorption>
+                                <reflection>0.8</reflection>
                             </material>
                         </object>
                     </transform>
@@ -122,7 +128,7 @@
                             <translate>-2.5 5 2.5</translate>
                             <scale>5 5 5</scale>
                         </set>
-                        <object instanceof="box" texture="white">
+                        <object instanceof="box" texture="silver">
                             <material>
                                 <ambient> 0.48 0.53 0.55</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -136,7 +142,7 @@
                             <translate>2.5 5 -2.5</translate>
                             <scale>5 5 5</scale>
                         </set>
-                        <object instanceof="box" texture="white">
+                        <object instanceof="box" texture="silver">
                             <material>
                                 <ambient> 0.48 0.53 0.55</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -150,7 +156,7 @@
                             <translate>2.5 5 2.5</translate>
                             <scale>5 5 5</scale>
                         </set>
-                        <object instanceof="box" texture="white">
+                        <object instanceof="box" texture="silver">
                             <material>
                                 <ambient> 0.48 0.53 0.55</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -165,7 +171,63 @@
                 <set>
                     <translate>-60 -3.5 20</translate>
                 </set>
-                <group copyof="knight"></group>
+                <group name="knight">
+                    <transform name="nightTrans">
+                        <set>
+                            <scale>10 5 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.8 0.8 0.8</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="nightTrans2">
+                        <set>
+                            <translate>-2.5 5 2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="silver">
+                            <material>
+                                <ambient> 0.48 0.53 0.55</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>4
+                    <transform name="nightTrans3">
+                        <set>
+                            <translate>2.5 5 -2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="silver">
+                            <material>
+                                <ambient> 0.48 0.53 0.55</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="nightTrans4">
+                        <set>
+                            <translate>2.5 5 2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="silver">
+                            <material>
+                                <ambient> 0.48 0.53 0.55</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
             </transform>
             <transform name="bishopTrans">
                 <set>
@@ -233,7 +295,7 @@
                             <rotate>45 0 1 0</rotate>
                             <scale>8 8 8</scale>
                         </set>
-                        <object instanceof="box" texture="white">
+                        <object instanceof="box" texture="silver">
                             <material>
                                 <ambient> 0.48 0.53 0.55</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -267,7 +329,7 @@
                             <translate>0 10 0</translate>
                             <scale>5 5 5</scale>
                         </set>
-                        <object instanceof="sphere" texture="white">
+                        <object instanceof="sphere" texture="silver">
                             <material>
                                 <ambient> 0.48 0.53 0.55 </ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -303,6 +365,8 @@
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
+                                <absorption>0.2</absorption>
+                                <reflection>0.8</reflection>
                             </material>
                         </object>
                     </transform>
@@ -399,7 +463,7 @@
                             <translate>-2.5 5 2.5</translate>
                             <scale>5 5 5</scale>
                         </set>
-                        <object instanceof="box" texture="white">
+                        <object instanceof="box" texture="gold">
                             <material>
                                 <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -413,7 +477,7 @@
                             <translate>2.5 5 -2.5</translate>
                             <scale>5 5 5</scale>
                         </set>
-                        <object instanceof="box" texture="white">
+                        <object instanceof="box" texture="gold">
                             <material>
                                 <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -427,7 +491,7 @@
                             <translate>2.5 5 2.5</translate>
                             <scale>5 5 5</scale>
                         </set>
-                        <object instanceof="box" texture="white">
+                        <object instanceof="box" texture="gold">
                             <material>
                                 <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -442,7 +506,63 @@
                 <set>
                     <translate>-60 -3.5 20</translate>
                 </set>
-                <group copyof="knight"></group>
+                <group name="knight">
+                    <transform name="nightTrans">
+                        <set>
+                            <scale>10 5 10</scale>
+                        </set>
+                        <object instanceof="box" texture="white">
+                            <material>
+                                <ambient> 0.1 0.1 0.1</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="nightTrans2">
+                        <set>
+                            <translate>-2.5 5 2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="gold">
+                            <material>
+                                <ambient> 1.0 0.80 0.19</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>4
+                    <transform name="nightTrans3">
+                        <set>
+                            <translate>2.5 5 -2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="gold">
+                            <material>
+                                <ambient> 1.0 0.80 0.19</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                    <transform name="nightTrans4">
+                        <set>
+                            <translate>2.5 5 2.5</translate>
+                            <scale>5 5 5</scale>
+                        </set>
+                        <object instanceof="box" texture="gold">
+                            <material>
+                                <ambient> 1.0 0.80 0.19</ambient>
+                                <diffuse> 0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess> 100 </shininess>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
             </transform>
             <transform name="bishopTrans">
                 <set>
@@ -510,7 +630,7 @@
                             <rotate>45 0 1 0</rotate>
                             <scale>8 8 8</scale>
                         </set>
-                        <object instanceof="box" texture="white">
+                        <object instanceof="box" texture="gold">
                             <material>
                                 <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
@@ -544,7 +664,7 @@
                             <translate>0 10 0</translate>
                             <scale>5 5 5</scale>
                         </set>
-                        <object instanceof="sphere" texture="white">
+                        <object instanceof="sphere" texture="gold">
                             <material>
                                 <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>

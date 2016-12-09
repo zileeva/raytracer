@@ -17,18 +17,15 @@ public class ColorUtil {
      * @param absorption
      * @param reflectionColor
      * @param reflectivity
-     * @param refractionColor
-     * @param transparency
      * @return
      */
-    public Color colorBlend(Color pixelColor, float absorption, Color reflectionColor, float reflectivity, Color refractionColor, float transparency) {
+    public Color colorBlend(Color pixelColor, float absorption, Color reflectionColor, float reflectivity) {
         float[] baseC = pixelColor.getRGBColorComponents(null);
         float[] rC = reflectionColor.getRGBColorComponents(null);
-        float[] tC = refractionColor.getRGBColorComponents(null);
 
-        float red = clamp(baseC[0] * absorption + rC[0] * reflectivity + tC[0] * transparency);
-        float green = clamp(baseC[1] * absorption + rC[1] * reflectivity + tC[0] * transparency);
-        float blue = clamp(baseC[2] * absorption + rC[2] * reflectivity + tC[0] * transparency);
+        float red = clamp(baseC[0] * absorption + rC[0] * reflectivity);
+        float green = clamp(baseC[1] * absorption + rC[1] * reflectivity);
+        float blue = clamp(baseC[2] * absorption + rC[2] * reflectivity);
         return new Color(red, green, blue);
     }
 

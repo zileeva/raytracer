@@ -98,8 +98,8 @@ public class View {
 
         modelView.push(new Matrix4f());
 
-//        modelView.peek().lookAt(new Vector3f(0, 0, 100), new Vector3f(0,0,0), new Vector3f(0,1,0)).mul(trackballTransform);
         modelView.peek().lookAt(new Vector3f(70, 100, - 80), new Vector3f(0,0,0), new Vector3f(0,1,0)).mul(trackballTransform);
+//        modelView.peek().lookAt(new Vector3f(150, 100, 90), new Vector3f(0,0,0), new Vector3f(0,1,0)).mul(trackballTransform);
 
         if (raytrace) {
             scenegraph.raytrace(WINDOW_WIDTH, WINDOW_HEIGHT, modelView);
@@ -113,7 +113,8 @@ public class View {
         GL3 gl = gla.getGL().getGL3();
         FloatBuffer fb16 = Buffers.newDirectFloatBuffer(16);
         FloatBuffer fb4 = Buffers.newDirectFloatBuffer(4);
-        gl.glClearColor(0.0f, 0.0f , 0.0f, 1);
+//        gl.glClearColor(0.0f, 0.0f , 0.0f, 1);
+        gl.glClearColor(0.89f, 0.9f, 0.91f, 1);
 
 //        gl.glClearColor(0.69f, 0.8f , 0.9f, 1);
         gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT);
