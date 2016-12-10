@@ -10,8 +10,11 @@ Completed:
 4. Shadows
 5. Reflections
 
-We plan to submit refractions and creative scene by Friday (possibly cylinders and cones).
+Extra:
+6. Refractions
+7. Creative model
+8. Cylinders
+9. Cone
 
-Our scene - chess-set.xml
-Screenshots are in output folder
+Screenshots are in the output folder
 

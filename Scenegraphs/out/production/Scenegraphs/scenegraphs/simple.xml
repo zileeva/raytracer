@@ -1,8 +1,12 @@
 <scene>
     <instance name="cone" path="models/cone"/>
+    <instance name="sphere" path="models/sphere"/>
+    <instance name="box" path="models/box-outside"/>
     <instance name="cylinder" path="models/cylinder"/>
     <image name="white" path="textures/white.png"/>
     <image name="earth" path="textures/earthmap.png"/>
+    <image name="checkerboard" path="textures/checkerboard-box.png"/>
+    <image name="dice" path="textures/die.png"/>
 
 
     <light>
@@ -16,8 +20,40 @@
     <group>
         <transform>
             <set>
+                <scale>5 5 5</scale>
             </set>
-            <object instanceof="cone" texture="white">
+            <object instanceof="sphere" texture="white">
+                <material>
+                    <ambient>0.2 0.2 0.2</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess>100</shininess>
+                    <absorption>0.3</absorption>
+                    <reflection>0.2</reflection>
+                    <transparency>0.5</transparency>
+                    <refractive>1.4</refractive>
+                </material>
+            </object>
+        </transform>
+        <transform>
+            <set>
+                <!--<scale>5 5 5</scale>-->
+            </set>
+            <object instanceof="sphere" texture="white">
+                <material>
+                    <ambient>0.7 0.2 0.2</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess>100</shininess>
+                </material>
+            </object>
+        </transform>
+        <transform>
+            <set>
+                <translate>5 0 5</translate>
+                <scale>3 3 3</scale>
+            </set>
+            <object instanceof="box" texture="dice">
                 <material>
                     <ambient>0.2 0.2 0.2</ambient>
                     <diffuse>0.8 0.8 0.8</diffuse>
@@ -26,14 +62,14 @@
                 </material>
             </object>
         </transform>
-
         <transform>
             <set>
-                <translate>-1 0 -1.5</translate>
+                <translate>3 3 0</translate>
+                <scale>2 2 2</scale>
             </set>
-            <object instanceof="cone" texture="white">
+            <object instanceof="sphere" texture="earth">
                 <material>
-                    <ambient>0.8 0.2 0.7</ambient>
+                    <ambient>0.7 0.2 0.2</ambient>
                     <diffuse>0.8 0.8 0.8</diffuse>
                     <specular>0.8 0.8 0.8</specular>
                     <shininess>100</shininess>
@@ -43,11 +79,12 @@
 
         <transform>
             <set>
-                <translate>1 0 1</translate>
+                <translate>-3 -3 0</translate>
+                <scale>4 2 2</scale>
             </set>
-            <object instanceof="cone" texture="white">
+            <object instanceof="box" texture="white">
                 <material>
-                    <ambient>0.1 0.2 0.7</ambient>
+                    <ambient>0.7 0.2 0.8</ambient>
                     <diffuse>0.8 0.8 0.8</diffuse>
                     <specular>0.8 0.8 0.8</specular>
                     <shininess>100</shininess>
@@ -57,14 +94,32 @@
 
         <transform>
             <set>
-                <translate>0 0.5 3</translate>
+                <translate>-10 -5 0</translate>
+                <scale>2 15 2</scale>
             </set>
-            <object instanceof="cone" texture="white">
+            <object instanceof="cylinder" texture="white">
                 <material>
-                    <ambient>0.1 0.8 0.7</ambient>
+                    <ambient>0.1 0.2 0.8</ambient>
                     <diffuse>0.8 0.8 0.8</diffuse>
                     <specular>0.8 0.8 0.8</specular>
                     <shininess>100</shininess>
+                    <absorption>0.5</absorption>
+                    <reflection>0.5</reflection>
+                </material>
+            </object>
+        </transform>
+
+        <transform>
+            <set>
+                <translate>0 -5 0</translate>
+                <scale>500 2 500</scale>
+            </set>
+            <object instanceof="box" texture="checkerboard">
+                <material>
+                    <ambient>0.4 0.4 0.4</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.5 0.5 0.5</specular>
+                    <shininess>10</shininess>
                 </material>
             </object>
         </transform>

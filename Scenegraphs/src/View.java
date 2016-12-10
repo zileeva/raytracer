@@ -99,8 +99,8 @@ public class View {
         modelView.push(new Matrix4f());
 
 //        modelView.peek().lookAt(new Vector3f(70, 100, - 80), new Vector3f(0,0,0), new Vector3f(0,1,0)).mul(trackballTransform);
-        modelView.peek().lookAt(new Vector3f(150, 100, 90), new Vector3f(0,0,0), new Vector3f(0,1,0)).mul(trackballTransform);
-//        modelView.peek().lookAt(new Vector3f(0, 0, 1.5f), new Vector3f(0,0,0), new Vector3f(0,1,0)).mul(trackballTransform);
+//        modelView.peek().lookAt(new Vector3f(150, 100, 90), new Vector3f(0,0,0), new Vector3f(0,1,0)).mul(trackballTransform);
+        modelView.peek().lookAt(new Vector3f(0, 0, 10), new Vector3f(0,0,0), new Vector3f(0,1,0)).mul(trackballTransform);
         if (raytrace) {
             scenegraph.raytrace(WINDOW_WIDTH, WINDOW_HEIGHT, modelView);
             raytrace = false;
