@@ -45,38 +45,38 @@
     </light>
 
     <group>
-        <transform name="wallLeft">
-            <set>
-                <translate>-250 -15 0</translate>
-                <scale>2 1300 500</scale>
-            </set>
-            <object instanceof="box" texture="white">
-                <material>
-                    <ambient> 0.6 0.6 0.6</ambient>
-                    <diffuse> 0.8 0.8 0.8</diffuse>
-                    <specular>0.8 0.8 0.8</specular>
-                    <shininess> 100 </shininess>
-                    <absorption>0.2</absorption>
-                    <reflection>0.8</reflection>
-                </material>
-            </object>
-        </transform>
-        <transform name="wallRight2">
-            <set>
-                <translate>0 -15 -250</translate>
-                <scale>500 1300 2</scale>
-            </set>
-            <object instanceof="box" texture="white">
-                <material>
-                    <ambient> 0.6 0.6 0.6</ambient>
-                    <diffuse> 0.8 0.8 0.8</diffuse>
-                    <specular>0.8 0.8 0.8</specular>
-                    <shininess> 100 </shininess>
-                    <absorption>0.2</absorption>
-                    <reflection>0.8</reflection>
-                </material>
-            </object>
-        </transform>
+        <!--<transform name="wallLeft">-->
+            <!--<set>-->
+                <!--<translate>-250 -15 0</translate>-->
+                <!--<scale>2 1300 500</scale>-->
+            <!--</set>-->
+            <!--<object instanceof="box" texture="white">-->
+                <!--<material>-->
+                    <!--<ambient> 0.6 0.6 0.6</ambient>-->
+                    <!--<diffuse> 0.8 0.8 0.8</diffuse>-->
+                    <!--<specular>0.8 0.8 0.8</specular>-->
+                    <!--<shininess> 100 </shininess>-->
+                    <!--<absorption>0.2</absorption>-->
+                    <!--<reflection>0.8</reflection>-->
+                <!--</material>-->
+            <!--</object>-->
+        <!--</transform>-->
+        <!--<transform name="wallRight2">-->
+            <!--<set>-->
+                <!--<translate>0 -15 -250</translate>-->
+                <!--<scale>500 1300 2</scale>-->
+            <!--</set>-->
+            <!--<object instanceof="box" texture="white">-->
+                <!--<material>-->
+                    <!--<ambient> 0.6 0.6 0.6</ambient>-->
+                    <!--<diffuse> 0.8 0.8 0.8</diffuse>-->
+                    <!--<specular>0.8 0.8 0.8</specular>-->
+                    <!--<shininess> 100 </shininess>-->
+                    <!--<absorption>0.2</absorption>-->
+                    <!--<reflection>0.8</reflection>-->
+                <!--</material>-->
+            <!--</object>-->
+        <!--</transform>-->
         <transform name="checkerboard">
             <set>
                 <translate>0 -15 0</translate>

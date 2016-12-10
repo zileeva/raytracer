@@ -1,0 +1,73 @@
+<scene>
+    <instance name="cone" path="models/cone"/>
+    <instance name="cylinder" path="models/cylinder"/>
+    <image name="white" path="textures/white.png"/>
+    <image name="earth" path="textures/earthmap.png"/>
+
+
+    <light>
+        <ambient>0.8 0.8 0.8</ambient>
+        <diffuse>0.8 0.8 0.8</diffuse>
+        <specular>0.8 0.8 0.8</specular>
+        <position>50 70 30</position>
+        <spotangle>80</spotangle>
+        <spotdirection>0 -1 0</spotdirection>
+    </light>
+    <group>
+        <transform>
+            <set>
+            </set>
+            <object instanceof="cone" texture="white">
+                <material>
+                    <ambient>0.2 0.2 0.2</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess>100</shininess>
+                </material>
+            </object>
+        </transform>
+
+        <transform>
+            <set>
+                <translate>-1 0 -1.5</translate>
+            </set>
+            <object instanceof="cone" texture="white">
+                <material>
+                    <ambient>0.8 0.2 0.7</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess>100</shininess>
+                </material>
+            </object>
+        </transform>
+
+        <transform>
+            <set>
+                <translate>1 0 1</translate>
+            </set>
+            <object instanceof="cone" texture="white">
+                <material>
+                    <ambient>0.1 0.2 0.7</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess>100</shininess>
+                </material>
+            </object>
+        </transform>
+
+        <transform>
+            <set>
+                <translate>0 0.5 3</translate>
+            </set>
+            <object instanceof="cone" texture="white">
+                <material>
+                    <ambient>0.1 0.8 0.7</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <shininess>100</shininess>
+                </material>
+            </object>
+        </transform>
+
+    </group>
+</scene>

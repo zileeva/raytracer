@@ -31,7 +31,9 @@
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
                                 <absorption>0.2</absorption>
-                                <reflection>0.8</reflection>
+                                <reflection>0.3</reflection>
+                                <transparency>0.5</transparency>
+                                <refractive>1</refractive>
                             </material>
                         </object>
                     </transform>

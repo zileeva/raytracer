@@ -136,7 +136,7 @@ public class Raytracer {
             color = colorUtil.colorBlend(color, absorption, reflectionColor, reflection, refractionColor, transparency);
 
         } else {
-            color = new Color(0,0,0);
+            color = new Color(0.89f, 0.9f, 0.91f);
         }
 
         return color;

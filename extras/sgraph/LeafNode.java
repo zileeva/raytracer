@@ -46,6 +46,10 @@ public class LeafNode extends AbstractNode
             this.shape = new Box();
         } else if (this.objInstanceName.contains("sphere")) {
             this.shape = new Sphere();
+        } else if (this.objInstanceName.contains("cone")) {
+            this.shape = new Cone();
+        } else if (this.objInstanceName.contains("cylinder")) {
+            this.shape = new Cylinder();
         }
     }
 

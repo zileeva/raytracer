@@ -17,6 +17,8 @@ public class ColorUtil {
      * @param absorption
      * @param reflectionColor
      * @param reflectivity
+     * @param refractionColor
+     * @param transparency
      * @return
      */
     public Color colorBlend(Color pixelColor, float absorption, Color reflectionColor, float reflectivity, Color refractionColor, float transparency) {
