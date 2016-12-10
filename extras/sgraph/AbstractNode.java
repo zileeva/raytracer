@@ -157,17 +157,13 @@ public abstract class AbstractNode implements INode
     public List<Light> getNodeLights(Stack<Matrix4f> modelView) {
         List<Light> transformLights = new ArrayList<>();
         for (Light light : this.lights) {
-            Vector4f pos = light.getPosition();
-            Vector4f spotD = light.getSpotDirection();
+            Vector4f pos = new Vector4f(light.getPosition());
+            Vector4f spotD = new Vector4f(light.getSpotDirection());
             Matrix4f transformation = new Matrix4f(modelView.peek());
             pos = transformation.transform(pos);
             spotD = transformation.transform(spotD);
-            Light l = new util.Light();
-            l.setAmbient(light.getAmbient());
-            l.setDiffuse(light.getDiffuse());
-            l.setSpecular(light.getSpecular());
+            Light l = new util.Light(light);
             l.setSpotDirection(spotD.x, spotD.y, spotD.z);
-            l.setSpotAngle(light.getSpotCutoff());
             l.setPosition(pos);
             transformLights.add(l);
         }

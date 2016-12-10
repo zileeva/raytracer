@@ -124,7 +124,7 @@
                         </set>
                         <object instanceof="box" texture="white">
                             <material>
-                                <ambient> 0.8 0.8 0.8</ambient>
+                                <ambient> 0.48 0.53 0.55</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -138,7 +138,7 @@
                         </set>
                         <object instanceof="box" texture="white">
                             <material>
-                                <ambient> 0.8 0.8 0.8</ambient>
+                                <ambient> 0.48 0.53 0.55</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -152,7 +152,7 @@
                         </set>
                         <object instanceof="box" texture="white">
                             <material>
-                                <ambient> 0.8 0.8 0.8</ambient>
+                                <ambient> 0.48 0.53 0.55</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -235,7 +235,7 @@
                         </set>
                         <object instanceof="box" texture="white">
                             <material>
-                                <ambient> 0.8 0.8 0.8</ambient>
+                                <ambient> 0.48 0.53 0.55</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -269,7 +269,7 @@
                         </set>
                         <object instanceof="sphere" texture="white">
                             <material>
-                                <ambient> 0.8 0.8 0.8</ambient>
+                                <ambient> 0.48 0.53 0.55 </ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -401,7 +401,7 @@
                         </set>
                         <object instanceof="box" texture="white">
                             <material>
-                                <ambient> 0.1 0.1 0.1</ambient>
+                                <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -415,7 +415,7 @@
                         </set>
                         <object instanceof="box" texture="white">
                             <material>
-                                <ambient> 0.1 0.1 0.1</ambient>
+                                <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -429,7 +429,7 @@
                         </set>
                         <object instanceof="box" texture="white">
                             <material>
-                                <ambient> 0.1 0.1 0.1</ambient>
+                                <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -512,7 +512,7 @@
                         </set>
                         <object instanceof="box" texture="white">
                             <material>
-                                <ambient> 0.1 0.1 0.1</ambient>
+                                <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>
@@ -546,7 +546,7 @@
                         </set>
                         <object instanceof="sphere" texture="white">
                             <material>
-                                <ambient> 0.1 0.1 0.1</ambient>
+                                <ambient> 1.0 0.80 0.19</ambient>
                                 <diffuse> 0.8 0.8 0.8</diffuse>
                                 <specular>0.8 0.8 0.8</specular>
                                 <shininess> 100 </shininess>

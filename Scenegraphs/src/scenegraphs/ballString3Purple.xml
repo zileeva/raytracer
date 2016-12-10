@@ -1,0 +1,413 @@
+<scene>
+    <instance name="sphere" path="models/sphere"></instance>
+    <instance name="box" path="models/box"></instance>
+
+    <image name="white" path="textures/white.png" />
+
+    <transform>
+        <set>
+            <translate>0 0 -175</translate>
+        </set>
+        <group name="ballGroup">
+            <transform>
+                <set>
+                    <translate>0 0 0</translate>
+                </set>
+                <light>
+                    <ambient>0.9 0.9 0.9</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <position>0 0 0</position>
+                    <spotangle>180</spotangle>
+                    <spotdirection>0 -1 0</spotdirection>
+                </light>
+                <group name="BallString">
+                    <transform>
+                        <set>
+                            <scale>20 20 20</scale>
+                        </set>
+                        <object instanceof="sphere" texture="white">
+                            <material>
+                                <ambient>1.0 0.0 1.0</ambient>
+                                <diffuse>0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess>100</shininess>
+                                <absorption>0.2</absorption>
+                                <reflection>0.1</reflection>
+                                <transparency>0.7</transparency>
+                                <refractive>1.4</refractive>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform>
+                <set>
+                    <translate>75 0 0</translate>
+                </set>
+                <group copyof="BallString">
+                    <light>
+                        <ambient>0.9 0.9 0.9</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <position>0 0 0</position>
+                        <spotangle>180</spotangle>
+                        <spotdirection>0 -1 0</spotdirection>
+                    </light>
+                </group>
+            </transform>
+            <transform>
+                <set>
+                    <translate>-75 0 0</translate>
+                </set>
+                <group copyof="BallString">
+                    <light>
+                        <ambient>0.9 0.9 0.9</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <position>0 0 0</position>
+                        <spotangle>180</spotangle>
+                        <spotdirection>0 -1 0</spotdirection>
+                    </light>
+                </group>
+            </transform>
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>131 0 131</translate>
+        </set>
+        <group name="single">
+            <light>
+                <ambient>0.9 0.9 0.9</ambient>
+                <diffuse>0.8 0.8 0.8</diffuse>
+                <specular>0.8 0.8 0.8</specular>
+                <position>0 0 0</position>
+                <spotangle>180</spotangle>
+                <spotdirection>0 -1 0</spotdirection>
+            </light>
+            <transform>
+                <set>
+                    <scale>20 20 20</scale>
+                </set>
+                <object instanceof="sphere" texture="white">
+                    <material>
+                        <ambient>1.0 0.0 1.0</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <shininess>100</shininess>
+                        <absorption>0.2</absorption>
+                        <reflection>0.1</reflection>
+                        <transparency>0.7</transparency>
+                        <refractive>1.4</refractive>
+                    </material>
+                </object>
+            </transform>
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>-131 0 -131</translate>
+        </set>
+        <group name="single">
+            <light>
+                <ambient>0.9 0.9 0.9</ambient>
+                <diffuse>0.8 0.8 0.8</diffuse>
+                <specular>0.8 0.8 0.8</specular>
+                <position>0 0 0</position>
+                <spotangle>180</spotangle>
+                <spotdirection>0 -1 0</spotdirection>
+            </light>
+            <transform>
+                <set>
+                    <scale>20 20 20</scale>
+                </set>
+                <object instanceof="sphere" texture="white">
+                    <material>
+                        <ambient>1.0 0.0 1.0</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <shininess>100</shininess>
+                        <absorption>0.2</absorption>
+                        <reflection>0.1</reflection>
+                        <transparency>0.7</transparency>
+                        <refractive>1.4</refractive>
+                    </material>
+                </object>
+            </transform>
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>-175 0 0</translate>
+            <rotate>90 0 1 0</rotate>
+        </set>
+        <group name="ballGroup">
+            <transform>
+                <set>
+                    <translate>0 0 0</translate>
+                </set>
+                <light>
+                    <ambient>0.9 0.9 0.9</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <position>0 0 0</position>
+                    <spotangle>180</spotangle>
+                    <spotdirection>0 -1 0</spotdirection>
+                </light>
+                <group name="BallString">
+                    <transform>
+                        <set>
+                            <scale>20 20 20</scale>
+                        </set>
+                        <object instanceof="sphere" texture="white">
+                            <material>
+                                <ambient>1.0 0.0 1.0</ambient>
+                                <diffuse>0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess>100</shininess>
+                                <absorption>0.2</absorption>
+                                <reflection>0.1</reflection>
+                                <transparency>0.7</transparency>
+                                <refractive>1.4</refractive>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform>
+                <set>
+                    <translate>75 0 0</translate>
+                </set>
+                <group copyof="BallString">
+                    <light>
+                        <ambient>0.9 0.9 0.9</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <position>0 0 0</position>
+                        <spotangle>180</spotangle>
+                        <spotdirection>0 -1 0</spotdirection>
+                    </light>
+                </group>
+            </transform>
+            <transform>
+                <set>
+                    <translate>-75 0 0</translate>
+                </set>
+                <group copyof="BallString">
+                    <light>
+                        <ambient>0.9 0.9 0.9</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <position>0 0 0</position>
+                        <spotangle>180</spotangle>
+                        <spotdirection>0 -1 0</spotdirection>
+                    </light>
+                </group>
+            </transform>
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>-131 0 131</translate>
+        </set>
+        <group name="single">
+            <light>
+                <ambient>0.9 0.9 0.9</ambient>
+                <diffuse>0.8 0.8 0.8</diffuse>
+                <specular>0.8 0.8 0.8</specular>
+                <position>0 0 0</position>
+                <spotangle>180</spotangle>
+                <spotdirection>0 -1 0</spotdirection>
+            </light>
+            <transform>
+                <set>
+                    <scale>20 20 20</scale>
+                </set>
+                <object instanceof="sphere" texture="white">
+                    <material>
+                        <ambient>1.0 0.0 1.0</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <shininess>100</shininess>
+                        <absorption>0.2</absorption>
+                        <reflection>0.1</reflection>
+                        <transparency>0.7</transparency>
+                        <refractive>1.4</refractive>
+                    </material>
+                </object>
+            </transform>
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>131 0 -131</translate>
+        </set>
+        <group name="single">
+            <light>
+                <ambient>0.9 0.9 0.9</ambient>
+                <diffuse>0.8 0.8 0.8</diffuse>
+                <specular>0.8 0.8 0.8</specular>
+                <position>0 0 0</position>
+                <spotangle>180</spotangle>
+                <spotdirection>0 -1 0</spotdirection>
+            </light>
+            <transform>
+                <set>
+                    <scale>20 20 20</scale>
+                </set>
+                <object instanceof="sphere" texture="white">
+                    <material>
+                        <ambient>1.0 0.0 1.0</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <shininess>100</shininess>
+                        <absorption>0.2</absorption>
+                        <reflection>0.1</reflection>
+                        <transparency>0.7</transparency>
+                        <refractive>1.4</refractive>
+                    </material>
+                </object>
+            </transform>
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>175 0 0</translate>
+            <rotate>90 0 1 0</rotate>
+        </set>
+        <group name="ballGroup">
+            <transform>
+                <set>
+                    <translate>0 0 0</translate>
+                </set>
+                <light>
+                    <ambient>0.9 0.9 0.9</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <position>0 0 0</position>
+                    <spotangle>180</spotangle>
+                    <spotdirection>0 -1 0</spotdirection>
+                </light>
+                <group name="BallString">
+                    <transform>
+                        <set>
+                            <scale>20 20 20</scale>
+                        </set>
+                        <object instanceof="sphere" texture="white">
+                            <material>
+                                <ambient>1.0 0.0 1.0</ambient>
+                                <diffuse>0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess>100</shininess>
+                                <absorption>0.2</absorption>
+                                <reflection>0.1</reflection>
+                                <transparency>0.7</transparency>
+                                <refractive>1.4</refractive>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform>
+                <set>
+                    <translate>75 0 0</translate>
+                </set>
+                <group copyof="BallString">
+                    <light>
+                        <ambient>0.9 0.9 0.9</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <position>0 0 0</position>
+                        <spotangle>180</spotangle>
+                        <spotdirection>0 -1 0</spotdirection>
+                    </light>
+                </group>
+            </transform>
+            <transform>
+                <set>
+                    <translate>-75 0 0</translate>
+                </set>
+                <group copyof="BallString">
+                    <light>
+                        <ambient>0.9 0.9 0.9</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <position>0 0 0</position>
+                        <spotangle>180</spotangle>
+                        <spotdirection>0 -1 0</spotdirection>
+                    </light>
+                </group>
+            </transform>
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 0 175</translate>
+        </set>
+        <group name="ballGroup">
+            <transform>
+                <set>
+                    <translate>0 0 0</translate>
+                </set>
+                <light>
+                    <ambient>0.9 0.9 0.9</ambient>
+                    <diffuse>0.8 0.8 0.8</diffuse>
+                    <specular>0.8 0.8 0.8</specular>
+                    <position>0 0 0</position>
+                    <spotangle>180</spotangle>
+                    <spotdirection>0 -1 0</spotdirection>
+                </light>
+                <group name="BallString">
+                    <transform>
+                        <set>
+                            <scale>20 20 20</scale>
+                        </set>
+                        <object instanceof="sphere" texture="white">
+                            <material>
+                                <ambient>1.0 0.0 1.0</ambient>
+                                <diffuse>0.8 0.8 0.8</diffuse>
+                                <specular>0.8 0.8 0.8</specular>
+                                <shininess>100</shininess>
+                                <absorption>0.2</absorption>
+                                <reflection>0.1</reflection>
+                                <transparency>0.7</transparency>
+                                <refractive>1.4</refractive>
+                            </material>
+                        </object>
+                    </transform>
+                </group>
+            </transform>
+            <transform>
+                <set>
+                    <translate>75 0 0</translate>
+                </set>
+                <group copyof="BallString">
+                    <light>
+                        <ambient>0.9 0.9 0.9</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <position>0 0 0</position>
+                        <spotangle>180</spotangle>
+                        <spotdirection>0 -1 0</spotdirection>
+                    </light>
+                </group>
+            </transform>
+            <transform>
+                <set>
+                    <translate>-75 0 0</translate>
+                </set>
+                <group copyof="BallString">
+                    <light>
+                        <ambient>0.9 0.9 0.9</ambient>
+                        <diffuse>0.8 0.8 0.8</diffuse>
+                        <specular>0.8 0.8 0.8</specular>
+                        <position>0 0 0</position>
+                        <spotangle>180</spotangle>
+                        <spotdirection>0 -1 0</spotdirection>
+                    </light>
+                </group>
+            </transform>
+        </group>
+    </transform>
+</scene>

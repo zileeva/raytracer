@@ -2,16 +2,34 @@
     <instance name="box" path="models/box"></instance>
 
     <image name="white" path="textures/white.png" />
-    <image name="chess" path="textures/white.png" />
+    <image name="chess" path="textures/checkerboard-box.png" />
     <image name="wood" path="textures/white.png" />
 
     <light>
-        <ambient>0.8 0.8 0.8</ambient>
-        <diffuse>0.8 0.8 0.8</diffuse>
-        <specular>0.8 0.8 0.8</specular>
+        <ambient>0.2 0.2 0.2</ambient>
+        <diffuse>0.4 0.4 0.4</diffuse>
+        <specular>0.4 0.4 0.4</specular>
         <position>0 100 0 </position>
         <spotangle>180</spotangle>
         <spotdirection>0 -1 0 </spotdirection>
+    </light>
+
+    <light>
+        <ambient>0.2 0.2 0.2</ambient>
+        <diffuse>0.4 0.4 0.4</diffuse>
+        <specular>0.4 0.4 0.4</specular>
+        <position>0 100 0 </position>
+        <spotangle>30</spotangle>
+        <spotdirection>1 -1 -1</spotdirection>
+    </light>
+
+    <light>
+        <ambient>0.5 0.5 0.5</ambient>
+        <diffuse>0.5 0.5 0.5</diffuse>
+        <specular>0.5 0.5 0.5</specular>
+        <position>-60 10 0</position>
+        <spotangle>180</spotangle>
+        <spotdirection>0 -1 0</spotdirection>
     </light>
 
     <group>

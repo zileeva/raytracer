@@ -18,6 +18,7 @@ public class HitRecord {
     private Material material;
     private Vector4f normal;
     private String textureName;
+    private Vector2f textureCoordinates;
 
     // material, point of intersection, position, light position
     public HitRecord() {
@@ -25,12 +26,13 @@ public class HitRecord {
         this.t = Float.MIN_VALUE;
     }
 
-    public HitRecord(float t, Vector4f p, Material material, Vector4f normal) {
+    public HitRecord(float t, Vector4f p, Material material, Vector4f normal, Vector2f textureCoordinates) {
         this.hit = true;
         this.t = t;
         this.p = p;
         this.material = material;
         this.normal = normal;
+        this.textureCoordinates = textureCoordinates;
 //        this.hit = (t.x > 0.0f) && (t.x < t.y);
     }
 
@@ -57,7 +59,7 @@ public class HitRecord {
     }
 
     public void setLights(List<Light> lights) {
-        this.lights = lights;
+        this.lights = new ArrayList<>(lights);
     }
 
     public Material getMaterial() {
@@ -70,5 +72,9 @@ public class HitRecord {
 
     public String getTextureName() {
         return textureName;
+    }
+
+    public Vector2f getTextureCoordinates() {
+        return textureCoordinates;
     }
 }

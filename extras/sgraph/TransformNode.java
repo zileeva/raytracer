@@ -206,7 +206,7 @@ public class TransformNode extends AbstractNode
     public HitRecord intersect(Ray ray, Stack<Matrix4f> modelView) {
 
         modelView.push(new Matrix4f(modelView.peek()));
-        modelView.peek().mul(transform);
+        modelView.peek().mul(animation_transform).mul(transform);
 
         HitRecord hr = new HitRecord();
         if (child!=null) {

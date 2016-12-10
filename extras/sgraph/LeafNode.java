@@ -1,6 +1,9 @@
 package sgraph;
 
+import com.jogamp.nativewindow.util.SurfaceSize;
 import com.jogamp.opengl.GL3;
+import com.jogamp.opengl.math.FloatUtil;
+import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
@@ -25,6 +28,8 @@ public class LeafNode extends AbstractNode
      * in the scene graph itself, so that an instance can be reused in several leaves
      */
     protected String objInstanceName;
+
+    protected IShape shape;
     /**
      * The material associated with the object instance at this leaf
      */
@@ -32,10 +37,16 @@ public class LeafNode extends AbstractNode
 
     protected String textureName;
 
-    public LeafNode(String instanceOf,IScenegraph graph,String name)
+    public LeafNode(String instanceOf, IScenegraph graph, String name)
     {
         super(graph,name);
         this.objInstanceName = instanceOf;
+
+        if (this.objInstanceName.contains("box") || this.objInstanceName.contains("cube")) {
+            this.shape = new Box();
+        } else if (this.objInstanceName.contains("sphere")) {
+            this.shape = new Sphere();
+        }
     }
 
 
@@ -111,89 +122,14 @@ public class LeafNode extends AbstractNode
         throw new IllegalArgumentException(getName() + " is not a transform node");
     }
 
-    private HitRecord intersectBox(Ray ray, Stack<Matrix4f> modelView) {
-
-        Vector4f start = ray.getStart();
-        Vector4f direction = ray.getDirection();
-        HitRecord hr = new HitRecord();
-
-        float tx_1 = (-0.5f - start.x) / direction.x;
-        float ty_1 = (-0.5f - start.y) / direction.y;
-        float tz_1 = (-0.5f - start.z) / direction.z;
-
-        float tx_2 = (0.5f - start.x) / direction.x;
-        float ty_2 = (0.5f - start.y) / direction.y;
-        float tz_2 = (0.5f - start.z) / direction.z;
-
-        float tMin_x = Math.min(tx_1, tx_2);
-        float tMin_y = Math.min(ty_1, ty_2);
-        float tMin_z = Math.min(tz_1, tz_2);
-
-        float tMax_x = Math.max(tx_1, tx_2);
-        float tMax_y = Math.max(ty_1, ty_2);
-        float tMax_z = Math.max(tz_1, tz_2);
-
-        float tMax = Math.max(Math.max(tMin_x, tMin_y), tMin_z); // near
-        float tMin = Math.min(Math.min(tMax_x, tMax_y), tMax_z); // far
-
-        if ((tMax > 0.0f) && (tMax < tMin)) {
-            Vector4f p = start.add(direction.mul(tMax));
-            Vector4f normal = new Vector4f(0, 0, 0, 0);
-            if (p.x == 0.5f || p.x == -0.5f) {
-                normal.x = p.x;
-            }
-            if (p.y == 0.5f || p.y == -0.5f) {
-                normal.y = p.y;
-            }
-            if (p.z == 0.5f || p.z == -0.5f) {
-                normal.z = p.z;
-            }
-
-            Matrix4f normalmatrix = new Matrix4f(modelView.peek());
-            normalmatrix = normalmatrix.invert().transpose();
-            Vector4f normalVector = p.mul(normalmatrix);
-
-            normal = new Vector4f(normalVector.x, normalVector.y, normalVector.z, 0);
-//            System.out.println(p);
-            hr = new HitRecord(tMax, p, this.getMaterial(), normal);
-        }
-        return hr;
-    }
-
-    private HitRecord intersectSphere(Ray ray, Stack<Matrix4f> modelView) {
-        Vector4f start = ray.getStart();
-        Vector4f direction = ray.getDirection();
-        HitRecord hr = new HitRecord();
-
-        float A = direction.x * direction.x + direction.y * direction.y + direction.z * direction.z;
-        float B = 2 * (direction.x * start.x + direction.y * start.y + direction.z * start.z);
-        float C = start.x * start.x + start.y * start.y + start.z * start.z - 1;
-
-        float D = B * B - 4 * A * C;
-
-        float t1 = (-B + (float) Math.sqrt(D)) / (2 * A);
-        float t2 = (-B - (float) Math.sqrt(D)) / (2 * A);
-
-        float tMin = Math.min(t1, t2);
-
-        if (D > 0 && tMin > 0) {
-            Matrix4f normalmatrix = new Matrix4f(modelView.peek());
-            normalmatrix = normalmatrix.invert().transpose();
-            Vector4f p = start.add(direction.mul(tMin));
-            Vector4f normalVector = p.mul(normalmatrix);
-
-            Vector4f normal = new Vector4f(normalVector.x, normalVector.y, normalVector.z, 0);
-            hr = new HitRecord(tMin, p, this.getMaterial(), normal);
-        }
-
-        return hr;
-    }
-
-
+    /**
+     * Finds intersection of the ray and object if it exists
+     * @param ray
+     * @param modelView
+     * @return
+     */
     @Override
     public HitRecord intersect(Ray ray, Stack<Matrix4f> modelView) {
-
-        HitRecord hr = new HitRecord();
 
         Vector4f start = new Vector4f(ray.getStart());
         Vector4f direction = new Vector4f(ray.getDirection());
@@ -201,19 +137,15 @@ public class LeafNode extends AbstractNode
         Matrix4f raymatrix = new Matrix4f(modelView.peek());
         raymatrix.invert();
 
-        start = start.mul(raymatrix);
-        direction = direction.mul(raymatrix);
+        start = raymatrix.transform(start);
+        direction = raymatrix.transform(direction);
 
         Ray rayInView = new Ray(start, direction);
 
-        if (this.objInstanceName.contains("box") || this.objInstanceName.contains("cube")) {
-            hr = this.intersectBox(rayInView, modelView);
-        } else if (this.objInstanceName.contains("sphere")) {
-            hr = this.intersectSphere(rayInView, modelView);
-        }
-
+        this.shape.setMaterial(this.getMaterial());
+        HitRecord hr = this.shape.intersect(rayInView, modelView);
         hr.setTextureName(this.textureName);
-//        hr.addLights(this.getLights(modelView));
+
         return hr;
     }
 }

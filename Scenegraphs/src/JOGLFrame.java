@@ -106,6 +106,7 @@ public class JOGLFrame extends JFrame
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_R:
                     view.setRaytrace();
+                    System.out.println("Start Raytrace");
                     break;
                 case KeyEvent.VK_W:
                     view.nod("up");
@@ -176,6 +177,5 @@ public class JOGLFrame extends JFrame
             JOGLFrame.this.canvas.repaint();
         }
     }
-
 
 }
