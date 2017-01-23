@@ -1,0 +1,325 @@
+<scene>
+    <instance name="sphere" path="models/sphere"></instance>
+    <instance name="box" path="models/box"></instance>
+
+    <image name="white" path="textures/white.png" />
+    <image name="marbleBox" path="textures/marble-box.png" />
+    <image name="marble" path="textures/marble.png" />
+
+    <light>
+        <ambient>0.4 0.4 0.4</ambient>
+        <diffuse>0.4 0.4 0.4</diffuse>
+        <specular>0.4 0.4 0.4</specular>
+        <position>0 300 0</position>
+        <spotangle>180</spotangle>
+        <spotdirection>0 -1 0</spotdirection>
+    </light>
+    <transform>
+        <set>
+            <translate>0 -250 0</translate>
+            <rotate>90 1 0 0</rotate>
+            <scale>650 650 1</scale>
+        </set>
+        <object instanceof="box" texture="marble">
+            <material>
+                <ambient>0.5 0.5 0.5</ambient>
+                <diffuse>0.5 0.5 0.5</diffuse>
+                <specular>0.5 0.5 0.5</specular>
+                <shininess>50</shininess>
+                <absorption>0.5</absorption>
+                <reflection>0.5</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <!--<transform>-->
+        <!--<set>-->
+            <!--<translate>0 250 0</translate>-->
+            <!--<rotate>90 1 0 0</rotate>-->
+            <!--<scale>650 650 1</scale>-->
+        <!--</set>-->
+        <!--<object instanceof="box" texture="white">-->
+            <!--<material>-->
+                <!--<ambient>0.1 0.1 0.1</ambient>-->
+                <!--<diffuse>0.1 0.1 0.1</diffuse>-->
+                <!--<specular>0.1 0.1 0.1</specular>-->
+                <!--<shininess>50</shininess>-->
+                <!--<absorption>0.0</absorption>-->
+                <!--<reflection>0.1</reflection>-->
+                <!--<transparency>0.0</transparency>-->
+                <!--<refractive>0</refractive>-->
+            <!--</material>-->
+        <!--</object>-->
+    <!--</transform>-->
+    <transform>
+        <set>
+            <translate>-325 0 0</translate>
+            <rotate>90 0 1 0</rotate>
+            <scale>500 500 1</scale>
+        </set>
+        <object instanceof="box" texture="white">
+            <material>
+                <ambient>0.1 0.1 0.1</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>50</shininess>
+                <absorption>0.0</absorption>
+                <reflection>1.0</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>-250 0 -250</translate>
+            <rotate>45 0 1 0</rotate>
+            <scale>500 500 1</scale>
+        </set>
+        <object instanceof="box" texture="white">
+            <material>
+                <ambient>0.1 0.1 0.1</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>50</shininess>
+                <absorption>0.0</absorption>
+                <reflection>1.0</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>250 0 250</translate>
+            <rotate>45 0 1 0</rotate>
+            <scale>500 500 1</scale>
+        </set>
+        <object instanceof="box" texture="white">
+            <material>
+                <ambient>0.1 0.1 0.1</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>50</shininess>
+                <absorption>0.0</absorption>
+                <reflection>1.0</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>250 0 -250</translate>
+            <rotate>-45 0 1 0</rotate>
+            <scale>500 500 1</scale>
+        </set>
+        <object instanceof="box" texture="white">
+            <material>
+                <ambient>0.1 0.1 0.1</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>50</shininess>
+                <absorption>0.0</absorption>
+                <reflection>1.0</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>-250 0 250</translate>
+            <rotate>-45 0 1 0</rotate>
+            <scale>500 500 1</scale>
+        </set>
+        <object instanceof="box" texture="white">
+            <material>
+                <ambient>0.1 0.1 0.1</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>50</shininess>
+                <absorption>0.0</absorption>
+                <reflection>1.0</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>325 0 0</translate>
+            <rotate>90 0 1 0</rotate>
+            <scale>500 500 1</scale>
+        </set>
+        <object instanceof="box" texture="white">
+            <material>
+                <ambient>0.1 0.1 0.1</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>50</shininess>
+                <absorption>0.0</absorption>
+                <reflection>1.0</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 0 325</translate>
+            <scale>500 500 1</scale>
+        </set>
+        <object instanceof="box" texture="white">
+            <material>
+                <ambient>0.1 0.1 0.1</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>50</shininess>
+                <absorption>0.0</absorption>
+                <reflection>1.0</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 0 -325</translate>
+            <scale>500 500 1</scale>
+        </set>
+        <object instanceof="box" texture="white">
+            <material>
+                <ambient>0.1 0.1 0.1</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>50</shininess>
+                <absorption>0.0</absorption>
+                <reflection>1.0</reflection>
+                <transparency>0.0</transparency>
+                <refractive>0</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 220 0</translate>
+            <scale>0.25 0.25 0.25</scale>
+        </set>
+        <group name="1" from="scenegraphs/ballString5Blue.xml">
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 220 0</translate>
+            <scale>0.2 0.2 0.2</scale>
+        </set>
+        <group name="2" from="scenegraphs/ballString5BluePurple.xml">
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 220 0</translate>
+            <scale>0.25 0.25 0.25</scale>
+        </set>
+        <group name="3" from="scenegraphs/ballString3allAround.xml">
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 220 0</translate>
+            <scale>0.25 0.25 0.25</scale>
+        </set>
+        <group name="3" from="scenegraphs/ballString3Purple.xml">
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 220 0</translate>
+            <scale>0.15 0.15 0.15</scale>
+        </set>
+        <group name="4" from="scenegraphs/ballString3RedPurple.xml">
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 220 0</translate>
+            <scale>0.17 0.17 0.17</scale>
+        </set>
+        <group name="5" from="scenegraphs/ballString1Red.xml">
+        </group>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 -230 20</translate>
+            <scale>20 20 20</scale>
+        </set>
+        <object instanceof="sphere" >
+            <material>
+                <ambient>0.4 0.0 1.0</ambient>
+                <diffuse>0.8 0.8 0.8</diffuse>
+                <specular>0.8 0.8 0.8</specular>
+                <shininess>100</shininess>
+                <absorption>0.2</absorption>
+                <reflection>0.8</reflection>
+                <transparency>0.0</transparency>
+                <refractive>1</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>20 -230 -20</translate>
+            <scale>20 20 20</scale>
+        </set>
+        <object instanceof="sphere">
+            <material>
+                <ambient>1.0 0.0 0.4</ambient>
+                <diffuse>0.8 0.8 0.8</diffuse>
+                <specular>0.8 0.8 0.8</specular>
+                <shininess>100</shininess>
+                <absorption>0.9</absorption>
+                <reflection>0.1</reflection>
+                <transparency>0.0</transparency>
+                <refractive>1</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>-20 -230 -20</translate>
+            <scale>20 20 20</scale>
+        </set>
+        <object instanceof="sphere">
+            <material>
+                <ambient>1.0 0.0 1.0</ambient>
+                <diffuse>0.8 0.8 0.8</diffuse>
+                <specular>0.8 0.8 0.8</specular>
+                <shininess>100</shininess>
+                <absorption>0.5</absorption>
+                <reflection>0.5</reflection>
+                <transparency>0.0</transparency>
+                <refractive>1</refractive>
+            </material>
+        </object>
+    </transform>
+    <transform>
+        <set>
+            <translate>0 -250 0</translate>
+            <scale>100 100 100</scale>
+        </set>
+        <object instanceof="sphere" texture="marble">
+            <material>
+                <ambient>1.0 0.0 0.5</ambient>
+                <diffuse>0.1 0.1 0.1</diffuse>
+                <specular>0.1 0.1 0.1</specular>
+                <shininess>100</shininess>
+                <absorption>0.3</absorption>
+                <reflection>0.2</reflection>
+                <transparency>0.5</transparency>
+                <refractive>1.4</refractive>
+            </material>
+        </object>
+    </transform>
+</scene>

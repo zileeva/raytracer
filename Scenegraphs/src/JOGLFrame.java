@@ -29,7 +29,7 @@ public class JOGLFrame extends JFrame
     {
         //routine JFrame setting stuff
         super(title);
-        setSize(600,600); //this opens a 400x400 window
+        setSize(2000, 2000); //this opens a 400x400 window
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //when X is pressed, close program
 
         //Our View class is the actual driver of the OpenGL stuff
@@ -57,7 +57,7 @@ public class JOGLFrame extends JFrame
                     view.init(canvas);
                     InputStream in = getClass().getClassLoader()
                             .getResourceAsStream
-                                    ("scenegraphs/simple" +
+                                    ("scenegraphs/ballString5BluePurple" +
                                     ".xml");
                     view.initScenegraph(canvas,in);
                     textRenderer = new TextRenderer(new Font("SansSerif", Font.PLAIN, 18),true,false);
@@ -106,6 +106,7 @@ public class JOGLFrame extends JFrame
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_R:
                     view.setRaytrace();
+                    System.out.println("Start Raytrace");
                     break;
                 case KeyEvent.VK_W:
                     view.nod("up");
@@ -176,6 +177,5 @@ public class JOGLFrame extends JFrame
             JOGLFrame.this.canvas.repaint();
         }
     }
-
 
 }

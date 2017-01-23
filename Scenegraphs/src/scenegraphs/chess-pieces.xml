@@ -6,8 +6,6 @@
     <image name="gold" path="textures/gold.png" />
     <image name="silver" path="textures/silver.png" />
 
-
-
     <transform>
         <set>
             <translate>0 0 60</translate>

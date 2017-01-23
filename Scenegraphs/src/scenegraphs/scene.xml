@@ -5,10 +5,22 @@
     <image name="earth" path="textures/earthmap.png"/>
     <image name="dice" path="textures/die.png"/>
     <image name="checkerboard" path="textures/checkerboard-box.png"/>
+<<<<<<< HEAD
+=======
+    <!--<light>-->
+        <!--<ambient>0.8 0.8 0.8</ambient>-->
+        <!--<diffuse>0.8 0.8 0.8</diffuse>-->
+        <!--<specular>0.8 0.8 0.8</specular>-->
+        <!--<position>-60 10 0</position>-->
+        <!--<spotangle>180</spotangle>-->
+        <!--<spotdirection>0 -1 0</spotdirection>-->
+    <!--</light>-->
+>>>>>>> origin/model
     <light>
         <ambient>0.8 0.8 0.8</ambient>
         <diffuse>0.8 0.8 0.8</diffuse>
         <specular>0.8 0.8 0.8</specular>
+<<<<<<< HEAD
         <position>-60 10 0</position>
         <spotangle>180</spotangle>
         <spotdirection>0 -1 0</spotdirection>
@@ -29,7 +41,22 @@
         <spotangle>180</spotangle>
         <spotdirection>0 -1 0</spotdirection>
     </light>
+=======
+        <position>0 100 0</position>
+        <spotangle>80</spotangle>
+        <spotdirection>0 -1 0</spotdirection>
+    </light>
+    <!--<light>-->
+        <!--<ambient>0.6 0.6 0.6</ambient>-->
+        <!--<diffuse>0.4 0.4 0.4</diffuse>-->
+        <!--<specular>0.4 0.4 0.4</specular>-->
+        <!--<position>100 100 -100</position>-->
+        <!--<spotangle>180</spotangle>-->
+        <!--<spotdirection>0 -1 0</spotdirection>-->
+    <!--</light>-->
+>>>>>>> origin/model
     <group>
+
         <transform>
             <set>
                 <scale>50 50 50</scale>
@@ -40,6 +67,11 @@
                     <diffuse>0.8 0.8 0.8</diffuse>
                     <specular>0.8 0.8 0.8</specular>
                     <shininess>100</shininess>
+<<<<<<< HEAD
+=======
+                    <absorption>0.2</absorption>
+                    <reflection>0.8</reflection>
+>>>>>>> origin/model
                 </material>
             </object>
         </transform>
@@ -61,6 +93,23 @@
         </transform>
         <transform>
             <set>
+<<<<<<< HEAD
+=======
+                <translate>-20 100 -55</translate>
+                <scale>20 20 20</scale>
+            </set>
+            <object instanceof="sphere">
+                <material>
+                    <ambient>0.1 0.2 0.1</ambient>
+                    <diffuse>0.1 0.8 0.1</diffuse>
+                    <specular>0.1 0.8 0.1</specular>
+                    <shininess>100</shininess>
+                </material>
+            </object>
+        </transform>
+        <transform>
+            <set>
+>>>>>>> origin/model
                 <translate>-20 30 30</translate>
                 <scale>40 40 40</scale>
             </set>
@@ -70,10 +119,17 @@
                     <diffuse>0.1 0.8 0.1</diffuse>
                     <specular>0.1 0.8 0.1</specular>
                     <shininess>100</shininess>
+<<<<<<< HEAD
                     <absorption>1.0</absorption>
                     <reflection>0.0</reflection>
                     <transparency>1.0</transparency>
                     <refractive>1</refractive>
+=======
+                    <absorption>0.2</absorption>
+                    <reflection>0.5</reflection>
+                    <transparency>0.3</transparency>
+                    <refractive>1.4</refractive>
+>>>>>>> origin/model
                 </material>
             </object>
         </transform>
